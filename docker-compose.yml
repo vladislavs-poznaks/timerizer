@@ -1,0 +1,103 @@
+version: '3.8'
+networks:
+  stack:
+    driver: bridge
+volumes:
+  stack-mysql:
+      driver: local
+  stack-redis:
+      driver: local
+services:
+  nginx:
+    build:
+      context: ./vendor/coffie/stack/.docker
+      dockerfile: nginx.dockerfile
+    depends_on:
+      - php
+      - mysql
+      - redis
+    ports:
+      - '${APP_PORT:-80}:80'
+    volumes:
+      - .:/var/www/html
+    networks:
+      - stack
+  php:
+    build:
+      context: ./vendor/coffie/stack/.docker
+      dockerfile: php.8.0.dockerfile
+    volumes:
+      - .:/var/www/html
+    networks:
+      - stack
+  mysql:
+    image: 'mysql:8.0'
+    ports:
+        - '${FORWARD_DB_PORT:-3306}:3306'
+    environment:
+        MYSQL_ROOT_PASSWORD: '${DB_PASSWORD}'
+        MYSQL_DATABASE: '${DB_DATABASE}'
+        MYSQL_USER: '${DB_USERNAME}'
+        MYSQL_PASSWORD: '${DB_PASSWORD}'
+        MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+    volumes:
+        - 'stack-mysql:/var/lib/mysql'
+    networks:
+        - stack
+    healthcheck:
+        test: [ "CMD", "mysqladmin", "ping", "-p${DB_PASSWORD}" ]
+        retries: 3
+        timeout: 5s
+  redis:
+    image: 'redis:alpine'
+    ports:
+      - '${FORWARD_REDIS_PORT:-6379}:6379'
+    volumes:
+      - 'stack-redis:/data'
+    networks:
+      - stack
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      retries: 3
+      timeout: 5s
+  composer:
+    build:
+      context: ./vendor/coffie/stack/.docker
+      dockerfile: composer.dockerfile
+    container_name: composer
+    working_dir: /var/www/html
+    volumes:
+      - .:/var/www/html
+    networks:
+      - stack
+  artisan:
+    build:
+      context: ./vendor/coffie/stack/.docker
+      dockerfile: php.8.0.dockerfile
+    container_name: artisan
+    working_dir: /var/www/html
+    entrypoint: ['php', 'artisan']
+    volumes:
+      - .:/var/www/html
+    networks:
+      - stack
+  phpunit:
+    build:
+      context: ./vendor/coffie/stack/.docker
+      dockerfile: php.8.0.dockerfile
+    container_name: phpunit
+    working_dir: /var/www/html
+    entrypoint: ['./vendor/bin/phpunit']
+    volumes:
+      - .:/var/www/html
+    networks:
+      - stack
+  npm:
+    image: node:13.7
+    container_name: npm
+    working_dir: /var/www/html
+    entrypoint: ['npm']
+    volumes:
+      - .:/var/www/html
+    networks:
+      - stack
