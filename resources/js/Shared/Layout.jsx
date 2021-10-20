@@ -7,12 +7,14 @@ const Layout = ({children}) => {
             <header className="container mx-auto px-2 md:px-4 py-6">
                 <nav className="flex items-center justify-between">
                     <div className="flex items-center space-x-3">
-                        <Link href="/">Home</Link>
+                        <Link href={route('home')}>Home</Link>
                         <Link href={route('users')}>Users</Link>
                         <Link href={route('settings')}>Settings</Link>
                     </div>
                     <div>
                         <Link href="/login">Login</Link>
+
+                        <Link href={route('logout')} method="post" as="button">Logout</Link>
                     </div>
                 </nav>
             </header>
