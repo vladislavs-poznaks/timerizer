@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\WorkoutsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,14 +17,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return inertia('Home');
 })->name('home');
-Route::get('/settings', function () {
-    return inertia('Settings');
-})->name('settings');
 
-Route::get('/users', function () {
-    return inertia('Users');
-})
-    ->middleware(['auth'])
-    ->name('users');
+Route::resource('workouts', WorkoutsController::class);
 
 require __DIR__.'/auth.php';

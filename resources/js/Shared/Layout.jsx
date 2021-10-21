@@ -1,28 +1,35 @@
 import React from 'react'
-import {Link} from "@inertiajs/inertia-react";
+import Logo from "./Logo";
+import Sidebar from "./Sidebar";
+import Friends from "./Friends";
 
 const Layout = ({children}) => {
     return (
         <>
-            <header className="container mx-auto px-2 md:px-4 py-6">
-                <nav className="flex items-center justify-between">
-                    <div className="flex items-center space-x-3">
-                        <Link href={route('home')}>Home</Link>
-                        <Link href={route('users')}>Users</Link>
-                        <Link href={route('settings')}>Settings</Link>
+            <section className="px-8 py-4 mb-4">
+                <header className="container mx-auto flex justify-between items-center">
+                    <Logo />
+                    <div>avatar</div>
+                </header>
+            </section>
+            <section className="px-8">
+                <main className="container mx-auto">
+                    <div className="flex justify-between">
+                        <Sidebar />
+                        <div className="flex-1 max-w-xl py-6">
+                            {children}
+                        </div>
+                        <Friends />
                     </div>
-                    <div>
-                        <Link href="/login">Login</Link>
-
-                        <Link href={route('logout')} method="post" as="button">Logout</Link>
-                    </div>
-                </nav>
-            </header>
-            <main className="container mx-auto flex items-center justify-between px-2 md:px-4">
-                {children}
-            </main>
+                </main>
+            </section>
+            <section className="px-8 py-4 mb-4">
+                <footer className="container mx-auto flex justify-around">
+                    Koopy and Kiwi Productions.
+                </footer>
+            </section>
         </>
     );
-};
+}
 
 export default Layout;

@@ -15,7 +15,10 @@ mix
     .js('resources/js/app.js', 'public/js')
     .react()
     .postCss('resources/css/app.css', 'public/css', [
-    require('postcss-import'),
-    require('tailwindcss'),
-    require('autoprefixer'),
-]);
+        require('postcss-import'),
+        require('tailwindcss'),
+        require('autoprefixer'),
+    ])
+    .copyDirectory('resources/img', 'public/img')
+    .version()
+    .sourceMaps();
