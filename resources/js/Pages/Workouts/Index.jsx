@@ -3,8 +3,6 @@ import { Head } from '@inertiajs/inertia-react'
 import Layout from "../../Shared/Layout";
 
 const Index = ({workouts}) => {
-    console.log(workouts)
-
     return (
         <>
             <Head title="My workouts" />
