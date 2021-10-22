@@ -19,7 +19,9 @@ class CreateWorkoutsTable extends Migration
             $table->foreignIdFor(User::class);
 
             $table->string('title');
-            $table->text('description');
+            $table->text('description')->nullable();
+
+            $table->boolean('public')->default(true);
 
             $table->timestamps();
             $table->softDeletes();
