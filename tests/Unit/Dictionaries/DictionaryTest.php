@@ -4,12 +4,12 @@ namespace Tests\Unit\Dictionaries;
 
 use App\Models\Definition;
 use App\Models\Dictionary;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class DictionaryTest extends TestCase
 {
-    use DatabaseTransactions;
+    use RefreshDatabase;
 
     /** @test */
     public function dictionary_has_a_title()
@@ -18,7 +18,7 @@ class DictionaryTest extends TestCase
             'title' => 'test_title'
         ]);
 
-        $this->assertEquals($dictionary->title, 'test_title');
+        $this->assertEquals('test_title', $dictionary->title);
     }
 
     /** @test */

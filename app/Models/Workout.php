@@ -13,6 +13,7 @@ class Workout extends Model
     protected $fillable = [
         'title',
         'description',
+        'public',
     ];
 
     public function owner(): BelongsTo
