@@ -17,7 +17,7 @@ class Dictionary extends Model
 
     public function scopeByTitle(Builder $query, string $title): Builder
     {
-        return $query->whereTitle($title)->with('definitions:id,dictionary_id,name,value');
+        return $query->whereTitle($title)->with('definitions:dictionary_id,name,value');
     }
 
     public function definitions(): HasMany
