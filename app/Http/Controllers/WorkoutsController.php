@@ -4,13 +4,16 @@ namespace App\Http\Controllers;
 
 
 use App\Http\Requests\WorkoutCreateRequest;
+use App\Http\Resources\WorkoutCollection;
 
 class WorkoutsController extends Controller
 {
     public function index()
     {
+        $user = auth()->user();
+
         return inertia('Workouts/Index', [
-            'workouts' => auth()->user()->workouts
+            'workouts' => WorkoutCollection::collection($user->workouts)
         ]);
     }
 

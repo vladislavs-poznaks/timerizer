@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Http\Middleware\HandleInertiaRequests;
 use App\Models\User;
 use App\Models\Workout;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -47,11 +48,13 @@ class WorkoutTest extends TestCase
     {
         $this->actingAs(User::factory()->create());
 
-        $attributes = Workout::factory()->raw();
+        $attributes = [
+            'description' => 'some'
+        ];
 
         $this
             ->followingRedirects()
-            ->post(route('workouts.store'), Arr::except($attributes, ['title']) )
+            ->post(route('workouts.store'), $attributes)
             ->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
             ->assertSessionHasErrors(['title']);
 

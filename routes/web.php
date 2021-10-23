@@ -18,6 +18,10 @@ Route::get('/', function () {
     return inertia('Home');
 })->name('home');
 
-Route::resource('workouts', WorkoutsController::class);
+Route::group([
+    'middleware' => 'auth'
+], function () {
+    Route::resource('workouts', WorkoutsController::class);
+});
 
 require __DIR__.'/auth.php';
