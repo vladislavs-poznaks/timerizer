@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit;
+namespace Tests\Unit\Dictionaries;
 
 use App\Models\Definition;
 use App\Models\Dictionary;
