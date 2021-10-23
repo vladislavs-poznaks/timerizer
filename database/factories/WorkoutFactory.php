@@ -2,17 +2,18 @@
 
 namespace Database\Factories;
 
-use App\Models\Dictionary;
+use App\Models\User;
+use App\Models\Workout;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class DictionaryFactory extends Factory
+class WorkoutFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = Dictionary::class;
+    protected $model = Workout::class;
 
     /**
      * Define the model's default state.
@@ -22,7 +23,10 @@ class DictionaryFactory extends Factory
     public function definition()
     {
         return [
-            'title' => $this->faker->text(10),
+            'user_id' => User::factory(),
+            'title' => $this->faker->sentence,
+            'description' => $this->faker->paragraph,
+            'public' => true,
         ];
     }
 }
