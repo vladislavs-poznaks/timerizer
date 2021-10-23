@@ -1,11 +1,10 @@
 <?php
 
-use App\Models\DictionaryList;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateDictionaryItemsTable extends Migration
+class CreateDictionariesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,11 +13,9 @@ class CreateDictionaryItemsTable extends Migration
      */
     public function up()
     {
-        Schema::create('dictionary_items', function (Blueprint $table) {
-            $table->foreignIdFor(DictionaryList::class);
-            $table->primary(['dictionary_list_id', 'name']);
-            $table->string('name', 100);
-            $table->smallInteger('value');
+        Schema::create('dictionaries', function (Blueprint $table) {
+            $table->id();
+            $table->string('title');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -31,6 +28,6 @@ class CreateDictionaryItemsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('dictionary_items');
+        Schema::dropIfExists('dictionaries');
     }
 }

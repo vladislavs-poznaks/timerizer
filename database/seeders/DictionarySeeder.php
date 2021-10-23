@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\DictionaryList;
+use App\Models\Dictionary;
 use Illuminate\Database\Seeder;
 
 class DictionarySeeder extends Seeder
@@ -28,12 +28,13 @@ class DictionarySeeder extends Seeder
      */
     public function run(): void
     {
-        $dictionary = DictionaryList::query()->updateOrCreate([
+        /** @var Dictionary $dictionary */
+        $dictionary = Dictionary::query()->updateOrCreate([
             'title' => $this->dictionary
         ]);
 
         foreach ($this->items as $name => $value) {
-            $dictionary->items()->updateOrCreate([
+            $dictionary->definitions()->updateOrCreate([
                 'name' => $name
             ], [
                 'value' => $value

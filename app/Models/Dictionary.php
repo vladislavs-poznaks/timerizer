@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class DictionaryList extends Model
+class Dictionary extends Model
 {
     use HasFactory;
 
@@ -17,11 +17,11 @@ class DictionaryList extends Model
 
     public function scopeByTitle(Builder $query, string $title): Builder
     {
-        return $query->whereTitle($title)->with('items:id,dictionary_list_id,name,value');
+        return $query->whereTitle($title)->with('definitions:id,dictionary_id,name,value');
     }
 
-    public function items(): HasMany
+    public function definitions(): HasMany
     {
-        return $this->hasMany(DictionaryItem::class);
+        return $this->hasMany(Definition::class);
     }
 }

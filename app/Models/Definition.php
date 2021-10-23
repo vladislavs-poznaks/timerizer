@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class DictionaryItem extends Model
+class Definition extends Model
 {
     use HasFactory;
 
@@ -16,20 +16,20 @@ class DictionaryItem extends Model
         'value',
     ];
 
-    public function scopeInList(Builder $query, string $title): Builder
+    public function scopeInDictionary(Builder $query, string $title): Builder
     {
         return $query->whereHas('dictionary', function (Builder $query) use ($title) {
             $query->whereTitle($title);
         });
     }
 
-    public function scopeByName(Builder $query, string $name): Builder
+    public function scopeByName(Builder $query, array | string $names): Builder
     {
-        return $query->whereName($name);
+        return $query->whereIn('name', (array) $names);
     }
 
     public function dictionary(): BelongsTo
     {
-        return $this->belongsTo(DictionaryList::class, 'dictionary_list_id');
+        return $this->belongsTo(Dictionary::class);
     }
 }
