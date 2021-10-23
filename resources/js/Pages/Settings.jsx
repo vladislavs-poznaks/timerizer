@@ -1,5 +1,5 @@
 import React from 'react'
-import Layout from "../Shared/Layout";
+// import Layout from "../Shared/Layout";
 
 const Settings = () => {
 
@@ -10,6 +10,6 @@ const Settings = () => {
     );
 };
 
-Settings.layout = page => <Layout children={page} />
+// Settings.layout = page => <Layout children={page} />
 
 export default Settings;

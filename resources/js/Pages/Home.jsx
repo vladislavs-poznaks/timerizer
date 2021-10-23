@@ -1,5 +1,5 @@
 import React from 'react'
-import Layout from "../Shared/Layout";
+// import Layout from "../Shared/Layout";
 import {usePage} from "@inertiajs/inertia-react";
 
 const Home = () => {
@@ -43,7 +43,7 @@ const Home = () => {
     );
 };
 
-Home.layout = page =>
-    <Layout children={page}/>
+// Home.layout = page =>
+//     <Layout children={page}/>
 
 export default Home;

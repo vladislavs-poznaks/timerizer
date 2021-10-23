@@ -1,5 +1,5 @@
 import React from 'react'
-import Layout from "../Shared/Layout";
+// import Layout from "../Shared/Layout";
 
 const Users = () => {
 
@@ -10,6 +10,6 @@ const Users = () => {
     );
 };
 
-Users.layout = page => <Layout children={page} />
+// Users.layout = page => <Layout children={page} />
 
 export default Users;
