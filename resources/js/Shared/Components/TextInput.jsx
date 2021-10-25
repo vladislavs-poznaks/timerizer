@@ -1,10 +1,10 @@
 import React from 'react';
 
-export default ({ label, name, className, errors = [], ...props }) => {
+export default ({label, name, className, errors = [], ...props}) => {
     return (
         <div className={`space-y-1 ${className}`}>
             {label && (
-                <label className="form-label" htmlFor={name}>
+                <label className="form-label inline-flex text-xs font-thin text-gray-500 sm:text-sm dark:text-gray-100" htmlFor={name}>
                     {label}
                 </label>
             )}
@@ -12,9 +12,9 @@ export default ({ label, name, className, errors = [], ...props }) => {
                 id={name}
                 name={name}
                 {...props}
-                className="block w-full border rounded-lg py-3 px-3 bg-gray-900 border-gray-700 placeholder-white-500 text-white focus:border-red-500 focus:outline-red-500"
+                className={`rounded-lg flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent ${errors.length && 'ring-2 ring-red-600'}`}
             />
-            {errors && <div className="text-xs text-red-600">{errors}</div>}
+            {errors && <p className="text-sm text-red-500 mt-1">{errors}</p>}
         </div>
     );
-};
+}

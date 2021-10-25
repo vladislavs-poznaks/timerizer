@@ -16,14 +16,22 @@ class CreateWorkoutsTable extends Migration
     {
         Schema::create('workouts', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(User::class);
 
-            $table->string('title');
+            $table->foreignIdFor(User::class)
+                ->comment('References the user')
+                ->constrained()
+                ->cascadeOnUpdate()
+                ->cascadeOnDelete();
+
+            $table->string('title')
+                ->comment('Workout title');
             $table->text('description')
-                ->nullable();
+                ->nullable()
+                ->comment('Workout description');
 
             $table->boolean('public')
-                ->default(true);
+                ->default(true)
+                ->comment('Workout\'s public access');
 
             $table->timestamps();
             $table->softDeletes();

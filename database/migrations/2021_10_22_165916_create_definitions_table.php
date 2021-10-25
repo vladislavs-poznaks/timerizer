@@ -15,10 +15,20 @@ class CreateDefinitionsTable extends Migration
     public function up()
     {
         Schema::create('definitions', function (Blueprint $table) {
-            $table->foreignIdFor(Dictionary::class);
+
+            $table->foreignIdFor(Dictionary::class)
+                ->comment('References the dictionary')
+                ->constrained()
+                ->cascadeOnUpdate()
+                ->cascadeOnDelete();
+
             $table->primary(['dictionary_id', 'name']);
-            $table->string('name', 100);
-            $table->smallInteger('value');
+
+            $table->string('name', 100)
+                ->comment('Definition name');
+            $table->smallInteger('value')
+                ->comment('Definition value');
+
             $table->timestamps();
             $table->softDeletes();
         });

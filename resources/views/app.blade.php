@@ -9,7 +9,7 @@
     <script src="{{ mix('/js/vendor.js') }}" defer></script>
     <script src="{{ mix('/js/app.js') }}" defer></script>
 </head>
-<body class="min-h-screen bg-gray-900 text-white antialiased">
+<body class="">
     @inertia
 </body>
 </html>

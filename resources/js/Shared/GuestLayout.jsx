@@ -1,17 +1,13 @@
 import React from 'react'
-import Logo from "./Logo";
 
 const GuestLayout = ({children}) => {
     return (
-        <div className="min-h-screen mx-auto flex flex-col justify-center items-center pt-6 sm:pt-0">
-            <div>
-                <Logo/>
-            </div>
-            <div className="w-full sm:max-w-md mt-6 px-6 py-4 bg-gray-700 shadow-md overflow-hidden sm:rounded-lg">
+        <main className="bg-gray-100 dark:bg-gray-800 h-screen overflow-hidden relative">
+            <div className="flex flex-col md:flex-row justify-center items-center">
                 {children}
             </div>
-        </div>
+        </main>
     );
-};
+}
 
 export default GuestLayout;

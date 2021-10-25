@@ -5,15 +5,19 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\WorkoutCreateRequest;
 use App\Http\Resources\WorkoutCollection;
+use App\Models\Workout;
 
 class WorkoutsController extends Controller
 {
+//    public function __construct()
+//    {
+//        $this->authorizeResource(Workout::class);
+//    }
+
     public function index()
     {
-        $user = auth()->user();
-
         return inertia('Workouts/Index', [
-            'workouts' => WorkoutCollection::collection($user->workouts)
+            'workouts' => new WorkoutCollection(auth()->user()->workouts)
         ]);
     }
 
@@ -28,5 +32,15 @@ class WorkoutsController extends Controller
 
         return redirect(route('workouts.index'))
             ->with('success', 'Workout created');
+    }
+
+    public function edit()
+    {
+        return inertia('Workouts/Edit');
+    }
+
+    public function update()
+    {
+
     }
 }

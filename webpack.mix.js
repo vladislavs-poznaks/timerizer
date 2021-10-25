@@ -21,5 +21,6 @@ mix
         require('autoprefixer'),
     ])
     .copyDirectory('resources/img', 'public/img')
+    .copyDirectory('resources/icons', 'public/icons')
     .version()
     .sourceMaps();

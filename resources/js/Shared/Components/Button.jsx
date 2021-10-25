@@ -4,7 +4,7 @@ export default ({ loading, className, children, ...props }) => {
     return (
         <button
             disabled={loading}
-            className={`inline-flex items-center text-white font-semibold px-4 py-2 rounded-md ${loading ? 'pointer-events-none select-none bg-red-500' : 'bg-red-600 hover:bg-red-700 transition ease-in-out duration-150'}`}
+            className={`py-2 px-4 focus:ring-purple-500 focus:ring-offset-purple-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-full ${loading ? 'pointer-events-none select-none bg-purple-500' : 'bg-purple-600 hover:bg-purple-700'}`}
             {...props}
         >
             {loading &&

@@ -15,7 +15,10 @@ class CreateDictionariesTable extends Migration
     {
         Schema::create('dictionaries', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
+
+            $table->string('title')
+                ->comment('Dictionary title');
+
             $table->timestamps();
             $table->softDeletes();
         });

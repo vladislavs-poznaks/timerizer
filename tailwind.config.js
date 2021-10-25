@@ -3,36 +3,30 @@ const defaultTheme = require('tailwindcss/defaultTheme');
 const colors = require('tailwindcss/colors');
 
 module.exports = {
-    purge: [
-        './vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php',
-        './storage/framework/views/*.php',
-        './resources/views/**/*.blade.php',
-    ],
-
+    important: true,
+    // Active dark mode on class basis
+    darkMode: "class",
+    purge: {
+        content: ["./Pages/**/*.jsx", "./Shared/**/*.jsx"],
+        // These options are passed through directly to PurgeCSS
+    },
     theme: {
-        colors: {
-            transparent: 'transparent',
-            current: 'currentColor',
-            black: colors.black,
-            white: colors.white,
-            gray: colors.gray,
-            indigo: colors.indigo,
-            red: colors.red,
-            yellow: colors.amber,
-            blue: colors.blue
-        },
         extend: {
-            fontFamily: {
-                sans: ['Nunito', ...defaultTheme.fontFamily.sans],
-            },
+            backgroundImage: (theme) => ({
+                check: "url('/icons/check.svg')",
+            }),
         },
     },
-
     variants: {
         extend: {
-            opacity: ['disabled'],
+            backgroundColor: ["checked"],
+            borderColor: ["checked"],
+            inset: ["checked"],
+            zIndex: ["hover", "active"],
         },
     },
-
-    plugins: [require('@tailwindcss/forms')],
+    plugins: [],
+    future: {
+        purgeLayersByDefault: true,
+    },
 };
