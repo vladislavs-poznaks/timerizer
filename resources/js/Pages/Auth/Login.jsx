@@ -120,36 +120,6 @@ const Login = () => {
                     </Link>
                 </div>
             </div>
-            {/**/}
-            {/*<form className="space-y-4" onSubmit={handleSubmit}>*/}
-            {/*    <TextInput*/}
-            {/*        label="Email"*/}
-            {/*        name="email"*/}
-            {/*        type="email"*/}
-            {/*        autoComplete="off"*/}
-            {/*        errors={errors.email}*/}
-            {/*        value={data.email}*/}
-            {/*        onChange={e => setData('email', e.target.value)}*/}
-            {/*    />*/}
-            {/*    <TextInput*/}
-            {/*        label="Password"*/}
-            {/*        name="password"*/}
-            {/*        type="password"*/}
-            {/*        autoComplete="off"*/}
-            {/*        errors={errors.password}*/}
-            {/*        value={data.password}*/}
-            {/*        onChange={e => setData('password', e.target.value)}*/}
-            {/*    />*/}
-
-            {/*    <Button type="submit" loading={processing}>*/}
-            {/*        Submit*/}
-            {/*    </Button>*/}
-            {/*    <div className="flex justify-center mt-4">*/}
-            {/*        <Link href={route('register')} className="text-sm text-white hover:text-gray-300">*/}
-            {/*            Not a user? Sign up!*/}
-            {/*        </Link>*/}
-            {/*    </div>*/}
-            {/*</form>*/}
         </>
     );
 };

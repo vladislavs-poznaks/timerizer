@@ -43,7 +43,4 @@ const Home = () => {
     );
 };
 
-// Home.layout = page =>
-//     <Layout children={page}/>
-
 export default Home;
