@@ -3,7 +3,6 @@ import Logo from "./Logo";
 import Sidebar from "./Sidebar";
 import Friends from "./Friends";
 import Header from "./Header";
-import Button from "./Components/Button";
 
 const Layout = ({children}) => {
     return (

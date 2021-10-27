@@ -1,8 +1,9 @@
 import React, {useState} from 'react'
 import {Head, useForm} from '@inertiajs/inertia-react'
-import Button from "../../Shared/Components/Button";
+import PrimaryButton from "../../Shared/Components/PrimaryButton";
 import {Dialog} from '@headlessui/react'
 import TextInput from "../../Shared/Components/TextInput";
+import TextArea from "../../Shared/Components/TextArea";
 
 const Index = ({workouts}) => {
     const {data, setData, errors, post, processing} = useForm({
@@ -22,14 +23,36 @@ const Index = ({workouts}) => {
         <>
             <Head title="My workouts"/>
 
-            <div className="w-full">
+            <div className="w-full space-y-4">
                 <div className="shadow-lg rounded-2xl p-4 bg-white dark:bg-gray-700 w-full">
                     <div className="flex items-center justify-end">
                         <div>
-                            <Button onClick={() => setOpen(true)}>Create a workout</Button>
+                            <PrimaryButton onClick={() => setOpen(true)}>Create a workout</PrimaryButton>
                         </div>
                     </div>
                 </div>
+
+                <div className="grid grid-cols-3 gap-4">
+                    {workouts.data.length && workouts.data.map((workout, key) => {
+                        return (
+                            <div key={key}
+                                 className="shadow-lg rounded-2xl p-4 bg-white dark:bg-gray-700 w-full space-y-2">
+                                <div className="flex items-center justify-between items-center">
+                                    <div>{workout.title}</div>
+                                    <div
+                                        className={`px-2 py-1 flex items-center text-xs rounded-md font-semibold ${workout.public ? 'text-green-500 bg-green-100' : 'text-red-500 bg-red-100'}`}
+                                    >
+                                        {workout.public ? 'Public' : 'Private'}
+                                    </div>
+                                </div>
+                                <div>
+                                    {workout.description}
+                                </div>
+                            </div>
+                        )
+                    })}
+                </div>
+
             </div>
 
             <Dialog open={open} onClose={() => setOpen(false)}>
@@ -52,26 +75,23 @@ const Index = ({workouts}) => {
                                         name="title"
                                         label="Workout title"
                                         autoComplete="off"
-                                        placeholder="Butt Buster 3000"
+                                        placeholder="Butt Buster 3000 🚀"
                                         errors={errors.title}
                                         value={data.title}
                                         onChange={e => setData('title', e.target.value)}
                                     />
                                 </div>
-                                <div className="flex flex-col h-48 space-y-1">
-                                    <label className="form-label inline-flex text-xs font-thin text-gray-500 sm:text-sm dark:text-gray-100" htmlFor="description">
-                                        Description
-                                    </label>
-                                    <textarea
-                                        id="description"
+                                <div className="flex flex-col">
+                                    <TextArea
+                                        className="h-48"
                                         name="description"
+                                        label="Workout description"
                                         autoComplete="off"
                                         placeholder="This will make you sweat like the time you told you are going for a sleepover... But really really went to party instead"
-                                        className={`rounded-lg flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent ${errors.description && 'ring-2 ring-red-600'}`}
-                                        onChange={e => setData('description', e.target.value)}
+                                        errors={errors.description}
                                         defaultValue={data.description}
+                                        onChange={e => setData('description', e.target.value)}
                                     />
-                                    {errors.description && <p className="text-sm text-red-500 mt-1">{errors.description}</p>}
                                 </div>
                                 <label className="flex items-center space-x-3">
                                     <input
@@ -84,10 +104,8 @@ const Index = ({workouts}) => {
                                     <span
                                         className="inline-flex text-xs text-gray-500 sm:text-sm dark:text-gray-100">Public</span>
                                 </label>
-                                <Button type="submit" loading={processing}>Save</Button>
+                                <PrimaryButton type="submit" loading={processing}>Save</PrimaryButton>
                             </form>
-
-                            {/*<button onClick={() => setOpen(false)}>Cancel</button>*/}
                         </div>
 
                     </div>

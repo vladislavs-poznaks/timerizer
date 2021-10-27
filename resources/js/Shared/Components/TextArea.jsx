@@ -8,13 +8,12 @@ export default ({label, name, className, errors = [], ...props}) => {
                     {label}
                 </label>
             )}
-            <input
+            <textarea
                 id={name}
                 name={name}
                 {...props}
-                className={`rounded-lg flex-1 appearance-none border w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent ${errors.length ? 'ring-2 ring-red-600' : 'border-gray-300'}`}
+                className={`h-3/4 rounded-lg flex-1 appearance-none border w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent ${errors.length ? 'ring-2 ring-red-600' : 'border-gray-300'}`}
             />
-            {errors && <p className="text-sm text-red-500 mt-1">{errors}</p>}
         </div>
     );
 }

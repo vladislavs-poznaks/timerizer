@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import Button from "../../Shared/Components/Button";
+import PrimaryButton from "../../Shared/Components/PrimaryButton";
 import GuestLayout from "../../Shared/GuestLayout";
 import {Head, Link, useForm} from "@inertiajs/inertia-react";
 import Logo from "../../Shared/Logo";
@@ -74,9 +74,9 @@ const Register = () => {
                             </div>
                         </div>
                         <div className="flex w-full mt-6">
-                            <Button type="submit">
+                            <PrimaryButton type="submit">
                                 Register
-                            </Button>
+                            </PrimaryButton>
                         </div>
                     </form>
                     {/*<div className="relative my-6">*/}

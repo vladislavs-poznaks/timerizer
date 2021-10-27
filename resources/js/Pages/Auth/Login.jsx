@@ -1,6 +1,6 @@
 import React from 'react'
 import GuestLayout from "../../Shared/GuestLayout";
-import Button from "../../Shared/Components/Button";
+import PrimaryButton from "../../Shared/Components/PrimaryButton";
 import {Head, Link, useForm} from "@inertiajs/inertia-react";
 import TextInput from "../../Shared/Components/TextInput";
 import Logo from "../../Shared/Logo";
@@ -68,9 +68,9 @@ const Login = () => {
                             </div>
                         </div>
                         <div className="flex w-full">
-                            <Button type="submit">
+                            <PrimaryButton type="submit">
                                 Login
-                            </Button>
+                            </PrimaryButton>
                         </div>
                     </form>
                     <div className="relative my-6">
@@ -84,7 +84,7 @@ const Login = () => {
                         </div>
                     </div>
                     <div className="flex gap-4 item-center">
-                        <Button type="button">
+                        <PrimaryButton type="button">
                             <div className="flex space-x-3 items-center justify-center">
                                 <svg width="20" height="20" fill="currentColor" viewBox="0 0 1792 1792"
                                      xmlns="http://www.w3.org/2000/svg">
@@ -95,8 +95,8 @@ const Login = () => {
                                 </svg>
                                 <span>Facebook</span>
                             </div>
-                        </Button>
-                        <Button type="button">
+                        </PrimaryButton>
+                        <PrimaryButton type="button">
                             <div className="flex space-x-3 items-center justify-center">
                                 <svg width="20" height="20" fill="currentColor" className="mr-2" viewBox="0 0 1792 1792"
                                      xmlns="http://www.w3.org/2000/svg">
@@ -106,7 +106,7 @@ const Login = () => {
                                 </svg>
                                 <span>Google</span>
                             </div>
-                        </Button>
+                        </PrimaryButton>
                     </div>
                 </div>
                 <div className="flex items-center justify-center mt-6">
