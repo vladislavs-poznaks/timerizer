@@ -1,7 +1,7 @@
 import React from 'react'
 import {Head, useForm} from '@inertiajs/inertia-react'
 import TextInput from "../../Shared/Components/TextInput";
-import Button from "../../Shared/Components/Button";
+import PrimaryButton from "../../Shared/Components/PrimaryButton";
 
 const Create = () => {
     const {data, setData, errors, post, processing} = useForm({
@@ -53,9 +53,9 @@ const Create = () => {
                         <span className="ml-2 text-sm text-white">Public</span>
                     </label>
                 </div>
-                <Button type="submit" loading={processing}>
+                <PrimaryButton type="submit" loading={processing}>
                     Submit
-                </Button>
+                </PrimaryButton>
             </form>
         </>
     );

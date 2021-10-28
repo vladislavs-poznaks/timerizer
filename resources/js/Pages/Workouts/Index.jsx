@@ -4,6 +4,7 @@ import PrimaryButton from "../../Shared/Components/PrimaryButton";
 import {Dialog} from '@headlessui/react'
 import TextInput from "../../Shared/Components/TextInput";
 import TextArea from "../../Shared/Components/TextArea";
+import WorkoutCard from "./WorkoutCard";
 
 const Index = ({workouts}) => {
     const {data, setData, errors, post, processing} = useForm({
@@ -33,24 +34,7 @@ const Index = ({workouts}) => {
                 </div>
 
                 <div className="grid grid-cols-3 gap-4">
-                    {workouts.data.length && workouts.data.map((workout, key) => {
-                        return (
-                            <div key={key}
-                                 className="shadow-lg rounded-2xl p-4 bg-white dark:bg-gray-700 w-full space-y-2">
-                                <div className="flex items-center justify-between items-center">
-                                    <div>{workout.title}</div>
-                                    <div
-                                        className={`px-2 py-1 flex items-center text-xs rounded-md font-semibold ${workout.public ? 'text-green-500 bg-green-100' : 'text-red-500 bg-red-100'}`}
-                                    >
-                                        {workout.public ? 'Public' : 'Private'}
-                                    </div>
-                                </div>
-                                <div>
-                                    {workout.description}
-                                </div>
-                            </div>
-                        )
-                    })}
+                    {workouts.data.length && workouts.data.map((workout, key) => <WorkoutCard workout={workout} key={key}/>)}
                 </div>
 
             </div>
