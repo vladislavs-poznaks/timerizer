@@ -36,7 +36,6 @@ const Index = ({workouts}) => {
                 <div className="grid grid-cols-3 gap-4">
                     {workouts.data.length && workouts.data.map((workout, key) => <WorkoutCard workout={workout} key={key}/>)}
                 </div>
-
             </div>
 
             <Dialog open={open} onClose={() => setOpen(false)}>
@@ -52,7 +51,6 @@ const Index = ({workouts}) => {
                             className="inline-block w-full max-w-md p-6 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl space-y-4"
                         >
                             <Dialog.Title>Create a workout</Dialog.Title>
-
                             <form className="space-y-4" onSubmit={handleCreate}>
                                 <div className="flex flex-col">
                                     <TextInput
@@ -91,7 +89,6 @@ const Index = ({workouts}) => {
                                 <PrimaryButton type="submit" loading={processing}>Save</PrimaryButton>
                             </form>
                         </div>
-
                     </div>
                 </div>
             </Dialog>
