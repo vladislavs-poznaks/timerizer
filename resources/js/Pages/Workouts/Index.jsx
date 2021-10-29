@@ -1,10 +1,11 @@
 import React, {useState} from 'react'
 import {Head, useForm} from '@inertiajs/inertia-react'
 import PrimaryButton from "../../Shared/Components/PrimaryButton";
-import {Dialog} from '@headlessui/react'
 import TextInput from "../../Shared/Components/TextInput";
 import TextArea from "../../Shared/Components/TextArea";
 import WorkoutCard from "./WorkoutCard";
+import Modal from "../../Shared/Components/Modal";
+import SecondaryButton from "../../Shared/Components/SecondaryButton";
 
 const Index = ({workouts}) => {
     const {data, setData, errors, post, processing} = useForm({
@@ -34,65 +35,53 @@ const Index = ({workouts}) => {
                 </div>
 
                 <div className="grid grid-cols-3 gap-4">
-                    {workouts.data.length && workouts.data.map((workout, key) => <WorkoutCard workout={workout} key={key}/>)}
+                    {workouts.data.length && workouts.data.map((workout, key) => <WorkoutCard workout={workout}
+                                                                                              key={key}/>)}
                 </div>
             </div>
 
-            <Dialog open={open} onClose={() => setOpen(false)}>
-                <div className="fixed z-50 inset-0 overflow-y-auto">
-                    <div className="min-h-screen px-4 text-center">
-                        <Dialog.Overlay className="fixed inset-0 bg-black opacity-30"/>
-
-                        <span className="inline-block h-screen align-middle" aria-hidden="true">
-                            &#8203;
-                        </span>
-
-                        <div
-                            className="inline-block w-full max-w-md p-6 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl space-y-4"
-                        >
-                            <Dialog.Title>Create a workout</Dialog.Title>
-                            <form className="space-y-4" onSubmit={handleCreate}>
-                                <div className="flex flex-col">
-                                    <TextInput
-                                        name="title"
-                                        label="Workout title"
-                                        autoComplete="off"
-                                        placeholder="Butt Buster 3000 🚀"
-                                        errors={errors.title}
-                                        value={data.title}
-                                        onChange={e => setData('title', e.target.value)}
-                                    />
-                                </div>
-                                <div className="flex flex-col">
-                                    <TextArea
-                                        className="h-48"
-                                        name="description"
-                                        label="Workout description"
-                                        autoComplete="off"
-                                        placeholder="This will make you sweat like the time you told you are going for a sleepover... But really really went to party instead"
-                                        errors={errors.description}
-                                        defaultValue={data.description}
-                                        onChange={e => setData('description', e.target.value)}
-                                    />
-                                </div>
-                                <label className="flex items-center space-x-3">
-                                    <input
-                                        id="public"
-                                        type="checkbox"
-                                        className="form-tick appearance-none bg-white bg-check h-6 w-6 border border-gray-300 rounded-md checked:bg-purple-500 checked:border-transparent focus:outline-none"
-                                        checked={data.public}
-                                        onChange={e => setData('public', e.target.checked)}
-                                    />
-                                    <span
-                                        className="inline-flex text-xs text-gray-500 sm:text-sm dark:text-gray-100">Public</span>
-                                </label>
-                                <PrimaryButton type="submit" loading={processing}>Save</PrimaryButton>
-                            </form>
-                        </div>
+            <Modal title="Create a workout" open={open} setOpen={setOpen}>
+                <form className="space-y-4" onSubmit={handleCreate}>
+                    <div className="flex flex-col">
+                        <TextInput
+                            name="title"
+                            label="Workout title"
+                            autoComplete="off"
+                            placeholder="Butt Buster 3000 🚀"
+                            errors={errors.title}
+                            value={data.title}
+                            onChange={e => setData('title', e.target.value)}
+                        />
                     </div>
-                </div>
-            </Dialog>
-
+                    <div className="flex flex-col">
+                        <TextArea
+                            className="h-48"
+                            name="description"
+                            label="Workout description"
+                            autoComplete="off"
+                            placeholder="This will make you sweat like the time you told you are going for a sleepover... But really really went to party instead"
+                            errors={errors.description}
+                            defaultValue={data.description}
+                            onChange={e => setData('description', e.target.value)}
+                        />
+                    </div>
+                    <label className="flex items-center space-x-3">
+                        <input
+                            id="public"
+                            type="checkbox"
+                            className="form-tick appearance-none bg-white bg-check h-6 w-6 border border-gray-300 rounded-md checked:bg-purple-500 checked:border-transparent focus:outline-none"
+                            checked={data.public}
+                            onChange={e => setData('public', e.target.checked)}
+                        />
+                        <span
+                            className="inline-flex text-xs text-gray-500 sm:text-sm dark:text-gray-100">Public</span>
+                    </label>
+                    <div className="flex justify-between items-center space-x-4">
+                        <PrimaryButton type="submit" loading={processing}>Save</PrimaryButton>
+                        <SecondaryButton type="button" onClick={() => setOpen(false)}>Cancel</SecondaryButton>
+                    </div>
+                </form>
+            </Modal>
         </>
     );
 };

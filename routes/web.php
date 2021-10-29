@@ -43,9 +43,9 @@ Route::group([
         ->name('workouts.delete');
 
     Route::post('workouts/{workout}/sets', [SetsController::class, 'store'])
-        ->name('sets.store');
+        ->name('workouts.sets.store');
     Route::put('workouts/sets/{set}', [SetsController::class, 'update'])
-        ->name('sets.update');
+        ->name('workouts.sets.update');
 });
 
 require __DIR__.'/auth.php';
