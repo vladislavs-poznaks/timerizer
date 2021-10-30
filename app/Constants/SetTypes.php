@@ -6,11 +6,13 @@ namespace App\Constants;
 
 interface SetTypes
 {
-    const COUNT = 'count';
+    const ROUNDS = 'rounds';
 
     const AMRAP = 'amrap';
 
     const EMOM = 'emom';
 
     const TABATA = 'tabata';
+
+    const REST = 'rest';
 }

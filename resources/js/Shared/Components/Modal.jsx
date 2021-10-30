@@ -1,10 +1,10 @@
 import React from 'react'
 import {Dialog, Transition} from "@headlessui/react";
 
-const Modal = ({title, children, open, setOpen}) => {
+const Modal = ({title, children, isOpen, setIsOpen, className}) => {
     return (
         <Transition
-            show={open}
+            show={isOpen}
             enter="transition duration-200 ease-out"
             enterFrom="transform scale-75 opacity-0"
             enterTo="transform scale-200 opacity-100"
@@ -12,7 +12,7 @@ const Modal = ({title, children, open, setOpen}) => {
             leaveFrom="transform scale-100 opacity-100"
             leaveTo="transform scale-95 opacity-0"
         >
-            <Dialog onClose={setOpen}>
+            <Dialog onClose={setIsOpen} className={className}>
                 <div className="fixed z-50 inset-0 overflow-y-auto">
                     <div className="min-h-screen px-4 text-center">
                         <Dialog.Overlay className="fixed inset-0 bg-black opacity-30"/>

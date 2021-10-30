@@ -26,8 +26,13 @@ class CreateDefinitionsTable extends Migration
 
             $table->string('name', 100)
                 ->comment('Definition name');
+
             $table->smallInteger('value')
                 ->comment('Definition value');
+
+            $table->text('description')
+                ->nullable()
+                ->comment('Definition description');
 
             $table->timestamps();
             $table->softDeletes();

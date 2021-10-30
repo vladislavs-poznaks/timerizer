@@ -19,6 +19,7 @@ class DefinitionResource extends JsonResource
         return [
             'name' => $this->name,
             'value' => $this->value,
+            'description' => $this->description,
             'text' => ucfirst($this->name),
         ];
     }

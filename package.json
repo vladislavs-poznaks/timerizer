@@ -25,6 +25,7 @@
     },
     "dependencies": {
         "@headlessui/react": "^1.4.1",
+        "@heroicons/react": "^1.0.5",
         "@inertiajs/inertia": "^0.10.1",
         "@inertiajs/inertia-react": "^0.7.1",
         "@inertiajs/progress": "^0.2.6",

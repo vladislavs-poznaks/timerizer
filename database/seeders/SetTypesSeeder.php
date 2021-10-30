@@ -10,9 +10,25 @@ class SetTypesSeeder extends DictionarySeeder
     protected string $dictionary = SetDictionaries::TYPE;
 
     protected array $items = [
-        SetTypes::COUNT => 1,
-        SetTypes::AMRAP => 2,
-        SetTypes::EMOM => 3,
-        SetTypes::TABATA => 4,
+        SetTypes::ROUNDS => [
+            'value' => 1,
+            'description' => 'Rounds based set'
+        ],
+        SetTypes::AMRAP => [
+            'value' => 2,
+            'description' => 'Time based set, work for set total period of time'
+        ],
+        SetTypes::EMOM => [
+            'value' => 3,
+            'description' => 'Time based set, each exercise cannot exceed a predetermined time'
+        ],
+        SetTypes::TABATA => [
+            'value' => 4,
+            'description' => 'Time based set, alters between work time and rest time'
+        ],
+        SetTypes::REST => [
+            'value' => 5,
+            'description' => 'Rest for determined period of time'
+        ],
     ];
 }

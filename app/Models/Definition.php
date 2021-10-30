@@ -15,6 +15,7 @@ class Definition extends Model
     protected $fillable = [
         'name',
         'value',
+        'description',
     ];
 
     public function scopeInDictionary(Builder $query, string $title): Builder
@@ -27,6 +28,11 @@ class Definition extends Model
     public function scopeByName(Builder $query, array | string $names): Builder
     {
         return $query->whereIn('name', (array) $names);
+    }
+
+    public function scopeByValue(Builder $query, array | string $values): Builder
+    {
+        return $query->whereIn('value', (array) $values);
     }
 
     public function dictionary(): BelongsTo

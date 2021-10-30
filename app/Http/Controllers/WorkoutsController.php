@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 
 use App\Constants\SetDictionaries;
-use App\Http\Requests\WorkoutCreateRequest;
+use App\Http\Requests\WorkoutStoreRequest;
 use App\Http\Resources\DefinitionCollection;
+use App\Http\Resources\SetCollection;
 use App\Http\Resources\WorkoutCollection;
 use App\Http\Resources\WorkoutResource;
 use App\Models\Definition;
@@ -35,7 +36,7 @@ class WorkoutsController extends Controller
         return inertia('Workouts/Create');
     }
 
-    public function store(WorkoutCreateRequest $request)
+    public function store(WorkoutStoreRequest $request)
     {
         auth()->user()->workouts()->create($request->validated());
 

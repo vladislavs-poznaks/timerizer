@@ -22,9 +22,10 @@ class WorkoutTest extends TestCase
 
         $attributes = Workout::factory()->raw();
 
-        $response = $this->post(route('workouts.store'), $attributes);
-
-        $response->assertStatus(Response::HTTP_OK);
+        $this
+            ->followingRedirects()
+            ->post(route('workouts.store'), $attributes)
+            ->assertStatus(Response::HTTP_OK);
 
         $this->assertDatabaseHas('workouts', $attributes);
     }
@@ -32,12 +33,13 @@ class WorkoutTest extends TestCase
     /** @test */
     public function guest_cannot_create_a_workout()
     {
-        $response = $this->post(route('workouts.store'), [
-            'title' => 'Some workout title'
-        ]);
-
-        $response->assertStatus(Response::HTTP_FORBIDDEN);
-
+        $this
+            ->followingRedirects()
+            ->post(route('workouts.store'), [
+                'title' => 'Some workout title'
+            ])
+            ->assertStatus(Response::HTTP_FORBIDDEN);
+        
         $this->assertDatabaseMissing('workouts', [
             'title' => 'Some workout title'
         ]);

@@ -33,12 +33,16 @@ class DictionarySeeder extends Seeder
             'title' => $this->dictionary
         ]);
 
-        foreach ($this->items as $name => $value) {
+        foreach ($this->items as $name => $values) {
+            if (! is_array($values)) {
+                $values = [
+                    'value' => $values
+                ];
+            }
+
             $dictionary->definitions()->updateOrCreate([
                 'name' => $name
-            ], [
-                'value' => $value
-            ]);
+            ], $values);
         }
     }
 }
