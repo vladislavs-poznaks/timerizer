@@ -3,19 +3,10 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class ExerciseStoreRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize()
-    {
-        return false;
-    }
-
     /**
      * Get the validation rules that apply to the request.
      *
@@ -24,7 +15,23 @@ class ExerciseStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => 'required|min:3|max:255',
+            'repetitions' => [
+                'required_without:seconds',
+                'nullable',
+                'integer',
+                'gt:0',
+                Rule::excludeIf(! empty($this->request->get('seconds'))),
+            ],
+            'seconds' => [
+                'required_without:repetitions',
+                'nullable',
+                'integer',
+                'gt:0',
+                Rule::excludeIf(! empty($this->request->get('repetitions'))),
+            ],
+            'per_side' => 'sometimes|bool',
+            'url' => 'sometimes|nullable|min:3|max:255',
         ];
     }
 }

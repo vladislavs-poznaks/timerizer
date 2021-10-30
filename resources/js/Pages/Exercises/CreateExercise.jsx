@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import {useForm} from '@inertiajs/inertia-react'
 import TextInput from "../../Shared/Components/TextInput";
 import PrimaryButton from "../../Shared/Components/PrimaryButton";
@@ -14,6 +14,10 @@ const CreateExercise = ({set, isOpen, setIsOpen}) => {
         seconds: '',
         per_side: false,
     })
+
+    useEffect(() => {
+        timeBased ? setData({...data, repetitions: ''}) : setData({...data, seconds: ''})
+    }, [timeBased])
 
     const handleSubmit = (e) => {
         e.preventDefault()

@@ -14,7 +14,10 @@ class Workout extends Model
 
     public function resolveRouteBinding($value, $field = null)
     {
-        return $this->with('sets')->whereId($value)->firstOrFail();
+        return $this
+            ->with(['sets', 'sets.exercises'])
+            ->whereId($value)
+            ->firstOrFail();
     }
 
     protected $fillable = [

@@ -31,10 +31,10 @@ class WorkoutsController extends Controller
         ]);
     }
 
-    public function create()
-    {
-        return inertia('Workouts/Create');
-    }
+//    public function create()
+//    {
+//        return inertia('Workouts/Create');
+//    }
 
     public function store(WorkoutStoreRequest $request)
     {
@@ -44,10 +44,10 @@ class WorkoutsController extends Controller
             ->with('success', 'Workout created');
     }
 
-    public function edit()
-    {
-        return inertia('Workouts/Edit');
-    }
+//    public function edit()
+//    {
+//        return inertia('Workouts/Edit');
+//    }
 
     public function update()
     {
