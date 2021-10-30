@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ExercisesController;
 use App\Http\Controllers\SetsController;
 use App\Http\Controllers\WorkoutsController;
 use Illuminate\Support\Facades\Route;
@@ -43,9 +44,14 @@ Route::group([
         ->name('workouts.delete');
 
     Route::post('workouts/{workout}/sets', [SetsController::class, 'store'])
-        ->name('workouts.sets.store');
+        ->name('sets.store');
     Route::put('workouts/sets/{set}', [SetsController::class, 'update'])
-        ->name('workouts.sets.update');
+        ->name('sets.update');
+
+    Route::post('workouts/sets/{set}/exercises', [ExercisesController::class, 'store'])
+        ->name('exercises.store');
+    Route::put('workouts/sets/exercises/{exercise}', [ExercisesController::class, 'update'])
+        ->name('exercises.update');
 });
 
 require __DIR__.'/auth.php';

@@ -1,13 +1,16 @@
-import React from 'react'
+import React, {useState} from 'react'
 import PrimaryButton from "../../Shared/Components/PrimaryButton";
+import CreateExercise from "../Exercises/CreateExercise";
 
 const SetCard = ({set}) => {
+    const [createExersice, setCreateExercise] = useState(false);
+
     return (
         <div className="shadow-lg rounded-2xl p-4 bg-white dark:bg-gray-700 w-full space-y-2 flex flex-col space-y-2">
             <div className="flex items-center justify-between items-center">
                 <div className="flex justify-between items-center space-y-2">
                     <div>{set.title}</div>
-                    <PrimaryButton type="button">Add exercise</PrimaryButton>
+                    <PrimaryButton type="button" onClick={() => setCreateExercise(true)}>Add exercise</PrimaryButton>
                 </div>
                 <div
                     className={`px-2 py-1 flex items-center text-xs rounded-md font-semibold text-green-500 bg-green-100`}
@@ -24,6 +27,8 @@ const SetCard = ({set}) => {
             <div>
                 Description: {set.description}
             </div>
+
+            <CreateExercise set={set} isOpen={createExersice} setIsOpen={setCreateExercise} />
         </div>
     )
 }

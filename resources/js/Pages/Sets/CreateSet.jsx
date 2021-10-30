@@ -37,7 +37,7 @@ const CreateSet = ({workout, types, isOpen, setIsOpen}) => {
 
     const handleCreate = (e) => {
         e.preventDefault()
-        post(route('workouts.sets.store', workout.id), data)
+        post(route('sets.store', workout.id), data)
     }
 
     return (

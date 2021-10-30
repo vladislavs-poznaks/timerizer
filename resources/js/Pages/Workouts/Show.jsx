@@ -3,6 +3,7 @@ import {Head} from '@inertiajs/inertia-react'
 import PrimaryButton from "../../Shared/Components/PrimaryButton";
 import CreateSet from "../Sets/CreateSet";
 import SetCard from "./SetCard";
+import CreateExercise from "../Exercises/CreateExercise";
 
 const Show = ({workout, setTypes}) => {
     const [createSet, setCreateSet] = useState(false)

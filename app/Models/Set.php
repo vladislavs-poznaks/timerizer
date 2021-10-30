@@ -6,6 +6,7 @@ use App\Constants\SetDictionaries;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Set extends Model
@@ -38,5 +39,10 @@ class Set extends Model
     public function workout(): BelongsTo
     {
         return $this->belongsTo(Workout::class);
+    }
+
+    public function exercises(): BelongsToMany
+    {
+        return $this->belongsToMany(Exercise::class);
     }
 }
