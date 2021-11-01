@@ -10,6 +10,7 @@ use App\Http\Resources\SetCollection;
 use App\Http\Resources\WorkoutCollection;
 use App\Http\Resources\WorkoutResource;
 use App\Models\Definition;
+use App\Models\Exercise;
 use App\Models\Workout;
 
 class WorkoutsController extends Controller
@@ -26,8 +27,10 @@ class WorkoutsController extends Controller
         $setTypes = new DefinitionCollection(Definition::inDictionary(SetDictionaries::TYPE)->orderBy('value')->get());
 
         return inertia('Workouts/Show', [
+            'filters' => request()->all(['type']),
             'workout' => new WorkoutResource($workout),
-            'setTypes' => $setTypes
+            'setTypes' => $setTypes,
+            'exerciseTypes' => Exercise::take(10)
         ]);
     }
 

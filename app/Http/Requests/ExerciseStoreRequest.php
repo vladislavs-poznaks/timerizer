@@ -15,7 +15,8 @@ class ExerciseStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|min:3|max:255',
+            'exercise_type_id' => 'required|exists:exercise_types,id',
+
             'repetitions' => [
                 'required_without:seconds',
                 'nullable',
@@ -23,6 +24,7 @@ class ExerciseStoreRequest extends FormRequest
                 'gt:0',
                 Rule::excludeIf(! empty($this->request->get('seconds'))),
             ],
+
             'seconds' => [
                 'required_without:repetitions',
                 'nullable',
@@ -30,8 +32,6 @@ class ExerciseStoreRequest extends FormRequest
                 'gt:0',
                 Rule::excludeIf(! empty($this->request->get('repetitions'))),
             ],
-            'per_side' => 'sometimes|bool',
-            'url' => 'sometimes|nullable|min:3|max:255',
         ];
     }
 }

@@ -1,23 +1,55 @@
-import React, {useEffect, useState} from 'react'
-import {useForm} from '@inertiajs/inertia-react'
+import React, {useEffect, useRef, useState} from 'react'
+import {useForm, usePage} from '@inertiajs/inertia-react'
 import TextInput from "../../Shared/Components/TextInput";
 import PrimaryButton from "../../Shared/Components/PrimaryButton";
 import SecondaryButton from "../../Shared/Components/SecondaryButton";
 import Modal from "../../Shared/Components/Modal";
+import {Inertia} from "@inertiajs/inertia";
 
-const CreateExercise = ({set, isOpen, setIsOpen}) => {
-    const [timeBased, setTimeBased] = useState(false);
+const CreateExercise = ({workout, set, isOpen, setIsOpen}) => {
+    const { filters } = usePage().props;
+
+    const [params, setParams] = useState({
+        type: filters.type || ''
+    })
+
+    const [timeBased, setTimeBased] = useState(false)
 
     const {data, setData, errors, post, processing} = useForm({
-        name: '',
+        exercise_type_id: '',
         repetitions: '',
         seconds: '',
-        per_side: false,
     })
+
+    function usePrevious(value) {
+        const ref = useRef();
+        useEffect(() => {
+            ref.current = value;
+        });
+        return ref.current;
+    }
+
+    const prevParams = usePrevious(params);
+
+    useEffect(() => {
+        if (prevParams) {
+            Inertia.get(route(route().current(), workout.id), params, {
+                replace: true,
+                preserveState: true
+            });
+        }
+    }, [params])
 
     useEffect(() => {
         timeBased ? setData({...data, repetitions: ''}) : setData({...data, seconds: ''})
     }, [timeBased])
+
+    const handleParamsChange = (e) => {
+        setParams({
+            ...params,
+            [e.target.name]: e.target.value
+        })
+    }
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -27,15 +59,15 @@ const CreateExercise = ({set, isOpen, setIsOpen}) => {
     return (
         <Modal title="Create an exercise" isOpen={isOpen} setIsOpen={setIsOpen}>
             <form className="space-y-4" onSubmit={handleSubmit}>
+
                 <div className="flex flex-col">
                     <TextInput
-                        name="name"
-                        label="Exercise name"
+                        name="type"
+                        label="Exercise type"
                         autoComplete="off"
-                        placeholder="Lifting up & down"
-                        errors={errors.name}
-                        value={data.name}
-                        onChange={e => setData('name', e.target.value)}
+                        placeholder="Search for an exercise..."
+                        value={params.type}
+                        onChange={handleParamsChange}
                     />
                 </div>
 
@@ -78,17 +110,6 @@ const CreateExercise = ({set, isOpen, setIsOpen}) => {
                     />
                 </div>}
 
-                <label className="flex items-center space-x-3">
-                    <input
-                        id="per_side"
-                        type="checkbox"
-                        className="form-tick appearance-none bg-white bg-check h-6 w-6 border border-gray-300 rounded-md checked:bg-purple-500 checked:border-transparent focus:outline-none"
-                        checked={data.per_side}
-                        onChange={e => setData('per_side', e.target.checked)}
-                    />
-                    <span
-                        className="inline-flex text-xs text-gray-500 sm:text-sm dark:text-gray-100">Per each side</span>
-                </label>
                 <div className="flex justify-between items-center space-x-4">
                     <PrimaryButton type="submit" loading={processing}>Save</PrimaryButton>
                     <SecondaryButton type="button" onClick={() => setIsOpen(false)}>Cancel</SecondaryButton>

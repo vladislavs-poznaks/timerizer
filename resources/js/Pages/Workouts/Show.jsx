@@ -27,7 +27,7 @@ const Show = ({workout, setTypes}) => {
             </div>
 
             <div className="w-full space-y-4">
-                {workout.sets.length && workout.sets.map((set, key) => <SetCard set={set} key={key}/>)}
+                {workout.sets.length && workout.sets.map((set, key) => <SetCard workout={workout} set={set} key={key}/>)}
             </div>
 
             <CreateSet workout={workout} types={setTypes.data} isOpen={createSet} setIsOpen={setCreateSet} />

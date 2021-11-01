@@ -15,7 +15,7 @@ class Workout extends Model
     public function resolveRouteBinding($value, $field = null)
     {
         return $this
-            ->with(['sets', 'sets.exercises'])
+            ->with(['sets'])
             ->whereId($value)
             ->firstOrFail();
     }

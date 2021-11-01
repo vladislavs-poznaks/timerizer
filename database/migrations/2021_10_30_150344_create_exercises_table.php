@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\ExerciseType;
+use App\Models\Set;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -16,8 +18,17 @@ class CreateExercisesTable extends Migration
         Schema::create('exercises', function (Blueprint $table) {
             $table->id();
 
-            $table->string('name')
-                ->comment('Exercise name');
+            $table->foreignIdFor(ExerciseType::class)
+                ->comment('References type of exercise')
+                ->constrained()
+                ->cascadeOnUpdate()
+                ->cascadeOnDelete();
+
+            $table->foreignIdFor(Set::class)
+                ->comment('References set of workout')
+                ->constrained()
+                ->cascadeOnUpdate()
+                ->cascadeOnDelete();
 
             $table->integer('repetitions')
                 ->nullable()
@@ -26,14 +37,6 @@ class CreateExercisesTable extends Migration
             $table->integer('seconds')
                 ->nullable()
                 ->comment('Exercise work time in seconds');
-
-            $table->boolean('per_side')
-                ->default(false)
-                ->comment('Determines if exercise is side based');
-
-            $table->string('url')
-                ->nullable()
-                ->comment('Exercise url handle');
 
             $table->timestamps();
             $table->softDeletes();

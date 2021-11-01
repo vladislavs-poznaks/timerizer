@@ -41,8 +41,8 @@ class Set extends Model
         return $this->belongsTo(Workout::class);
     }
 
-    public function exercises(): BelongsToMany
-    {
-        return $this->belongsToMany(Exercise::class);
-    }
+//    public function exercises(): BelongsToMany
+//    {
+//        return $this->belongsToMany(Exercise::class);
+//    }
 }

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ExercisesController;
+use App\Http\Controllers\ExerciseTypeController;
 use App\Http\Controllers\SetsController;
 use App\Http\Controllers\WorkoutsController;
 use Illuminate\Support\Facades\Route;
@@ -47,6 +48,9 @@ Route::group([
         ->name('sets.store');
     Route::put('workouts/sets/{set}', [SetsController::class, 'update'])
         ->name('sets.update');
+
+    Route::post('workouts/sets/exercise-types', [ExerciseTypeController::class, 'store'])
+        ->name('exercise-types.store');
 
     Route::post('workouts/sets/{set}/exercises', [ExercisesController::class, 'store'])
         ->name('exercises.store');
