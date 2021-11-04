@@ -30,8 +30,8 @@ class ExerciseFactory extends Factory
         return [
             'exercise_type_id' => ExerciseType::factory()->create(),
             'set_id' => Set::factory()->create(),
-            'repetitions' => $isRepetitionBased ? $this->faker->randomNumber(1) * 10 : null,
-            'seconds' => $isTimeBased ? $this->faker->randomNumber(2) * 10 : null,
+            'repetitions' => $isRepetitionBased ? $this->faker->numberBetween(10, 30) : null,
+            'seconds' => $isTimeBased ? $this->faker->numberBetween(10, 100) : null,
         ];
     }
 }

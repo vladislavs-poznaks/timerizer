@@ -31,32 +31,32 @@ class SetFactory extends Factory
 
         return [
             'workout_id' => Workout::factory()->create(),
-            'title' => $this->faker->sentence(),
-            'description' => $this->faker->sentence(),
+            'title' => $this->faker->realTextBetween(10, 20),
+            'description' => $this->faker->realTextBetween(30, 100),
             'type' => $type->value,
             'rounds' => in_array(
                 $type->name,
                 [SetTypes::ROUNDS, SetTypes::EMOM, SetTypes::TABATA]
             )
-                ? $this->faker->randomNumber(1)
+                ? $this->faker->numberBetween(1, 15)
                 : null,
             'total_seconds' => in_array(
                 $type->name,
                 [SetTypes::AMRAP, SetTypes::REST]
             )
-                ? $this->faker->randomNumber(1) * 10
+                ? $this->faker->numberBetween(10, 100)
                 : null,
             'work_seconds' => in_array(
                 $type->name,
                 [SetTypes::EMOM, SetTypes::TABATA]
             )
-                ? $this->faker->randomNumber(1) * 5
+                ? $this->faker->numberBetween(20, 30)
                 : null,
             'rest_seconds' => in_array(
                 $type->name,
                 [SetTypes::TABATA]
             )
-                ? $this->faker->randomNumber(1) * 5
+                ? $this->faker->numberBetween(10, 20)
                 : null,
         ];
     }

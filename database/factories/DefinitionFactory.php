@@ -24,8 +24,8 @@ class DefinitionFactory extends Factory
     {
         return [
             'dictionary_id' => Dictionary::factory(),
-            'name' => $this->faker->text(10),
-            'value' => $this->faker->randomNumber(1),
+            'name' => $this->faker->unique(true)->text(20),
+            'value' => $this->faker->unique(true)->numberBetween(10, 50),
         ];
     }
 }
