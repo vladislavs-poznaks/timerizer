@@ -35,11 +35,6 @@ class WorkoutsController extends Controller
         ]);
     }
 
-//    public function create()
-//    {
-//        return inertia('Workouts/Create');
-//    }
-
     public function store(WorkoutStoreRequest $request)
     {
         auth()->user()->workouts()->create($request->validated());
@@ -47,11 +42,6 @@ class WorkoutsController extends Controller
         return redirect(route('workouts.index'))
             ->with('success', 'Workout created');
     }
-
-//    public function edit()
-//    {
-//        return inertia('Workouts/Edit');
-//    }
 
     public function update()
     {

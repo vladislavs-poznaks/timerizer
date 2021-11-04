@@ -13,17 +13,18 @@ class Exercise extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
+        'exercise_type_id',
         'repetitions',
         'seconds',
     ];
 
+    public function set(): BelongsTo
+    {
+        return $this->belongsTo(Set::class);
+    }
+
     public function type(): BelongsTo
     {
         return $this->belongsTo(ExerciseType::class, 'exercise_type_id');
-    }
-
-    public function sets(): BelongsToMany
-    {
-        return $this->belongsToMany(Set::class);
     }
 }

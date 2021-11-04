@@ -22,7 +22,8 @@ class ExerciseStoreRequest extends FormRequest
                 'nullable',
                 'integer',
                 'gt:0',
-                Rule::excludeIf(! empty($this->request->get('seconds'))),
+                'exclude_unless:seconds,null',
+//                Rule::excludeIf(! empty($this->request->get('seconds'))),
             ],
 
             'seconds' => [
@@ -30,7 +31,8 @@ class ExerciseStoreRequest extends FormRequest
                 'nullable',
                 'integer',
                 'gt:0',
-                Rule::excludeIf(! empty($this->request->get('repetitions'))),
+                'exclude_unless:repetitions,null',
+//                Rule::excludeIf(! empty($this->request->get('repetitions'))),
             ],
         ];
     }

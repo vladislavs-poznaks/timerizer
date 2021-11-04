@@ -22,7 +22,9 @@ class ExerciseTypeFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'name' => $this->faker->word(),
+            'per_side' => $this->faker->randomElement([true, false]),
+            'url' => $this->faker->url(),
         ];
     }
 }

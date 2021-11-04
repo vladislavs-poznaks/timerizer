@@ -24,8 +24,8 @@ class WorkoutFactory extends Factory
     {
         return [
             'user_id' => User::factory(),
-            'title' => $this->faker->sentence,
-            'description' => $this->faker->paragraph,
+            'title' => $this->faker->sentence(),
+            'description' => $this->faker->paragraph(),
             'public' => true,
         ];
     }
