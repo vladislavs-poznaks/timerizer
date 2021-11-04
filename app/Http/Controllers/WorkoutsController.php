@@ -6,11 +6,10 @@ namespace App\Http\Controllers;
 use App\Constants\SetDictionaries;
 use App\Http\Requests\WorkoutStoreRequest;
 use App\Http\Resources\DefinitionCollection;
-use App\Http\Resources\SetCollection;
 use App\Http\Resources\WorkoutCollection;
 use App\Http\Resources\WorkoutResource;
 use App\Models\Definition;
-use App\Models\Exercise;
+use App\Models\ExerciseType;
 use App\Models\Workout;
 
 class WorkoutsController extends Controller
@@ -26,11 +25,13 @@ class WorkoutsController extends Controller
     {
         $setTypes = new DefinitionCollection(Definition::inDictionary(SetDictionaries::TYPE)->orderBy('value')->get());
 
+        $filters = request()->all(['type']);
+
         return inertia('Workouts/Show', [
-            'filters' => request()->all(['type']),
+            'filters' => $filters,
             'workout' => new WorkoutResource($workout),
             'setTypes' => $setTypes,
-            'exerciseTypes' => Exercise::take(10)
+            'exerciseTypes' => ExerciseType::where('name', 'like', "%{$filters['type']}%")->get()
         ]);
     }
 

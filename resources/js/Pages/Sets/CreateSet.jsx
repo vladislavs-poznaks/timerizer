@@ -26,13 +26,7 @@ const CreateSet = ({workout, types, isOpen, setIsOpen}) => {
         setData({
             ...data,
             type: selectedType.value,
-            // rounds: '',
-            // total_seconds: '',
-            // work_seconds: '',
-            // rest_seconds: '',
         })
-
-        console.log(data);
     }, [selectedType])
 
     const handleCreate = (e) => {

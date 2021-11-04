@@ -6,8 +6,8 @@ import SecondaryButton from "../../Shared/Components/SecondaryButton";
 import Modal from "../../Shared/Components/Modal";
 import {Inertia} from "@inertiajs/inertia";
 
-const CreateExercise = ({workout, set, isOpen, setIsOpen}) => {
-    const { filters } = usePage().props;
+const CreateExercise = ({set, isOpen, setIsOpen}) => {
+    const {workout, filters, exerciseTypes} = usePage().props
 
     const [params, setParams] = useState({
         type: filters.type || ''
@@ -22,11 +22,11 @@ const CreateExercise = ({workout, set, isOpen, setIsOpen}) => {
     })
 
     function usePrevious(value) {
-        const ref = useRef();
+        const ref = useRef()
         useEffect(() => {
-            ref.current = value;
-        });
-        return ref.current;
+            ref.current = value
+        })
+        return ref.current
     }
 
     const prevParams = usePrevious(params);
@@ -51,6 +51,14 @@ const CreateExercise = ({workout, set, isOpen, setIsOpen}) => {
         })
     }
 
+    const handleSelectExerciseType = (e) => {
+        console.log(e.target.innerText)
+        setParams({
+            ...params,
+            [e.target.name]: e.target.innerText
+        })
+    }
+
     const handleSubmit = (e) => {
         e.preventDefault()
         post(route('exercises.store', set.id), data)
@@ -71,18 +79,26 @@ const CreateExercise = ({workout, set, isOpen, setIsOpen}) => {
                     />
                 </div>
 
+                {params.type.length > 2 && <div>
+                    {exerciseTypes.map((exerciseType, key) => {
+                        return (
+                            <button key={key} type="button" onClick={handleSelectExerciseType} name="type">{exerciseType.name}</button>
+                        )
+                    })}
+                </div>}
+
                 <label className="flex items-center space-x-3">
                     <input
                         type="checkbox"
                         className="form-tick appearance-none bg-white bg-check h-6 w-6 border border-gray-300 rounded-md checked:bg-purple-500 checked:border-transparent focus:outline-none"
                         checked={timeBased}
-                        onChange={() => setTimeBased(! timeBased)}
+                        onChange={() => setTimeBased(!timeBased)}
                     />
                     <span
                         className="inline-flex text-xs text-gray-500 sm:text-sm dark:text-gray-100">For time</span>
                 </label>
 
-                {! timeBased && <div className="flex flex-col">
+                {!timeBased && <div className="flex flex-col">
                     <TextInput
                         name="repetitions"
                         type="number"
