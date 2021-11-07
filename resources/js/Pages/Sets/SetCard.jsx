@@ -34,8 +34,7 @@ const SetCard = ({workout, set}) => {
                     Description: {set.description}
                 </div>
                 <div className="flex flex-col space-y-1">
-                    {set.exercises && set.exercises.map((exercise, key) => <ExerciseCard key={key}
-                                                                                         exercise={exercise}/>)}
+                    {set.exercises && set.exercises.map((exercise, key) => <ExerciseCard key={key} exercise={exercise}/>)}
                 </div>
             </div>
             <CreateExercise workout={workout} set={set} isOpen={createExercise} setIsOpen={setCreateExercise} setCreateExerciseType={setCreateExerciseType}/>

@@ -18,6 +18,10 @@ class Exercise extends Model
         'seconds',
     ];
 
+    protected $with = [
+        'type'
+    ];
+
     public function set(): BelongsTo
     {
         return $this->belongsTo(Set::class);

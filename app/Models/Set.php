@@ -24,6 +24,10 @@ class Set extends Model
         'rest_seconds',
     ];
 
+    protected $with = [
+        'exercises',
+    ];
+
     protected $appends = [
         'type_name',
     ];
