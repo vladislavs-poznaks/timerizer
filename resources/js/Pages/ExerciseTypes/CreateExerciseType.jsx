@@ -24,7 +24,7 @@ const CreateExerciseType = ({isOpen, setIsOpen}) => {
                         name="name"
                         label="Exercise name"
                         autoComplete="off"
-                        placeholder="Lifting up & down"
+                        placeholder="Lunges"
                         errors={errors.name}
                         value={data.name}
                         onChange={e => setData('name', e.target.value)}

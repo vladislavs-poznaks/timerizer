@@ -11,6 +11,7 @@ use App\Http\Resources\WorkoutResource;
 use App\Models\Definition;
 use App\Models\ExerciseType;
 use App\Models\Workout;
+use Illuminate\Database\Eloquent\Builder;
 
 class WorkoutsController extends Controller
 {
@@ -25,13 +26,15 @@ class WorkoutsController extends Controller
     {
         $setTypes = new DefinitionCollection(Definition::inDictionary(SetDictionaries::TYPE)->orderBy('value')->get());
 
-        $filters = request()->all(['type']);
+        $filters = request()->only('type');
 
         return inertia('Workouts/Show', [
             'filters' => $filters,
             'workout' => new WorkoutResource($workout),
             'setTypes' => $setTypes,
-            'exerciseTypes' => ExerciseType::where('name', 'like', "%{$filters['type']}%")->get()
+            'exerciseTypes' => ExerciseType::query()
+                ->when(request()->has('type'), fn(Builder $query, $type) => $query->where('name', 'like', "%{$type}%"))
+                ->get()
         ]);
     }
 

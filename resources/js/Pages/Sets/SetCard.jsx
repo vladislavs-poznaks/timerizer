@@ -17,8 +17,6 @@ const SetCard = ({workout, set}) => {
                         <div>{set.title}</div>
                         <PrimaryButton type="button" onClick={() => setCreateExercise(true)}>Add
                             exercise</PrimaryButton>
-                        <PrimaryButton type="button" onClick={() => setCreateExerciseType(true)}>Add exercise
-                            type</PrimaryButton>
                     </div>
                     <div
                         className={`px-2 py-1 flex items-center text-xs rounded-md font-semibold uppercase text-green-500 bg-green-100`}
@@ -40,7 +38,7 @@ const SetCard = ({workout, set}) => {
                                                                                          exercise={exercise}/>)}
                 </div>
             </div>
-            <CreateExercise workout={workout} set={set} isOpen={createExercise} setIsOpen={setCreateExercise}/>
+            <CreateExercise workout={workout} set={set} isOpen={createExercise} setIsOpen={setCreateExercise} setCreateExerciseType={setCreateExerciseType}/>
             <CreateExerciseType isOpen={createExerciseType} setIsOpen={setCreateExerciseType}/>
         </>
     )
