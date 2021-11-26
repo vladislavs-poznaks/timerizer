@@ -10,7 +10,7 @@ const Show = ({workout, setTypes}) => {
     return (
         <>
             <Head title={workout.title}/>
-            <div className="shadow-lg rounded-2xl p-4 bg-white dark:bg-gray-700 w-full space-y-2">
+            <div className="shadow-lg rounded-2xl px-10 py-4 bg-white dark:bg-gray-700 w-full space-y-2">
                 <div className="flex items-center justify-between items-center">
                     <div>{workout.title}</div>
                     <div

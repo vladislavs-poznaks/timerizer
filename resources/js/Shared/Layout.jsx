@@ -6,7 +6,7 @@ import Header from "./Header";
 
 const Layout = ({children}) => {
     return (
-        <main className="bg-gray-100 dark:bg-gray-800 h-screen overflow-hidden relative">
+        <main className="bg-gray-100 dark:bg-gray-800 h-screen overflow-hidden relative text-gray-800">
             <div className="mx-auto container flex items-start justify-between">
 
                 <Sidebar/>
