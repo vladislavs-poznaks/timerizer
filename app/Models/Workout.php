@@ -26,6 +26,18 @@ class Workout extends Model
         'public',
     ];
 
+//    protected $casts = [
+//        'total_seconds' => 'int'
+//    ];
+
+    public function getTotalSecondsAttribute()
+    {
+        return $this->sets
+            ->filter(fn ($set) => $set->total_seconds)
+            ->pluck('total_seconds')
+            ->sum();
+    }
+
     public function owner(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');

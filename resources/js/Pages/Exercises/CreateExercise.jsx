@@ -151,8 +151,8 @@ const CreateExercise = ({set, isOpen, setIsOpen, setCreateExerciseType}) => {
                 </div>}
 
                 <div className="flex justify-between items-center space-x-4">
-                    <PrimaryButton type="submit" loading={processing}>Save</PrimaryButton>
-                    <SecondaryButton type="button" onClick={() => setIsOpen(false)}>Cancel</SecondaryButton>
+                    <PrimaryButton className="w-full" type="submit" loading={processing}>Save</PrimaryButton>
+                    <SecondaryButton className="w-full" type="button" onClick={() => setIsOpen(false)}>Cancel</SecondaryButton>
                 </div>
             </form>
         </Modal>

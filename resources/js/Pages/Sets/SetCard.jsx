@@ -9,8 +9,6 @@ const SetCard = ({workout, set}) => {
     const [createExercise, setCreateExercise] = useState(false);
     const [createExerciseType, setCreateExerciseType] = useState(false);
 
-
-
     return (
         <>
             <div className="shadow-lg rounded-2xl px-10 py-4 bg-white dark:bg-gray-700 space-y-4 flex flex-col space-y-2">
@@ -40,7 +38,9 @@ const SetCard = ({workout, set}) => {
                 </div>
 
                 <PrimaryButton type="button" onClick={() => setCreateExercise(true)}>Add exercise</PrimaryButton>
+
             </div>
+
             <CreateExercise workout={workout} set={set} isOpen={createExercise} setIsOpen={setCreateExercise} setCreateExerciseType={setCreateExerciseType}/>
             <CreateExerciseType isOpen={createExerciseType} setIsOpen={setCreateExerciseType}/>
         </>
