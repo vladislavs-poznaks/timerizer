@@ -60,7 +60,6 @@ const CreateExercise = ({set, isOpen, setIsOpen, setCreateExerciseType}) => {
     return (
         <Modal title="Create an exercise" isOpen={isOpen} setIsOpen={setIsOpen}>
             <form className="space-y-4" onSubmit={handleSubmit}>
-
                 <div className="flex justify justify-between items-center space-x-2">
                     <div className="w-5/6 relative">
                         <Listbox value={selectedExerciseType} onChange={setSelectedExerciseType}>
@@ -79,7 +78,7 @@ const CreateExercise = ({set, isOpen, setIsOpen, setCreateExerciseType}) => {
                                         leaveFrom="opacity-100"
                                         leaveTo="opacity-0"
                                     >
-                                        <Listbox.Options className="absolute w-full flex flex-col space-y-1 py-2 mt-1 overflow-auto text-base bg-white rounded-lg shadow-lg max-h-60 ring-1 ring-black ring-opacity-5 focus:outline-none">
+                                        <Listbox.Options className="absolute z-30 w-full flex flex-col space-y-1 py-2 mt-1 overflow-auto text-base bg-white rounded-lg shadow-lg max-h-60 ring-1 ring-black ring-opacity-5 focus:outline-none">
                                             {exerciseTypes.map((exerciseType) => (
                                                 <Listbox.Option
                                                     className={({ active }) =>

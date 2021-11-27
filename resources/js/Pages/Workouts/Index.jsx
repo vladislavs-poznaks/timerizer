@@ -20,7 +20,7 @@ const Index = ({workouts}) => {
                     </div>
                 </div>
 
-                <div className="grid grid-cols-3 gap-4">
+                <div className="space-y-4">
                     {workouts.data.length
                         ? workouts.data.map((workout, key) => <WorkoutCard workout={workout} key={key}/>)
                         : 'No workouts yet'

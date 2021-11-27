@@ -35,7 +35,7 @@ const Show = ({workout, setTypes}) => {
     return (
         <>
             <Head title={workout.title}/>
-            <div className="shadow-lg rounded-4xl px-10 py-4 bg-white dark:bg-gray-700 w-full space-y-2">
+            <div className="shadow-lg rounded-xl px-10 py-4 bg-white dark:bg-gray-700 w-full space-y-2">
                 <div className="flex justify-center block text-5xl font-bold text-gray-700">
                     <span>{workoutTimeLeft()}</span>
                 </div>

@@ -37,7 +37,10 @@ const SetCard = ({workout, set}) => {
                     {set.exercises && set.exercises.map((exercise, key) => <ExerciseCard key={key} exercise={exercise}/>)}
                 </div>
 
-                <PrimaryButton type="button" onClick={() => setCreateExercise(true)}>Add exercise</PrimaryButton>
+                <div className="flex justify-center">
+                    <PrimaryButton type="button" onClick={() => setCreateExercise(true)}>Add exercise</PrimaryButton>
+
+                </div>
 
             </div>
 

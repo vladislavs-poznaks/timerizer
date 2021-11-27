@@ -13,7 +13,7 @@ const Modal = ({title, children, isOpen, setIsOpen, className}) => {
             leaveTo="transform scale-95 opacity-0"
         >
             <Dialog onClose={setIsOpen} className={className}>
-                <div className="fixed z-50 inset-0 overflow-y-auto">
+                <div className="fixed z-20 inset-0 overflow-y-auto">
                     <div className="min-h-screen px-4 text-center">
                         <Dialog.Overlay className="fixed inset-0 bg-black opacity-30"/>
 
