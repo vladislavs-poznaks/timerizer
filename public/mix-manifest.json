@@ -1,8 +1,10 @@
 {
-    "/js/app.js": "/js/app.js?id=c8030f2fdb8ae1eed9f7",
+    "/js/app.js": "/js/app.js?id=159d11a09a3b0d93a886",
     "/js/manifest.js": "/js/manifest.js?id=ea0526679a7e81ba45cf",
     "/css/app.css": "/css/app.css?id=7e4e8ca9c730bcf316ed",
-    "/js/vendor.js": "/js/vendor.js?id=397d6ba9121eea07a6d9",
+    "/js/vendor.js": "/js/vendor.js?id=303f52a5e4b04bdc9f8d",
     "/img/logo.png": "/img/logo.png?id=18364dd49891681efafd",
-    "/icons/check.svg": "/icons/check.svg?id=076cb8dc2cd99baf23e8"
+    "/icons/check.svg": "/icons/check.svg?id=076cb8dc2cd99baf23e8",
+    "/audio/long-beep.mp3": "/audio/long-beep.mp3?id=1f23f2becf69d50eef48",
+    "/audio/short-beep.mp3": "/audio/short-beep.mp3?id=66d5d37d291c8512efea"
 }

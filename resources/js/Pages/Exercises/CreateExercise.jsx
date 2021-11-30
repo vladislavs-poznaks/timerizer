@@ -7,42 +7,57 @@ import Modal from "../../Shared/Components/Modal";
 import {Inertia} from "@inertiajs/inertia";
 import {Listbox, Transition} from "@headlessui/react";
 import {CheckIcon, ChevronDownIcon, ChevronUpIcon} from "@heroicons/react/outline";
+import {useQuery, useQueryClient} from "react-query";
+import axios from "axios";
 
 const CreateExercise = ({set, isOpen, setIsOpen, setCreateExerciseType}) => {
-    const {workout, filters, exerciseTypes} = usePage().props
+    // const {workout} = usePage().props
 
-    const [selectedExerciseType, setSelectedExerciseType] = useState(exerciseTypes[0])
+    const [selectedExerciseType, setSelectedExerciseType] = useState({
+        id: '',
+    })
 
     const [params, setParams] = useState({
-        type: filters.type || ''
+        name: ''
     })
 
     const [timeBased, setTimeBased] = useState(false)
 
     const {data, setData, errors, post, processing} = useForm({
-        exercise_type_id: exerciseTypes[0].value,
+        exercise_type_id: '',
         repetitions: '',
         seconds: '',
     })
 
-    function usePrevious(value) {
-        const ref = useRef()
-        useEffect(() => {
-            ref.current = value
-        })
-        return ref.current
-    }
+    // function usePrevious(value) {
+    //     const ref = useRef()
+    //     useEffect(() => {
+    //         ref.current = value
+    //     })
+    //     return ref.current
+    // }
+    //
+    // const prevParams = usePrevious(params);
 
-    const prevParams = usePrevious(params);
+    // useEffect(() => {
+    //     if (prevParams) {
+    //         Inertia.get(route(route().current(), workout.id), params, {
+    //             replace: true,
+    //             preserveState: true
+    //         });
+    //     }
+    // }, [params])
+
+
+    const {isLoading, isSuccess, data: exerciseTypes} = useQuery([exerciseTypes, params], () => {
+        return axios.get(route('exercise-types.api', params))
+    })
 
     useEffect(() => {
-        if (prevParams) {
-            Inertia.get(route(route().current(), workout.id), params, {
-                replace: true,
-                preserveState: true
-            });
+        if (isSuccess) {
+            setSelectedExerciseType(exerciseTypes.data.data[0])
         }
-    }, [params])
+    }, [exerciseTypes])
 
     useEffect(() => {
         timeBased ? setData({...data, repetitions: ''}) : setData({...data, seconds: ''})
@@ -62,7 +77,7 @@ const CreateExercise = ({set, isOpen, setIsOpen, setCreateExerciseType}) => {
             <form className="space-y-4" onSubmit={handleSubmit}>
                 <div className="flex justify justify-between items-center space-x-2">
                     <div className="w-5/6 relative">
-                        <Listbox value={selectedExerciseType} onChange={setSelectedExerciseType}>
+                        {selectedExerciseType && <Listbox value={selectedExerciseType} onChange={setSelectedExerciseType}>
                             {({open}) => (
                                 <>
                                     <Listbox.Button
@@ -78,8 +93,22 @@ const CreateExercise = ({set, isOpen, setIsOpen, setCreateExerciseType}) => {
                                         leaveFrom="opacity-100"
                                         leaveTo="opacity-0"
                                     >
-                                        <Listbox.Options className="absolute z-30 w-full flex flex-col space-y-1 py-2 mt-1 overflow-auto text-base bg-white rounded-lg shadow-lg max-h-60 ring-1 ring-black ring-opacity-5 focus:outline-none">
-                                            {exerciseTypes.map((exerciseType) => (
+                                        <Listbox.Options className="h-48 absolute z-30 w-full flex flex-col space-y-1 py-2 mt-1 overflow-auto text-base bg-white rounded-lg shadow-lg max-h-60 ring-1 ring-black ring-opacity-5 focus:outline-none">
+                                            <TextInput
+                                                className="px-2"
+                                                // name="repetitions"
+                                                // type="number"
+                                                // min="0"
+                                                // label="Repetitions"
+                                                autoComplete="off"
+                                                placeholder="Search..."
+                                                // errors={errors.repetitions}
+                                                value={params.name}
+                                                onChange={e => setParams({...params, name: e.target.value})}
+                                            />
+                                            {exerciseTypes
+                                                ?
+                                                exerciseTypes.data.data.map((exerciseType) => (
                                                 <Listbox.Option
                                                     className={({ active }) =>
                                                         `flex space-x-4 items-center cursor-default select-none relative py-2 px-4 ${active ? 'text-purple-900 bg-purple-100' : 'text-gray-900'}`
@@ -95,12 +124,13 @@ const CreateExercise = ({set, isOpen, setIsOpen, setCreateExerciseType}) => {
                                                     )}
 
                                                 </Listbox.Option>
-                                            ))}
+                                            ))
+                                            : 'Loading'}
                                         </Listbox.Options>
                                     </Transition>
                                 </>
                             )}
-                        </Listbox>
+                        </Listbox>}
                     </div>
 
                     <div className="w-1/6">

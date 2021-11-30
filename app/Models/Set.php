@@ -41,6 +41,15 @@ class Set extends Model
         return $definition->name;
     }
 
+    public function getTotalSecondsAttribute($value)
+    {
+        if (is_null($value)) {
+            return ($this->getAttribute('work_seconds') + $this->getAttribute('rest_seconds')) * $this->getAttribute('rounds');
+        }
+
+        return $value;
+    }
+
     public function workout(): BelongsTo
     {
         return $this->belongsTo(Workout::class);

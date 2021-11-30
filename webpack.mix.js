@@ -22,5 +22,6 @@ mix
     ])
     .copyDirectory('resources/img', 'public/img')
     .copyDirectory('resources/icons', 'public/icons')
+    .copyDirectory('resources/audio', 'public/audio')
     .version()
     .sourceMaps();

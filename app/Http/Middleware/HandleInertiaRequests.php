@@ -41,7 +41,9 @@ class HandleInertiaRequests extends Middleware
                 'check' => auth()->check()
             ],
             'assets' => [
-                'logo' => asset('img/logo.png')
+                'logo' => asset('img/logo.png'),
+                'shortBeep' => asset('audio/short-beep.mp3'),
+                'longBeep' => asset('audio/long-beep.mp3')
             ],
         ]);
     }

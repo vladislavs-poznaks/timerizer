@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ExerciseTypeStoreRequest;
+use App\Http\Resources\ExerciseTypeCollection;
 use App\Models\ExerciseType;
+use Illuminate\Http\Request;
 
 class ExerciseTypeController extends Controller
 {
@@ -11,7 +13,11 @@ class ExerciseTypeController extends Controller
     {
         ExerciseType::create($request->validated());
 
-//        return redirect(route('workouts.show', $set->workout))
-//            ->with('success', 'Exercise created');
+        // TODO Redirect?!
+    }
+
+    public function api()
+    {
+        return new ExerciseTypeCollection(ExerciseType::filter(request())->get());
     }
 }
