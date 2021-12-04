@@ -29,7 +29,7 @@ class Set extends Model
     ];
 
     protected $appends = [
-        'type_name',
+        'type_name', 'round_seconds'
     ];
 
     public function getTypeNameAttribute()
@@ -48,6 +48,11 @@ class Set extends Model
         }
 
         return $value;
+    }
+
+    public function getRoundSecondsAttribute()
+    {
+        return $this->work_seconds + $this->rest_seconds;
     }
 
     public function workout(): BelongsTo

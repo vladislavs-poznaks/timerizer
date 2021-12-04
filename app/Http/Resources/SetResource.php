@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class SetsResource extends JsonResource
+class SetResource extends JsonResource
 {
     public static $wrap = null;
 
@@ -25,8 +25,9 @@ class SetsResource extends JsonResource
             'total_time' => $this->total_time,
             'work_time' => $this->work_time,
             'rest_time' => $this->rest_time,
-            'createdAt' => $this->created_at,
-            'updatedAt' => $this->updated_at,
+            'round_seconds' => $this->round_seconds,
+//            'createdAt' => $this->created_at,
+//            'updatedAt' => $this->updated_at,
         ];
     }
 }

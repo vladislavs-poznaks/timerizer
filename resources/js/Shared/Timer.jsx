@@ -14,33 +14,45 @@ const Timer = ({set, isRunning, setIsRunning}) => {
 
     const [currentRound, setCurrentRound] = useState()
 
+    const shouldPlayShortBeep = (roundsLeft) => {
+        if (secondsLeft - (roundsLeft * set.round_seconds + set.rest_seconds) <= 4 && secondsLeft - (roundsLeft * set.round_seconds + set.rest_seconds) >= 2) {
+            return true
+        }
+
+        if (secondsLeft - roundsLeft * set.round_seconds <= 4 && secondsLeft - roundsLeft * set.round_seconds >= 2) {
+            return true
+        }
+
+        return  false
+    }
+
+    const shouldPlayLongBeep = (roundsLeft) => {
+        return  secondsLeft - (roundsLeft * set.round_seconds + set.rest_seconds) === 1 || secondsLeft - roundsLeft * set.round_seconds === 1
+    }
+
     useEffect(() => {
-        const round = set.rounds - Math.floor( secondsLeft / (set.work_seconds + set.rest_seconds))
+        if (! set.rounds) {
+            return
+        }
 
-        const roundsLeft = set.rounds - round
+        const roundsLeft = Math.floor( secondsLeft / (set.work_seconds + set.rest_seconds))
 
-        setCurrentRound(round === 0 ? 1 : round)
+        setCurrentRound(Math.max(set.rounds - roundsLeft, 1))
 
-        setIsWorking(secondsLeft > roundsLeft * (set.work_seconds + set.rest_seconds) + set.rest_seconds || secondsLeft === roundsLeft * (set.work_seconds + set.rest_seconds))
+        setIsWorking(secondsLeft > roundsLeft * set.round_seconds + set.rest_seconds || secondsLeft === roundsLeft * set.round_seconds)
 
-        if ((secondsLeft - (roundsLeft * (set.work_seconds + set.rest_seconds) + set.rest_seconds) <= 4 && secondsLeft - (roundsLeft * (set.work_seconds + set.rest_seconds) + set.rest_seconds) >= 2)
-            || (secondsLeft - roundsLeft * (set.work_seconds + set.rest_seconds) <= 4 && secondsLeft - roundsLeft * (set.work_seconds + set.rest_seconds) >= 2)) {
+        if (shouldPlayShortBeep(roundsLeft)) {
             shortBeep.play()
         }
 
-        if (secondsLeft - (roundsLeft * (set.work_seconds + set.rest_seconds) + set.rest_seconds) === 1 || secondsLeft - roundsLeft * (set.work_seconds + set.rest_seconds) === 1) {
+        if (shouldPlayLongBeep(roundsLeft)) {
             longBeep.play()
         }
 
     }, [secondsLeft])
 
-
     useEffect(() => {
-        if (secondsLeft === 0) {
-            setIsRunning(false)
-        }
-
-        if (isRunning) {
+        if (isRunning && secondsLeft > 0) {
             const timer = setTimeout(() => {
                 setSecondsLeft(secondsLeft - 1);
             }, 1000);
