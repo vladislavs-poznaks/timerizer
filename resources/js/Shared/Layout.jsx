@@ -13,7 +13,7 @@ const Layout = ({children}) => {
 
     return (
         <QueryClientProvider client={queryClient}>
-            <main className="bg-gray-100 dark:bg-gray-800 h-screen overflow-hidden relative text-gray-800">
+            <main className="bg-gray-100 dark:bg-gray-800 min-h-screen overflow-hidden relative text-gray-800">
                 <Header/>
                 <div className="mx-auto container flex items-start justify-between">
                     <div className="flex flex-col w-full px-0 md:p-4 md:space-y-4">

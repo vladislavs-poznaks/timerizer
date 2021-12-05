@@ -15,7 +15,7 @@ const TimerDisplay = ({currentRound, secondsLeft, roundSecondsLeft}) => {
 
     return (
         <span className="block text-5xl font-bold">
-            {currentRound && `${currentRound} - `} {setTimeLeft()} ({format(roundSecondsLeft)})
+            {currentRound && `${currentRound} - `} {setTimeLeft()} - {format(roundSecondsLeft)}
         </span>
     );
 }
