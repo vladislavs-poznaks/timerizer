@@ -17,7 +17,7 @@ const SetCard = ({workout, set}) => {
         <>
             <div className="shadow-lg rounded-2xl px-10 py-4 bg-white dark:bg-gray-700 space-y-4 flex flex-col space-y-2">
 
-                <Timer set={set} isRunning={setRunning} setIsRunning={setSetRunning}/>
+                <Timer set={set} isRunning={setRunning} />
 
                 <div className="flex items-center space-x-4">
 

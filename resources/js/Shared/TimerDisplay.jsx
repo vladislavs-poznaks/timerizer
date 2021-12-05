@@ -1,7 +1,7 @@
 import React from 'react'
 import moment from "moment";
 
-const TimerDisplay = ({currentRound, secondsLeft}) => {
+const TimerDisplay = ({currentRound, secondsLeft, roundSecondsLeft}) => {
 
     const setTimeLeft = () => {
         const duration = moment.duration(secondsLeft, "seconds")
@@ -15,7 +15,7 @@ const TimerDisplay = ({currentRound, secondsLeft}) => {
 
     return (
         <span className="block text-5xl font-bold">
-            {currentRound && `${currentRound} - `} {setTimeLeft()}
+            {currentRound && `${currentRound} - `} {setTimeLeft()} ({format(roundSecondsLeft)})
         </span>
     );
 }
