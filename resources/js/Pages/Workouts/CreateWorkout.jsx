@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import {Head, useForm} from '@inertiajs/inertia-react'
 import TextInput from "../../Shared/Components/TextInput";
 import PrimaryButton from "../../Shared/Components/PrimaryButton";
@@ -7,7 +7,7 @@ import SecondaryButton from "../../Shared/Components/SecondaryButton";
 import Modal from "../../Shared/Components/Modal";
 
 const CreateWorkout = ({isOpen, setIsOpen}) => {
-    const {data, setData, errors, post, processing} = useForm({
+    const {data, setData, errors, post, processing, wasSuccessful, reset} = useForm({
         title: '',
         description: '',
         public: true,
@@ -17,6 +17,13 @@ const CreateWorkout = ({isOpen, setIsOpen}) => {
         e.preventDefault()
         post(route('workouts.store'), data)
     }
+
+    useEffect(() => {
+        if (wasSuccessful) {
+            setIsOpen(false)
+            reset(...data)
+        }
+    }, [wasSuccessful])
 
     return (
         <Modal title="Create a workout" isOpen={isOpen} setIsOpen={setIsOpen}>
@@ -56,8 +63,8 @@ const CreateWorkout = ({isOpen, setIsOpen}) => {
                         className="inline-flex text-xs text-gray-500 sm:text-sm dark:text-gray-100">Public</span>
                 </label>
                 <div className="flex justify-between items-center space-x-4">
-                    <PrimaryButton type="submit" loading={processing}>Save</PrimaryButton>
-                    <SecondaryButton type="button" onClick={() => setIsOpen(false)}>Cancel</SecondaryButton>
+                    <PrimaryButton type="submit" className="w-full" loading={processing}>Save</PrimaryButton>
+                    <SecondaryButton type="button" className="w-full" onClick={() => setIsOpen(false)}>Cancel</SecondaryButton>
                 </div>
             </form>
         </Modal>

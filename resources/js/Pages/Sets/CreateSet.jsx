@@ -50,7 +50,6 @@ const CreateSet = ({workout, types, isOpen, setIsOpen}) => {
                 <div>
                     <div className="w-full max-w-md mx-auto">
                         <RadioGroup value={selectedType} onChange={setSelectedType}>
-                            <RadioGroup.Label className="sr-only">Server size</RadioGroup.Label>
                             <div className="space-y-2">
                                 {types.map((type) => (
                                     <RadioGroup.Option
@@ -155,8 +154,8 @@ const CreateSet = ({workout, types, isOpen, setIsOpen}) => {
                 />
 
                 <div className="flex justify-between items-center space-x-4">
-                    <PrimaryButton type="submit" loading={processing}>Save</PrimaryButton>
-                    <SecondaryButton type="button" onClick={() => setIsOpen(false)}>Cancel</SecondaryButton>
+                    <PrimaryButton type="submit" className="w-full" loading={processing}>Save</PrimaryButton>
+                    <SecondaryButton type="button" className="w-full" onClick={() => setIsOpen(false)}>Cancel</SecondaryButton>
                 </div>
             </form>
         </Modal>
