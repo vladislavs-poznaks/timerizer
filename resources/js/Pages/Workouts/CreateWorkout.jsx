@@ -1,10 +1,11 @@
 import React, {useEffect} from 'react'
-import {Head, useForm} from '@inertiajs/inertia-react'
+import {useForm} from '@inertiajs/inertia-react'
 import TextInput from "../../Shared/Components/TextInput";
 import PrimaryButton from "../../Shared/Components/PrimaryButton";
 import TextArea from "../../Shared/Components/TextArea";
 import SecondaryButton from "../../Shared/Components/SecondaryButton";
 import Modal from "../../Shared/Components/Modal";
+import CheckBoxInput from "../../Shared/Components/CheckBoxInput";
 
 const CreateWorkout = ({isOpen, setIsOpen}) => {
     const {data, setData, errors, post, processing, wasSuccessful, reset} = useForm({
@@ -51,17 +52,7 @@ const CreateWorkout = ({isOpen, setIsOpen}) => {
                         onChange={e => setData('description', e.target.value)}
                     />
                 </div>
-                <label className="flex items-center space-x-3">
-                    <input
-                        id="public"
-                        type="checkbox"
-                        className="form-tick appearance-none bg-white bg-check h-6 w-6 border border-gray-300 rounded-md checked:bg-purple-500 checked:border-transparent focus:outline-none"
-                        checked={data.public}
-                        onChange={e => setData('public', e.target.checked)}
-                    />
-                    <span
-                        className="inline-flex text-xs text-gray-500 sm:text-sm dark:text-gray-100">Public</span>
-                </label>
+                <CheckBoxInput label="Public" name="public" checked={data.public} onChange={e => setData('public', e.target.checked)}/>
                 <div className="flex justify-between items-center space-x-4">
                     <PrimaryButton type="submit" className="w-full" loading={processing}>Save</PrimaryButton>
                     <SecondaryButton type="button" className="w-full" onClick={() => setIsOpen(false)}>Cancel</SecondaryButton>
