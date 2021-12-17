@@ -25,7 +25,7 @@ const Modal = ({title, children, isOpen, setIsOpen, className}) => {
                             className="inline-block w-full max-w-md p-6 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl space-y-4"
                         >
                             <Dialog.Title>
-                                <h2 className="font-semibold text-gray-700 text-lg">{title}</h2>
+                                <div className="font-semibold text-gray-700 text-lg">{title}</div>
                             </Dialog.Title>
                             {children}
                         </div>

@@ -12,7 +12,7 @@ import Modal from "../../Shared/Components/Modal";
 const CreateSet = ({workout, types, isOpen, setIsOpen}) => {
     const [selectedType, setSelectedType] = useState(types[0])
 
-    const {data, setData, errors, post, processing} = useForm({
+    const {data, setData, errors, post, processing, wasSuccessful, reset} = useForm({
         title: '',
         type: '',
         description: '',
@@ -22,17 +22,29 @@ const CreateSet = ({workout, types, isOpen, setIsOpen}) => {
         rounds: '',
     })
 
+    const handleCreate = (e) => {
+        e.preventDefault()
+        post(route('sets.store', workout.id), data)
+    }
+
     useEffect(() => {
         setData({
             ...data,
             type: selectedType.value,
         })
+
+        console.log(data)
+        console.log(selectedType)
     }, [selectedType])
 
-    const handleCreate = (e) => {
-        e.preventDefault()
-        post(route('sets.store', workout.id), data)
-    }
+    // useEffect(() => {
+    //     if (wasSuccessful) {
+    //         setIsOpen(false)
+    //         reset(...data)
+    //     }
+    //
+    //     setSelectedType(types.find(type => type.value === data.type) || types[0])
+    // }, [wasSuccessful])
 
     return (
         <Modal title="Add a set" isOpen={isOpen} setIsOpen={setIsOpen} className="max-w-lg">
