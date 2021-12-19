@@ -1,12 +1,13 @@
 import React, {useEffect, useState} from 'react'
 import {Head} from '@inertiajs/inertia-react'
-import PrimaryButton from "../../Shared/Components/PrimaryButton";
-import CreateSet from "../Sets/CreateSet";
-import SetCard from "../Sets/SetCard";
+import PrimaryButton from "@/Shared/Components/PrimaryButton";
+import CreateSet from "@/Pages/Sets/CreateSet";
+import SetCard from "@/Pages/Sets/SetCard";
 import SecondaryButton from "../../Shared/Components/SecondaryButton";
 import moment from "moment";
 
 const Show = ({workout, setTypes}) => {
+    console.log(setTypes)
     const [createSet, setCreateSet] = useState(false)
 
     // const [workoutRunning, setWorkoutRunning] = useState(false)

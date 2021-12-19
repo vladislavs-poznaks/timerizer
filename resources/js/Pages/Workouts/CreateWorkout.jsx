@@ -6,9 +6,10 @@ import TextArea from "../../Shared/Components/TextArea";
 import SecondaryButton from "../../Shared/Components/SecondaryButton";
 import Modal from "../../Shared/Components/Modal";
 import CheckBoxInput from "../../Shared/Components/CheckBoxInput";
+import { toast } from 'react-toastify';
 
 const CreateWorkout = ({isOpen, setIsOpen}) => {
-    const {data, setData, errors, post, processing, wasSuccessful, reset} = useForm({
+    const {data, setData, hasErrors, errors, post, processing, wasSuccessful, reset} = useForm({
         title: '',
         description: '',
         public: true,
@@ -22,7 +23,9 @@ const CreateWorkout = ({isOpen, setIsOpen}) => {
     useEffect(() => {
         if (wasSuccessful) {
             setIsOpen(false)
-            reset(...data)
+            reset(...Object.keys(data))
+
+            toast.success("Workout created!")
         }
     }, [wasSuccessful])
 

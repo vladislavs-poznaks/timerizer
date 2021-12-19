@@ -1,4 +1,5 @@
 const mix = require('laravel-mix');
+const path = require('path');
 
 /*
  |--------------------------------------------------------------------------
@@ -23,5 +24,6 @@ mix
     .copyDirectory('resources/img', 'public/img')
     .copyDirectory('resources/icons', 'public/icons')
     .copyDirectory('resources/audio', 'public/audio')
+    .alias({'@': path.resolve('resources/js')})
     .version()
     .sourceMaps();

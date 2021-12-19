@@ -5,15 +5,20 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ExerciseTypeStoreRequest;
 use App\Http\Resources\ExerciseTypeCollection;
 use App\Models\ExerciseType;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ExerciseTypeController extends Controller
 {
     public function store(ExerciseTypeStoreRequest $request)
     {
-        ExerciseType::create($request->validated());
+        $attributes = array_merge($request->validated(), [
+            'user_id' => Auth::user()->getAuthIdentifier()
+        ]);
+
+        ExerciseType::create($attributes);
 
         // TODO Redirect?!
+        return redirect()->back();
     }
 
     public function api()

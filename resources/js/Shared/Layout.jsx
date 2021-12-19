@@ -5,8 +5,9 @@ import {
 } from 'react-query'
 import { ReactQueryDevtools } from 'react-query/devtools';
 
-
 import Header from "./Header";
+import {ToastContainer} from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 const Layout = ({children}) => {
     const queryClient = new QueryClient()
@@ -24,6 +25,7 @@ const Layout = ({children}) => {
                         </div>
                     </div>
                 </div>
+                <ToastContainer />
             </main>
             <ReactQueryDevtools initialIsOpen={false} />
         </QueryClientProvider>

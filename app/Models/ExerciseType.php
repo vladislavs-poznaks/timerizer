@@ -13,7 +13,17 @@ class ExerciseType extends Model
 {
     use HasFactory, SoftDeletes, Filterable, Uuids;
 
+//    protected static function boot()
+//    {
+//        static::creating(function ($model) {
+//            $model->user_id = auth()->user()->id;
+//        });
+//
+//        parent::boot();
+//    }
+
     protected $fillable = [
+        'user_id',
         'name',
         'per_side',
         'url',

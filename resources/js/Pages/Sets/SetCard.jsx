@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 import PrimaryButton from "../../Shared/Components/PrimaryButton";
 import CreateExercise from "../Exercises/CreateExercise";
 import ExerciseCard from "../Exercises/ExerciseCard";
-import CreateExerciseType from "../ExerciseTypes/CreateExerciseType";
+import CreateExerciseType_OLDIE from "../ExerciseTypes/CreateExerciseType";
 import moment from "moment";
 import SecondaryButton from "../../Shared/Components/SecondaryButton";
 import Timer from "../../Shared/Timer";
@@ -58,7 +58,7 @@ const SetCard = ({workout, set}) => {
             </div>
 
             <CreateExercise workout={workout} set={set} isOpen={createExercise} setIsOpen={setCreateExercise} setCreateExerciseType={setCreateExerciseType}/>
-            <CreateExerciseType isOpen={createExerciseType} setIsOpen={setCreateExerciseType}/>
+            {/*<CreateExerciseType_OLDIE isOpen={createExerciseType} setIsOpen={setCreateExerciseType}/>*/}
         </>
     )
 }

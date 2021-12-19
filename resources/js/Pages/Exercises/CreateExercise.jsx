@@ -9,6 +9,7 @@ import {Listbox, Transition} from "@headlessui/react";
 import {CheckIcon, ChevronDownIcon, ChevronUpIcon} from "@heroicons/react/outline";
 import {useQuery, useQueryClient} from "react-query";
 import axios from "axios";
+import CreateExerciseType from "../ExerciseTypes/CreateExerciseType";
 
 const CreateExercise = ({set, isOpen, setIsOpen, setCreateExerciseType}) => {
     // const {workout} = usePage().props
@@ -50,12 +51,14 @@ const CreateExercise = ({set, isOpen, setIsOpen, setCreateExerciseType}) => {
 
 
     const {isLoading, isSuccess, data: exerciseTypes} = useQuery([exerciseTypes, params], () => {
+        // TODO Cancel previous request
         return axios.get(route('exercise-types.api', params))
     })
 
     useEffect(() => {
         if (isSuccess) {
-            setSelectedExerciseType(exerciseTypes.data.data[0])
+            console.log(exerciseTypes)
+            console.log(exerciseTypes.data.data)
         }
     }, [exerciseTypes])
 
@@ -63,9 +66,11 @@ const CreateExercise = ({set, isOpen, setIsOpen, setCreateExerciseType}) => {
         timeBased ? setData({...data, repetitions: ''}) : setData({...data, seconds: ''})
     }, [timeBased])
 
-    useEffect(() => {
-        setData('exercise_type_id', selectedExerciseType.id)
-    }, [selectedExerciseType])
+    // useEffect(() => {
+    //     if (selectedExerciseType) {
+    //         setData('exercise_type_id', selectedExerciseType.id)
+    //     }
+    // }, [selectedExerciseType])
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -75,67 +80,108 @@ const CreateExercise = ({set, isOpen, setIsOpen, setCreateExerciseType}) => {
     return (
         <Modal title="Create an exercise" isOpen={isOpen} setIsOpen={setIsOpen}>
             <form className="space-y-4" onSubmit={handleSubmit}>
+
+                <div className="w-full max-w-lg relative">
+                    <TextInput
+                        label="Exercise type"
+                        placeholder="Search for exercise..."
+                        autoComplete="off"
+                        onChange={e => setParams({...params, name: e.target.value})}
+                    />
+                    {1 === 1
+                        ? <div
+                            className="z-50 w-full absolute mt-3 shadow-lg rounded-lg bg-white"
+                        >
+                            <ul>
+                                <li className="flex justify-between items-center px-3 py-3">
+                                    <div>Some</div>
+                                    <div className="px-2 py-1 flex items-center text-xs rounded-md font-semibold text-purple-500 bg-purple-100">Per side</div>
+                                </li>
+                                <li className="flex justify-between items-center px-3 py-3">
+                                    <div>Some</div>
+                                    <div className="px-2 py-1 flex items-center text-xs rounded-md font-semibold text-purple-500 bg-purple-100">Per side</div>
+                                </li>
+                                <li className="flex justify-between items-center px-3 py-3">
+                                    <div>Some</div>
+                                </li>
+
+                                {/*{exerciseTypes.data.map(type => {*/}
+                                {/*    return <li>*/}
+                                {/*        <div className="px-3 py-3 ">*/}
+                                {/*            {type.name}*/}
+                                {/*        </div>*/}
+                                {/*    </li>*/}
+                                {/*})}*/}
+                            </ul>
+                        </div>
+                        : <CreateExerciseType name={params.name} />
+                    }
+                </div>
+
+
                 <div className="flex justify justify-between items-center space-x-2">
-                    <div className="w-5/6 relative">
-                        {selectedExerciseType && <Listbox value={selectedExerciseType} onChange={setSelectedExerciseType}>
-                            {({open}) => (
-                                <>
-                                    <Listbox.Button
-                                        className="rounded-lg flex justify-between items-center appearance-none border w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent border-gray-300"
-                                    >
-                                        <div>{selectedExerciseType.name}</div>
-                                        {open ? <ChevronUpIcon className="h-5 w-5"/> : <ChevronDownIcon className="h-5 w-5"/>}
-                                    </Listbox.Button>
 
-                                    <Transition
-                                        as={Fragment}
-                                        leave="transition ease-in duration-100"
-                                        leaveFrom="opacity-100"
-                                        leaveTo="opacity-0"
-                                    >
-                                        <Listbox.Options className="h-48 absolute z-30 w-full flex flex-col space-y-1 py-2 mt-1 overflow-auto text-base bg-white rounded-lg shadow-lg max-h-60 ring-1 ring-black ring-opacity-5 focus:outline-none">
-                                            <TextInput
-                                                className="px-2"
-                                                // name="repetitions"
-                                                // type="number"
-                                                // min="0"
-                                                // label="Repetitions"
-                                                autoComplete="off"
-                                                placeholder="Search..."
-                                                // errors={errors.repetitions}
-                                                value={params.name}
-                                                onChange={e => setParams({...params, name: e.target.value})}
-                                            />
-                                            {exerciseTypes
-                                                ?
-                                                exerciseTypes.data.data.map((exerciseType) => (
-                                                <Listbox.Option
-                                                    className={({ active }) =>
-                                                        `flex space-x-4 items-center cursor-default select-none relative py-2 px-4 ${active ? 'text-purple-900 bg-purple-100' : 'text-gray-900'}`
-                                                    }
-                                                    key={exerciseType.id}
-                                                    value={exerciseType}
-                                                >
-                                                    {({active, selected}) => (
-                                                        <>
-                                                            <span className={`${selected && 'font-semibold text-purple-600'} ${active && 'text-purple-600'}`}>{exerciseType.name}</span>
-                                                            {selected && <CheckIcon className="text-purple-600 h-5 w-5" />}
-                                                        </>
-                                                    )}
+                    {/*<div className="w-5/6 relative">*/}
+                    {/*    */}
+                    {/*    {selectedExerciseType && <Listbox value={selectedExerciseType} onChange={setSelectedExerciseType}>*/}
+                    {/*        {({open}) => (*/}
+                    {/*            <>*/}
+                    {/*                <Listbox.Button*/}
+                    {/*                    className="rounded-lg flex justify-between items-center appearance-none border w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent border-gray-300"*/}
+                    {/*                >*/}
+                    {/*                    <div>{selectedExerciseType.name}</div>*/}
+                    {/*                    {open ? <ChevronUpIcon className="h-5 w-5"/> : <ChevronDownIcon className="h-5 w-5"/>}*/}
+                    {/*                </Listbox.Button>*/}
 
-                                                </Listbox.Option>
-                                            ))
-                                            : 'Loading'}
-                                        </Listbox.Options>
-                                    </Transition>
-                                </>
-                            )}
-                        </Listbox>}
-                    </div>
+                    {/*                <Transition*/}
+                    {/*                    as={Fragment}*/}
+                    {/*                    leave="transition ease-in duration-100"*/}
+                    {/*                    leaveFrom="opacity-100"*/}
+                    {/*                    leaveTo="opacity-0"*/}
+                    {/*                >*/}
+                    {/*                    <Listbox.Options className="h-48 absolute z-30 w-full flex flex-col space-y-1 py-2 mt-1 overflow-auto text-base bg-white rounded-lg shadow-lg max-h-60 ring-1 ring-black ring-opacity-5 focus:outline-none">*/}
+                    {/*                        <TextInput*/}
+                    {/*                            className="px-2"*/}
+                    {/*                            // name="repetitions"*/}
+                    {/*                            // type="number"*/}
+                    {/*                            // min="0"*/}
+                    {/*                            // label="Repetitions"*/}
+                    {/*                            autoComplete="off"*/}
+                    {/*                            placeholder="Search..."*/}
+                    {/*                            // errors={errors.repetitions}*/}
+                    {/*                            value={params.name}*/}
+                    {/*                            onChange={e => setParams({...params, name: e.target.value})}*/}
+                    {/*                        />*/}
+                    {/*                        {exerciseTypes*/}
+                    {/*                            ?*/}
+                    {/*                            exerciseTypes.data.data.map((exerciseType) => (*/}
+                    {/*                            <Listbox.Option*/}
+                    {/*                                className={({ active }) =>*/}
+                    {/*                                    `flex space-x-4 items-center cursor-default select-none relative py-2 px-4 ${active ? 'text-purple-900 bg-purple-100' : 'text-gray-900'}`*/}
+                    {/*                                }*/}
+                    {/*                                key={exerciseType.id}*/}
+                    {/*                                value={exerciseType}*/}
+                    {/*                            >*/}
+                    {/*                                {({active, selected}) => (*/}
+                    {/*                                    <>*/}
+                    {/*                                        <span className={`${selected && 'font-semibold text-purple-600'} ${active && 'text-purple-600'}`}>{exerciseType.name}</span>*/}
+                    {/*                                        {selected && <CheckIcon className="text-purple-600 h-5 w-5" />}*/}
+                    {/*                                    </>*/}
+                    {/*                                )}*/}
 
-                    <div className="w-1/6">
-                        <PrimaryButton type="button" onClick={() => setCreateExerciseType(true)}>Add</PrimaryButton>
-                    </div>
+                    {/*                            </Listbox.Option>*/}
+                    {/*                        ))*/}
+                    {/*                        : 'Loading'}*/}
+                    {/*                    </Listbox.Options>*/}
+                    {/*                </Transition>*/}
+                    {/*            </>*/}
+                    {/*        )}*/}
+                    {/*    </Listbox>}*/}
+                    {/*</div>*/}
+
+                    {/*<div className="w-1/6">*/}
+                    {/*    <PrimaryButton type="button" onClick={() => setCreateExerciseType(true)}>Add</PrimaryButton>*/}
+                    {/*</div>*/}
 
                 </div>
 
@@ -181,7 +227,8 @@ const CreateExercise = ({set, isOpen, setIsOpen, setCreateExerciseType}) => {
 
                 <div className="flex justify-between items-center space-x-4">
                     <PrimaryButton className="w-full" type="submit" loading={processing}>Save</PrimaryButton>
-                    <SecondaryButton className="w-full" type="button" onClick={() => setIsOpen(false)}>Cancel</SecondaryButton>
+                    <SecondaryButton className="w-full" type="button"
+                                     onClick={() => setIsOpen(false)}>Cancel</SecondaryButton>
                 </div>
             </form>
         </Modal>

@@ -8,13 +8,16 @@ import {hasRestTime, hasWorkTime, isCountBased, isTimeBased} from "../../utils";
 import TextArea from "../../Shared/Components/TextArea";
 import SecondaryButton from "../../Shared/Components/SecondaryButton";
 import Modal from "../../Shared/Components/Modal";
+import SelectInput from "../../Shared/Components/SelectInput";
+import {toast} from "react-toastify";
 
 const CreateSet = ({workout, types, isOpen, setIsOpen}) => {
+
     const [selectedType, setSelectedType] = useState(types[0])
 
     const {data, setData, errors, post, processing, wasSuccessful, reset} = useForm({
         title: '',
-        type: '',
+        type: types[0].value,
         description: '',
         total_seconds: '',
         work_seconds: '',
@@ -28,23 +31,27 @@ const CreateSet = ({workout, types, isOpen, setIsOpen}) => {
     }
 
     useEffect(() => {
-        setData({
-            ...data,
-            type: selectedType.value,
-        })
+        if (data.type) {
+            console.log(types)
+            console.log(data.type)
+            console.log(types.find(it => it.value === data.type))
+            setSelectedType(types.find(it => it.value === data.type))
+        }
 
-        console.log(data)
-        console.log(selectedType)
-    }, [selectedType])
+        console.log("Selected type", selectedType)
 
-    // useEffect(() => {
-    //     if (wasSuccessful) {
-    //         setIsOpen(false)
-    //         reset(...data)
-    //     }
-    //
-    //     setSelectedType(types.find(type => type.value === data.type) || types[0])
-    // }, [wasSuccessful])
+    }, [data.type])
+
+    useEffect(() => {
+        if (wasSuccessful) {
+            setIsOpen(false)
+            reset(...Object.keys(data))
+        }
+
+        toast.success("Set created!")
+
+        // setSelectedType(types.find(type => type.value === data.type) || types[0])
+    }, [wasSuccessful])
 
     return (
         <Modal title="Add a set" isOpen={isOpen} setIsOpen={setIsOpen} className="max-w-lg">
@@ -59,50 +66,62 @@ const CreateSet = ({workout, types, isOpen, setIsOpen}) => {
                     onChange={e => setData('title', e.target.value)}
                 />
 
+                <SelectInput
+                    name="type"
+                    label="Set type"
+                    autoComplete="off"
+                    errors={errors.type}
+                    value={data.type}
+                    onChange={e => setData('type', parseInt(e.target.value))}
+                >
+                    {types && types.map(type => <option key={type.value} value={type.value}>{type.text}</option>)}
+                </SelectInput>
+
                 <div>
                     <div className="w-full max-w-md mx-auto">
-                        <RadioGroup value={selectedType} onChange={setSelectedType}>
-                            <div className="space-y-2">
-                                {types.map((type) => (
-                                    <RadioGroup.Option
-                                        key={type.value}
-                                        value={type}
-                                        className={({checked}) =>
-                                            `${checked ? 'ring-2 ring-offset-2 ring-offset-500 ring-offset-purple-200 ring-white ring-opacity-60 bg-purple-700 bg-opacity-75 text-white' : 'bg-white'}
-                                                    relative rounded-lg shadow-md px-5 py-4 cursor-pointer flex focus:outline-none`
-                                        }
-                                    >
-                                        {({active, checked}) => (
-                                            <>
-                                                <div className="flex items-center justify-between w-full">
-                                                    <div className="flex items-center">
-                                                        <div className="text-sm">
-                                                            <RadioGroup.Label
-                                                                as="p"
-                                                                className={`font-medium  ${checked ? 'text-white' : 'text-gray-900'}`}
-                                                            >
-                                                                {type.text}
-                                                            </RadioGroup.Label>
-                                                            <RadioGroup.Description
-                                                                as="span"
-                                                                className={`inline ${checked ? 'text-sky-100' : 'text-gray-500'}`}
-                                                            >
-                                                                <span className="text-xs">{type.description}</span>
-                                                            </RadioGroup.Description>
-                                                        </div>
-                                                    </div>
-                                                    {checked && (
-                                                        <div className="flex-shrink-0 text-white">
-                                                            <CheckIcon className="w-6 h-6"/>
-                                                        </div>
-                                                    )}
-                                                </div>
-                                            </>
-                                        )}
-                                    </RadioGroup.Option>
-                                ))}
-                            </div>
-                        </RadioGroup>
+
+                        {/*<RadioGroup value={selectedType} onChange={setSelectedType}>*/}
+                        {/*    <div className="space-y-2">*/}
+                        {/*        {types.map((type) => (*/}
+                        {/*            <RadioGroup.Option*/}
+                        {/*                key={type.value}*/}
+                        {/*                value={type}*/}
+                        {/*                className={({checked}) =>*/}
+                        {/*                    `${checked ? 'ring-2 ring-offset-2 ring-offset-500 ring-offset-purple-200 ring-white ring-opacity-60 bg-purple-700 bg-opacity-75 text-white' : 'bg-white'}*/}
+                        {/*                            relative rounded-lg shadow-md px-5 py-4 cursor-pointer flex focus:outline-none`*/}
+                        {/*                }*/}
+                        {/*            >*/}
+                        {/*                {({active, checked}) => (*/}
+                        {/*                    <>*/}
+                        {/*                        <div className="flex items-center justify-between w-full">*/}
+                        {/*                            <div className="flex items-center">*/}
+                        {/*                                <div className="text-sm">*/}
+                        {/*                                    <RadioGroup.Label*/}
+                        {/*                                        as="p"*/}
+                        {/*                                        className={`font-medium  ${checked ? 'text-white' : 'text-gray-900'}`}*/}
+                        {/*                                    >*/}
+                        {/*                                        {type.text}*/}
+                        {/*                                    </RadioGroup.Label>*/}
+                        {/*                                    <RadioGroup.Description*/}
+                        {/*                                        as="span"*/}
+                        {/*                                        className={`inline ${checked ? 'text-sky-100' : 'text-gray-500'}`}*/}
+                        {/*                                    >*/}
+                        {/*                                        <span className="text-xs">{type.description}</span>*/}
+                        {/*                                    </RadioGroup.Description>*/}
+                        {/*                                </div>*/}
+                        {/*                            </div>*/}
+                        {/*                            {checked && (*/}
+                        {/*                                <div className="flex-shrink-0 text-white">*/}
+                        {/*                                    <CheckIcon className="w-6 h-6"/>*/}
+                        {/*                                </div>*/}
+                        {/*                            )}*/}
+                        {/*                        </div>*/}
+                        {/*                    </>*/}
+                        {/*                )}*/}
+                        {/*            </RadioGroup.Option>*/}
+                        {/*        ))}*/}
+                        {/*    </div>*/}
+                        {/*</RadioGroup>*/}
                     </div>
                 </div>
 
