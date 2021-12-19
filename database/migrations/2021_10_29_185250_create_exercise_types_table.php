@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -14,7 +15,14 @@ class CreateExerciseTypesTable extends Migration
     public function up()
     {
         Schema::create('exercise_types', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')
+                ->primary();
+
+            $table->foreignIdFor(User::class)
+                ->comment('References the user')
+                ->constrained()
+                ->cascadeOnUpdate()
+                ->cascadeOnDelete();
 
             $table->string('name')
                 ->comment('Exercise name');
@@ -26,6 +34,8 @@ class CreateExerciseTypesTable extends Migration
             $table->string('url')
                 ->nullable()
                 ->comment('Exercise url handle');
+
+            $table->unique(['user_id', 'name']);
 
             $table->timestamps();
             $table->softDeletes();

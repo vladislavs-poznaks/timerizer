@@ -14,7 +14,8 @@ class CreateDictionariesTable extends Migration
     public function up()
     {
         Schema::create('dictionaries', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')
+                ->primary();
 
             $table->string('title')
                 ->comment('Dictionary title');

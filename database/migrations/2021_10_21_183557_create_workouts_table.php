@@ -15,7 +15,8 @@ class CreateWorkoutsTable extends Migration
     public function up()
     {
         Schema::create('workouts', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')
+                ->primary();
 
             $table->foreignIdFor(User::class)
                 ->comment('References the user')

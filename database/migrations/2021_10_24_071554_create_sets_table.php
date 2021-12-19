@@ -15,7 +15,8 @@ class CreateSetsTable extends Migration
     public function up()
     {
         Schema::create('sets', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')
+                ->primary();
 
             $table->foreignIdFor(Workout::class)
                 ->comment('References the workout')
