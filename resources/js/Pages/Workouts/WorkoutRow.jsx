@@ -7,11 +7,12 @@ import {Inertia} from "@inertiajs/inertia";
 const WorkoutRow = ({workout}) => {
 
     const handleSubmit = (e) => {
-        console.log('HERE')
         e.preventDefault()
-        Inertia.delete(route('workouts.delete', workout.id))
-    }
 
+        if (confirm("Sure?")) {
+            Inertia.delete(route('workouts.delete', workout.id))
+        }
+    }
 
     return (
         <tr>
@@ -35,19 +36,17 @@ const WorkoutRow = ({workout}) => {
             </td>
 
             <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                <span
-                    className="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
-                    <span aria-hidden="true"
-                          className="absolute inset-0 bg-green-200 opacity-50 rounded-full">
-                    </span>
-                    <span className="relative">
+                <div className="inline-block">
+                    <div
+                        className={`px-2 py-1 flex items-center rounded-full font-semibold ${workout.public ? 'text-green-700 bg-green-200' : 'text-red-700 bg-red-200'}`}
+                    >
                         {workout.public ? 'Public' : 'Private'}
-                    </span>
-                </span>
+                    </div>
+                </div>
             </td>
 
             <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                <TableButton type="button" onClick={(e) => handleSubmit(e)}>
+                <TableButton color="red" type="button" onClick={(e) => handleSubmit(e)}>
                     <TrashIcon className="w-5 h-5"/>
                 </TableButton>
             </td>

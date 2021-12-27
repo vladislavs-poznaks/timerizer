@@ -8,12 +8,6 @@ class WorkoutResource extends JsonResource
 {
     public static $wrap = null;
 
-    /**
-     * Transform the resource into an array.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return array
-     */
     public function toArray($request): array
     {
         return [
@@ -23,8 +17,8 @@ class WorkoutResource extends JsonResource
             'description' => $this->description,
             'public' => $this->public,
             'total_seconds' => $this->total_seconds,
-            'createdAt' => $this->created_at,
-            'updatedAt' => $this->updated_at,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
         ];
     }
 }

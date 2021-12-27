@@ -63,6 +63,6 @@ class Set extends Model
 
     public function exercises(): HasMany
     {
-        return $this->hasMany(Exercise::class);
+        return $this->hasMany(Exercise::class)->orderBy('created_at');
     }
 }
