@@ -10,57 +10,28 @@ class WorkoutPolicy
 {
     use HandlesAuthorization;
 
-//    /**
-//     * Determine whether the user can view any models.
-//     *
-//     * @return bool
-//     */
-//    public function viewAny(): bool
-//    {
-//        return true;
-//    }
-//
-//    /**
-//     * Determine whether the user can view the model.
-//     *
-//     * @param Workout $workout
-//     * @return bool
-//     */
-//    public function view(Workout $workout): bool
-//    {
-//        return true;
-//    }
-//
-//    /**
-//     * Determine whether the user can create models.
-//     *
-//     * @return bool
-//     */
-//    public function create(): bool
-//    {
-//        return true;
-//    }
-
     /**
      * Determine whether the user can update the model.
      *
+     * @param User $user
      * @param Workout $workout
      * @return bool
      */
-    public function update(Workout $workout): bool
+    public function update(User $user, Workout $workout): bool
     {
-        return $workout->owner->is(auth()->user());
+        return $workout->owner->is($user);
     }
 
     /**
      * Determine whether the user can delete the model.
      *
+     * @param User $user
      * @param Workout $workout
      * @return bool
      */
-    public function delete(Workout $workout): bool
+    public function delete(User $user, Workout $workout): bool
     {
-        return $workout->owner->is(auth()->user());
+        return $workout->owner->is($user);
     }
 
     /**

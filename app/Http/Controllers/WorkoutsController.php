@@ -49,4 +49,13 @@ class WorkoutsController extends Controller
     {
 
     }
+
+    public function destroy(Workout $workout)
+    {
+        $workout->delete();
+
+        return inertia('Workouts/Index', [
+            'workouts' => new WorkoutCollection(auth()->user()->workouts)
+        ]);
+    }
 }

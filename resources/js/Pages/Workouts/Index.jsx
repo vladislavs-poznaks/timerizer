@@ -4,6 +4,7 @@ import PrimaryButton from "@/Shared/Components/PrimaryButton";
 import WorkoutCard from "./WorkoutCard";
 import CreateWorkout from "./CreateWorkout";
 import {TrashIcon} from "@heroicons/react/solid";
+import WorkoutRow from "./WorkoutRow";
 
 const Index = ({workouts}) => {
     const [createWorkout, setCreateWorkout] = useState(false)
@@ -42,43 +43,7 @@ const Index = ({workouts}) => {
                         </tr>
                         </thead>
                         <tbody>
-                        {workouts.data.length ? workouts.data.map((workout, key) => {
-                            return (
-                                <tr key={key}>
-                                    <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                        <div className="flex items-center">
-                                            <div className="ml-3">
-                                                <Link href={route('workouts.show', {workout: workout.id})}>
-                                                <p className="text-gray-900 whitespace-no-wrap">
-
-                                                    {workout.title}
-                                                </p>
-                                                </Link>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                        <p className="text-gray-900 whitespace-no-wrap">
-                                            {workout.description}
-                                        </p>
-                                    </td>
-                                    <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                        <span
-                                            className="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
-                                            <span aria-hidden="true"
-                                                  className="absolute inset-0 bg-green-200 opacity-50 rounded-full">
-                                            </span>
-                                            <span className="relative">
-                                                {workout.public ? 'Public' : 'Private'}
-                                            </span>
-                                        </span>
-                                    </td>
-                                    <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                        <TrashIcon className="w-5 h-5"/>
-                                    </td>
-                                </tr>
-                            )
-                        }) : 'No workouts yet'}
+                        {workouts.data.length ? workouts.data.map((workout, key) => <WorkoutRow key={key} workout={workout} />) : 'No workouts yet'}
                         </tbody>
                     </table>
                     {/*            </div>*/}
