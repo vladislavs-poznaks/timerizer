@@ -15,7 +15,7 @@ class ExerciseTypeController extends Controller
             'user_id' => Auth::user()->getAuthIdentifier()
         ]);
 
-        ExerciseType::create($attributes);
+        $exerciseType = ExerciseType::create($attributes);
 
         // TODO Redirect?!
         return redirect()->back();

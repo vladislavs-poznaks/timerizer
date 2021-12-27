@@ -46,10 +46,9 @@ const CreateSet = ({workout, types, isOpen, setIsOpen}) => {
         if (wasSuccessful) {
             setIsOpen(false)
             reset(...Object.keys(data))
+
+            toast.success("Set created!")
         }
-
-        toast.success("Set created!")
-
         // setSelectedType(types.find(type => type.value === data.type) || types[0])
     }, [wasSuccessful])
 

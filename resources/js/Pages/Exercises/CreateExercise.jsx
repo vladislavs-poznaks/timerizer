@@ -1,22 +1,16 @@
-import React, {Fragment, useEffect, useRef, useState} from 'react'
-import {useForm, usePage} from '@inertiajs/inertia-react'
+import React, {useEffect, useState} from 'react'
+import {useForm} from '@inertiajs/inertia-react'
 import TextInput from "../../Shared/Components/TextInput";
 import PrimaryButton from "../../Shared/Components/PrimaryButton";
 import SecondaryButton from "../../Shared/Components/SecondaryButton";
 import Modal from "../../Shared/Components/Modal";
-import {Inertia} from "@inertiajs/inertia";
-import {Listbox, Transition} from "@headlessui/react";
-import {CheckIcon, ChevronDownIcon, ChevronUpIcon} from "@heroicons/react/outline";
 import {useQuery, useQueryClient} from "react-query";
 import axios from "axios";
 import CreateExerciseType from "../ExerciseTypes/CreateExerciseType";
+import {toast} from "react-toastify";
 
 const CreateExercise = ({set, isOpen, setIsOpen, setCreateExerciseType}) => {
-    // const {workout} = usePage().props
-
-    const [selectedExerciseType, setSelectedExerciseType] = useState({
-        id: '',
-    })
+    const [showTypes, setShowTypes] = useState(false)
 
     const [params, setParams] = useState({
         name: ''
@@ -24,41 +18,24 @@ const CreateExercise = ({set, isOpen, setIsOpen, setCreateExerciseType}) => {
 
     const [timeBased, setTimeBased] = useState(false)
 
-    const {data, setData, errors, post, processing} = useForm({
+    const {data, setData, errors, post, processing, wasSuccessful, reset} = useForm({
         exercise_type_id: '',
         repetitions: '',
         seconds: '',
     })
 
-    // function usePrevious(value) {
-    //     const ref = useRef()
-    //     useEffect(() => {
-    //         ref.current = value
-    //     })
-    //     return ref.current
-    // }
-    //
-    // const prevParams = usePrevious(params);
 
-    // useEffect(() => {
-    //     if (prevParams) {
-    //         Inertia.get(route(route().current(), workout.id), params, {
-    //             replace: true,
-    //             preserveState: true
-    //         });
-    //     }
-    // }, [params])
-
-
-    const {isLoading, isSuccess, data: exerciseTypes} = useQuery([exerciseTypes, params], () => {
-        // TODO Cancel previous request
+    const {isLoading, isSuccess, data: exerciseTypes} = useQuery([params], () => {
         return axios.get(route('exercise-types.api', params))
+    }, {
+        select: (data) => data.data
     })
 
     useEffect(() => {
-        if (isSuccess) {
-            console.log(exerciseTypes)
-            console.log(exerciseTypes.data.data)
+        setShowTypes(showExerciseTypes())
+
+        if (exerciseTypeSelected()) {
+            setData('exercise_type_id', exerciseTypes.data.find(it => it.name === params.name).id)
         }
     }, [exerciseTypes])
 
@@ -66,11 +43,34 @@ const CreateExercise = ({set, isOpen, setIsOpen, setCreateExerciseType}) => {
         timeBased ? setData({...data, repetitions: ''}) : setData({...data, seconds: ''})
     }, [timeBased])
 
-    // useEffect(() => {
-    //     if (selectedExerciseType) {
-    //         setData('exercise_type_id', selectedExerciseType.id)
-    //     }
-    // }, [selectedExerciseType])
+    useEffect(() => {
+        if (wasSuccessful) {
+            setIsOpen(false)
+            reset(...Object.keys(data))
+
+            toast.success("Exercise created!")
+        }
+    }, [wasSuccessful])
+
+    const showExerciseTypes = () => {
+        if (exerciseTypes === undefined) {
+            return false
+        }
+
+        if (params.name.length < 3) {
+            return false
+        }
+
+        return ! exerciseTypeSelected()
+    }
+
+    const exerciseTypeSelected = () => {
+        if (exerciseTypes === undefined) {
+            return false
+        }
+
+        return exerciseTypes.data.some(it => it.name === params.name)
+    }
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -87,102 +87,32 @@ const CreateExercise = ({set, isOpen, setIsOpen, setCreateExerciseType}) => {
                         placeholder="Search for exercise..."
                         autoComplete="off"
                         onChange={e => setParams({...params, name: e.target.value})}
+                        value={params.name}
                     />
-                    {1 === 1
-                        ? <div
-                            className="z-50 w-full absolute mt-3 shadow-lg rounded-lg bg-white"
-                        >
-                            <ul>
-                                <li className="flex justify-between items-center px-3 py-3">
-                                    <div>Some</div>
-                                    <div className="px-2 py-1 flex items-center text-xs rounded-md font-semibold text-purple-500 bg-purple-100">Per side</div>
-                                </li>
-                                <li className="flex justify-between items-center px-3 py-3">
-                                    <div>Some</div>
-                                    <div className="px-2 py-1 flex items-center text-xs rounded-md font-semibold text-purple-500 bg-purple-100">Per side</div>
-                                </li>
-                                <li className="flex justify-between items-center px-3 py-3">
-                                    <div>Some</div>
-                                </li>
-
-                                {/*{exerciseTypes.data.map(type => {*/}
-                                {/*    return <li>*/}
-                                {/*        <div className="px-3 py-3 ">*/}
-                                {/*            {type.name}*/}
-                                {/*        </div>*/}
-                                {/*    </li>*/}
-                                {/*})}*/}
-                            </ul>
-                        </div>
-                        : <CreateExerciseType name={params.name} />
-                    }
-                </div>
-
-
-                <div className="flex justify justify-between items-center space-x-2">
-
-                    {/*<div className="w-5/6 relative">*/}
-                    {/*    */}
-                    {/*    {selectedExerciseType && <Listbox value={selectedExerciseType} onChange={setSelectedExerciseType}>*/}
-                    {/*        {({open}) => (*/}
-                    {/*            <>*/}
-                    {/*                <Listbox.Button*/}
-                    {/*                    className="rounded-lg flex justify-between items-center appearance-none border w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent border-gray-300"*/}
-                    {/*                >*/}
-                    {/*                    <div>{selectedExerciseType.name}</div>*/}
-                    {/*                    {open ? <ChevronUpIcon className="h-5 w-5"/> : <ChevronDownIcon className="h-5 w-5"/>}*/}
-                    {/*                </Listbox.Button>*/}
-
-                    {/*                <Transition*/}
-                    {/*                    as={Fragment}*/}
-                    {/*                    leave="transition ease-in duration-100"*/}
-                    {/*                    leaveFrom="opacity-100"*/}
-                    {/*                    leaveTo="opacity-0"*/}
-                    {/*                >*/}
-                    {/*                    <Listbox.Options className="h-48 absolute z-30 w-full flex flex-col space-y-1 py-2 mt-1 overflow-auto text-base bg-white rounded-lg shadow-lg max-h-60 ring-1 ring-black ring-opacity-5 focus:outline-none">*/}
-                    {/*                        <TextInput*/}
-                    {/*                            className="px-2"*/}
-                    {/*                            // name="repetitions"*/}
-                    {/*                            // type="number"*/}
-                    {/*                            // min="0"*/}
-                    {/*                            // label="Repetitions"*/}
-                    {/*                            autoComplete="off"*/}
-                    {/*                            placeholder="Search..."*/}
-                    {/*                            // errors={errors.repetitions}*/}
-                    {/*                            value={params.name}*/}
-                    {/*                            onChange={e => setParams({...params, name: e.target.value})}*/}
-                    {/*                        />*/}
-                    {/*                        {exerciseTypes*/}
-                    {/*                            ?*/}
-                    {/*                            exerciseTypes.data.data.map((exerciseType) => (*/}
-                    {/*                            <Listbox.Option*/}
-                    {/*                                className={({ active }) =>*/}
-                    {/*                                    `flex space-x-4 items-center cursor-default select-none relative py-2 px-4 ${active ? 'text-purple-900 bg-purple-100' : 'text-gray-900'}`*/}
-                    {/*                                }*/}
-                    {/*                                key={exerciseType.id}*/}
-                    {/*                                value={exerciseType}*/}
-                    {/*                            >*/}
-                    {/*                                {({active, selected}) => (*/}
-                    {/*                                    <>*/}
-                    {/*                                        <span className={`${selected && 'font-semibold text-purple-600'} ${active && 'text-purple-600'}`}>{exerciseType.name}</span>*/}
-                    {/*                                        {selected && <CheckIcon className="text-purple-600 h-5 w-5" />}*/}
-                    {/*                                    </>*/}
-                    {/*                                )}*/}
-
-                    {/*                            </Listbox.Option>*/}
-                    {/*                        ))*/}
-                    {/*                        : 'Loading'}*/}
-                    {/*                    </Listbox.Options>*/}
-                    {/*                </Transition>*/}
-                    {/*            </>*/}
-                    {/*        )}*/}
-                    {/*    </Listbox>}*/}
-                    {/*</div>*/}
-
-                    {/*<div className="w-1/6">*/}
-                    {/*    <PrimaryButton type="button" onClick={() => setCreateExerciseType(true)}>Add</PrimaryButton>*/}
-                    {/*</div>*/}
-
+                    {showTypes && <div
+                        className="z-50 w-full absolute mt-3 shadow-lg rounded-lg bg-white"
+                    >
+                        <ul>
+                            {exerciseTypes && exerciseTypes.data.map(type => {
+                                return (
+                                    <li key={type.id}>
+                                        <button
+                                            type="button"
+                                            className="flex justify-between items-center px-3 py-3 space-x-2"
+                                            onClick={() => setParams({...params, name: type.name})}
+                                        >
+                                            <div>{type.name}</div>
+                                            {type.per_side && <div
+                                                className="px-2 py-1 flex items-center text-xs rounded-md font-semibold text-purple-500 bg-purple-100">Per side</div>}
+                                        </button>
+                                    </li>
+                                )
+                            })}
+                            <li key="add_new_exercise_type" className="px-3 py-3">
+                                <CreateExerciseType name={params.name} params={params} setParams={setParams} success={() => showExerciseTypes()}/>
+                            </li>
+                        </ul>
+                    </div>}
                 </div>
 
 

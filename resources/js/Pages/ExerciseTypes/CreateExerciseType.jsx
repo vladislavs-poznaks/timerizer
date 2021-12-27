@@ -2,8 +2,8 @@ import React, {useEffect} from 'react'
 import {useForm} from '@inertiajs/inertia-react'
 import PrimaryButton from "../../Shared/Components/PrimaryButton";
 
-const CreateExerciseType = ({name}) => {
-    const {data, setData, errors, post, processing} = useForm({
+const CreateExerciseType = ({name, params, setParams}) => {
+    const {data, setData, errors, post, processing, wasSuccessful} = useForm({
         name: '',
         per_side: false,
     })
@@ -14,12 +14,17 @@ const CreateExerciseType = ({name}) => {
     }
 
     useEffect(() => {
+        if (wasSuccessful) {
+            setParams({...params, name: data.name})
+        }
+    }, [wasSuccessful])
+
+    useEffect(() => {
         setData('name', name)
     }, [name])
 
     return (
         <div className="flex justify-between items-center space-x-2">
-            <div>{name}</div>
             {/*<form className="flex justify-between items-center space-x-2" onSubmit={handleSubmit}>*/}
             <label className="flex items-center space-x-3">
                 <input
