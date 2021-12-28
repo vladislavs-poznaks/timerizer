@@ -19,7 +19,7 @@ class WorkoutsController extends Controller
     public function index()
     {
         return inertia('Workouts/Index', [
-            'workouts' => new WorkoutCollection(auth()->user()->workouts)
+            'workouts' => new WorkoutCollection(auth()->user()->workouts()->paginate(10)->withQueryString())
         ]);
     }
 

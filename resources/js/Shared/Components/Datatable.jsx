@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Datatable = ({header, columns, children}) => {
+const Datatable = ({header, footer, columns, children}) => {
     return (
         <div className="w-full bg-white rounded-2xl">
             <div className="align-middle inline-block min-w-full">
@@ -28,6 +28,9 @@ const Datatable = ({header, columns, children}) => {
                         {children}
                         </tbody>
                     </table>
+                    {footer && <div className="p-4 flex items-center justify-center border-t border-gray-200">
+                        {footer}
+                    </div>}
                 </div>
             </div>
         </div>

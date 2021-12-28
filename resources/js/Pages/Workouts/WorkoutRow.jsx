@@ -3,6 +3,7 @@ import {Link, useForm} from "@inertiajs/inertia-react";
 import {TrashIcon} from "@heroicons/react/outline";
 import TableButton from "../../Shared/Components/TableButton";
 import {Inertia} from "@inertiajs/inertia";
+import Badge from "../../Shared/Components/Badge";
 
 const WorkoutRow = ({workout}) => {
 
@@ -16,36 +17,22 @@ const WorkoutRow = ({workout}) => {
 
     return (
         <tr>
-            <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                <div className="flex items-center">
-                    <div className="ml-3">
-                        <Link href={route('workouts.show', {workout: workout.id})}>
-                            <p className="text-gray-900 whitespace-no-wrap">
-
-                                {workout.title}
-                            </p>
-                        </Link>
+            <td className="px-6 py-4 whitespace-nowrap">
+                <Link href={route('workouts.show', {workout: workout.id})}>
+                    <div className="text-sm font-medium text-gray-900">
+                        {workout.title}
                     </div>
-                </div>
+                </Link>
             </td>
-
-            <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                <p className="text-gray-900 whitespace-no-wrap">
+            <td className="px-6 py-4 whitespace-nowrap">
+                <div className="text-sm text-gray-900">
                     {workout.description}
-                </p>
-            </td>
-
-            <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                <div className="inline-block">
-                    <div
-                        className={`px-2 py-1 flex items-center rounded-full font-semibold ${workout.public ? 'text-green-700 bg-green-200' : 'text-red-700 bg-red-200'}`}
-                    >
-                        {workout.public ? 'Public' : 'Private'}
-                    </div>
                 </div>
             </td>
-
-            <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+            <td className="px-6 py-4 whitespace-nowrap">
+                <Badge color={workout.public ? 'green' : 'red'}>{workout.public ? 'Public' : 'Private'}</Badge>
+            </td>
+            <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                 <TableButton color="red" type="button" onClick={(e) => handleSubmit(e)}>
                     <TrashIcon className="w-5 h-5"/>
                 </TableButton>
