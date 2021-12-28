@@ -20,8 +20,8 @@ const Pagination = ({links}) => {
         <div className="flex justify-between items-center space-x-2">
             {links.map(link => {
                 return (link.url
-                    ? <Link href={link.url} className={`hover:text-purple-800 ${link.active ? 'font-bold text-purple-800' : ''}`}>{formatLabel(link.label)}</Link>
-                    : <span className="pointer-events-none">{formatLabel(link.label)}</span>)
+                    ? <Link key={link.label} href={link.url} className={`hover:text-purple-800 ${link.active ? 'font-bold text-purple-800' : ''}`}>{formatLabel(link.label)}</Link>
+                    : <span key={link.label} className="pointer-events-none">{formatLabel(link.label)}</span>)
             })}
         </div>
     );

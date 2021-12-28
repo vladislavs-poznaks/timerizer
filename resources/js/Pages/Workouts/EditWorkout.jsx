@@ -1,37 +1,34 @@
 import React, {useEffect} from 'react'
 import {useForm} from '@inertiajs/inertia-react'
-import TextInput from "../../Shared/Components/TextInput";
-import PrimaryButton from "../../Shared/Components/PrimaryButton";
-import TextArea from "../../Shared/Components/TextArea";
-import SecondaryButton from "../../Shared/Components/SecondaryButton";
 import Modal from "../../Shared/Components/Modal";
-import CheckBoxInput from "../../Shared/Components/CheckBoxInput";
 import { toast } from 'react-toastify';
 import WorkoutForm from "./WorkoutForm";
 
-const CreateWorkout = ({isOpen, setIsOpen}) => {
-    const {data, setData, errors, post, processing, wasSuccessful, reset} = useForm({
-        title: '',
-        description: '',
-        public: true,
+const EditWorkout = ({isOpen, setIsOpen, workout}) => {
+    const {data, setData, errors, put, processing, wasSuccessful, reset} = useForm({
+        title: workout ? workout.title : '',
+        description: workout ? workout.description : '',
+        public: workout ? workout.public : true,
     })
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        post(route('workouts.store'), data)
+        put(route('workouts.update', workout.id), data)
     }
+
+    useEffect(() => setData({...data, ...workout}), [workout])
 
     useEffect(() => {
         if (wasSuccessful) {
             setIsOpen(false)
             reset(...Object.keys(data))
 
-            toast.success("Workout created!")
+            toast.success("Workout updated!")
         }
     }, [wasSuccessful])
 
     return (
-        <Modal title="Create a workout" isOpen={isOpen} setIsOpen={setIsOpen}>
+        <Modal title="Edit a workout" isOpen={isOpen} setIsOpen={setIsOpen}>
             <WorkoutForm
                 data={data}
                 setData={setData}
@@ -44,4 +41,4 @@ const CreateWorkout = ({isOpen, setIsOpen}) => {
     );
 };
 
-export default CreateWorkout;
+export default EditWorkout;

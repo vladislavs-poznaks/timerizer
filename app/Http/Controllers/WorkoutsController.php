@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 use App\Constants\SetDictionaries;
 use App\Http\Requests\WorkoutStoreRequest;
+use App\Http\Requests\WorkoutUpdateRequest;
 use App\Http\Resources\DefinitionCollection;
 use App\Http\Resources\ExerciseTypeCollection;
 use App\Http\Resources\WorkoutCollection;
@@ -30,7 +31,6 @@ class WorkoutsController extends Controller
         $filters = request()->only('type');
 
         return inertia('Workouts/Show', [
-//            'filters' => $filters,
             'workout' => new WorkoutResource($workout),
             'setTypes' => $setTypes,
             'exerciseTypes' => new ExerciseTypeCollection(ExerciseType::all())
@@ -45,9 +45,12 @@ class WorkoutsController extends Controller
             ->with('success', 'Workout created');
     }
 
-    public function update()
+    public function update(WorkoutUpdateRequest $request, Workout $workout)
     {
+        $workout->update($request->validated());
 
+        return redirect(route('workouts.index'))
+            ->with('success', 'Workout updated');
     }
 
     public function destroy(Workout $workout)
@@ -55,7 +58,7 @@ class WorkoutsController extends Controller
         $workout->delete();
 
         return inertia('Workouts/Index', [
-            'workouts' => new WorkoutCollection(auth()->user()->workouts)
+            'workouts' => new WorkoutCollection(auth()->user()->workouts()->paginate(10)->withQueryString())
         ]);
     }
 }
