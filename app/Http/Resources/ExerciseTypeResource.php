@@ -20,7 +20,7 @@ class ExerciseTypeResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'per_side' => $this->per_side,
-            'url' => $this->url,
+            'url' => (string) $this->url,
         ];
     }
 }

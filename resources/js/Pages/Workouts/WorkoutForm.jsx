@@ -1,12 +1,9 @@
-import React, {useEffect} from 'react'
-import {useForm} from '@inertiajs/inertia-react'
-import TextInput from "../../Shared/Components/TextInput";
-import PrimaryButton from "../../Shared/Components/PrimaryButton";
-import TextArea from "../../Shared/Components/TextArea";
-import SecondaryButton from "../../Shared/Components/SecondaryButton";
-import Modal from "../../Shared/Components/Modal";
-import CheckBoxInput from "../../Shared/Components/CheckBoxInput";
-import {toast} from 'react-toastify';
+import React from 'react'
+import TextInput from "@/Shared/Components/TextInput";
+import PrimaryButton from "@/Shared/Components/PrimaryButton";
+import TextArea from "@/Shared/Components/TextArea";
+import SecondaryButton from "@/Shared/Components/SecondaryButton";
+import CheckBoxInput from "@/Shared/Components/CheckBoxInput";
 
 const WorkoutForm = ({data, setData, errors, processing, setIsOpen, handleSubmit}) => {
     return (
@@ -18,6 +15,7 @@ const WorkoutForm = ({data, setData, errors, processing, setIsOpen, handleSubmit
                     autoComplete="off"
                     placeholder="Butt Buster 3000 🚀"
                     errors={errors.title}
+
                     value={data.title}
                     onChange={e => setData('title', e.target.value)}
                 />
@@ -34,11 +32,23 @@ const WorkoutForm = ({data, setData, errors, processing, setIsOpen, handleSubmit
                     onChange={e => setData('description', e.target.value)}
                 />
             </div>
-            <CheckBoxInput label="Public" name="public" checked={data.public}
-                           onChange={e => setData('public', e.target.checked)}/>
+            <CheckBoxInput
+                label="Public"
+                name="public"
+                checked={data.public}
+                onChange={e => setData('public', e.target.checked)}
+            />
             <div className="flex justify-between items-center space-x-4">
-                <PrimaryButton type="submit" className="w-full" loading={processing}>Save</PrimaryButton>
-                <SecondaryButton type="button" className="w-full" onClick={() => setIsOpen(false)}>Cancel</SecondaryButton>
+                <PrimaryButton
+                    type="submit"
+                    className="w-full"
+                    loading={processing}
+                >Save</PrimaryButton>
+                <SecondaryButton
+                    type="button"
+                    className="w-full"
+                    onClick={() => setIsOpen(false)}
+                >Cancel</SecondaryButton>
             </div>
         </form>
     );

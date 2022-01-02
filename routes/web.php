@@ -4,6 +4,7 @@ use App\Http\Controllers\ExercisesController;
 use App\Http\Controllers\ExerciseTypeController;
 use App\Http\Controllers\SetsController;
 use App\Http\Controllers\WorkoutsController;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -49,8 +50,17 @@ Route::group([
     Route::put('workouts/sets/{set}', [SetsController::class, 'update'])
         ->name('sets.update');
 
+    Route::get('workouts/sets/exercise-types', [ExerciseTypeController::class, 'index'])
+        ->name('exercise-types.index');
     Route::post('workouts/sets/exercise-types', [ExerciseTypeController::class, 'store'])
         ->name('exercise-types.store');
+    Route::get('workouts/sets/exercise-types/{exerciseType}', [ExerciseTypeController::class, 'show'])
+        ->name('exercise-types.show');
+    Route::match([Request::METHOD_PUT, Request::METHOD_PATCH],'workouts/sets/exercise-types/{exerciseType}', [ExerciseTypeController::class, 'update'])
+        ->name('exercise-types.update');
+
+    Route::delete('workouts/sets/exercise-types/{exerciseType}', [ExerciseTypeController::class, 'destroy'])
+        ->name('exercise-types.delete');
 
     Route::post('workouts/sets/{set}/exercises', [ExercisesController::class, 'store'])
         ->name('exercises.store');

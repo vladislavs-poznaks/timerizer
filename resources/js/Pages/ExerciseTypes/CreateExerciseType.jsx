@@ -1,10 +1,12 @@
-import React, {useEffect} from 'react'
+import React from 'react'
 import {useForm} from '@inertiajs/inertia-react'
-import PrimaryButton from "../../Shared/Components/PrimaryButton";
+import Modal from "@/Shared/Components/Modal";
+import ExerciseTypeForm from "./ExerciseTypeForm";
 
-const CreateExerciseType = ({name, params, setParams}) => {
-    const {data, setData, errors, post, processing, wasSuccessful} = useForm({
+const CreateExerciseType = ({isOpen, setIsOpen}) => {
+    const {data, setData, errors, post, processing} = useForm({
         name: '',
+        url: '',
         per_side: false,
     })
 
@@ -13,37 +15,17 @@ const CreateExerciseType = ({name, params, setParams}) => {
         post(route('exercise-types.store'), data)
     }
 
-    useEffect(() => {
-        if (wasSuccessful) {
-            setParams({...params, name: data.name})
-        }
-    }, [wasSuccessful])
-
-    useEffect(() => {
-        setData('name', name)
-    }, [name])
-
     return (
-        <div className="flex justify-between items-center space-x-2">
-            {/*<form className="flex justify-between items-center space-x-2" onSubmit={handleSubmit}>*/}
-            <label className="flex items-center space-x-3">
-                <input
-                    id="per_side"
-                    type="checkbox"
-                    className="form-tick appearance-none bg-white bg-check h-6 w-6 border border-gray-300 rounded-md checked:bg-purple-500 checked:border-transparent focus:outline-none"
-                    checked={data.per_side}
-                    onChange={e => setData('per_side', e.target.checked)}
-                />
-                <span
-                    className="inline-flex text-xs text-gray-500 sm:text-sm dark:text-gray-100"
-                >Per each side</span>
-            </label>
-
-            <div className="flex justify-between items-center space-x-4">
-                <PrimaryButton type="button" onClick={(e) => handleSubmit(e)} loading={processing}>Add</PrimaryButton>
-            </div>
-        </div>
-
+        <Modal title="Create an exercise" isOpen={isOpen} setIsOpen={setIsOpen}>
+            <ExerciseTypeForm
+                data={data}
+                setData={setData}
+                errors={errors}
+                processing={processing}
+                handleSubmit={handleSubmit}
+                setIsOpen={setIsOpen}
+            />
+        </Modal>
     );
 };
 

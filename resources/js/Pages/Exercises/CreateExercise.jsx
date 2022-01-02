@@ -6,8 +6,9 @@ import SecondaryButton from "../../Shared/Components/SecondaryButton";
 import Modal from "../../Shared/Components/Modal";
 import {useQuery, useQueryClient} from "react-query";
 import axios from "axios";
-import CreateExerciseType from "../ExerciseTypes/CreateExerciseType";
+import CreateExerciseTypeWrapped from "../ExerciseTypes/CreateExerciseTypeWrapped";
 import {toast} from "react-toastify";
+import {debounce} from "lodash";
 
 const CreateExercise = ({set, isOpen, setIsOpen, setCreateExerciseType}) => {
     const [showTypes, setShowTypes] = useState(false)
@@ -109,7 +110,7 @@ const CreateExercise = ({set, isOpen, setIsOpen, setCreateExerciseType}) => {
                                 )
                             })}
                             <li key="add_new_exercise_type" className="px-3 py-3">
-                                <CreateExerciseType name={params.name} params={params} setParams={setParams} success={() => showExerciseTypes()}/>
+                                <CreateExerciseTypeWrapped name={params.name} params={params} setParams={setParams} success={() => showExerciseTypes()}/>
                             </li>
                         </ul>
                     </div>}

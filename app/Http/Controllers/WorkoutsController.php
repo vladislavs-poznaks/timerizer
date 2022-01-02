@@ -41,24 +41,23 @@ class WorkoutsController extends Controller
     {
         auth()->user()->workouts()->create($request->validated());
 
-        return redirect(route('workouts.index'))
-            ->with('success', 'Workout created');
+        return redirect()
+            ->back();
     }
 
     public function update(WorkoutUpdateRequest $request, Workout $workout)
     {
         $workout->update($request->validated());
 
-        return redirect(route('workouts.index'))
-            ->with('success', 'Workout updated');
+        return redirect()
+            ->back()
+            ->with('success', 'Workout updated!');
     }
 
     public function destroy(Workout $workout)
     {
         $workout->delete();
 
-        return inertia('Workouts/Index', [
-            'workouts' => new WorkoutCollection(auth()->user()->workouts()->paginate(10)->withQueryString())
-        ]);
+        return redirect()->back();
     }
 }

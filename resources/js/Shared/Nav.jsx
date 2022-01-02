@@ -18,6 +18,12 @@ const Nav = () => {
             >
                 Workouts
             </Link>
+            <Link
+                href={route('exercise-types.index')}
+                className={`w-full font-bold flex items-center px-4 py-2 transition-colors duration-200 hover:text-purple-500 ${route().current('exercise-types.*') ? 'text-purple-500 border-b-4 border-purple-500' : 'text-gray-700 dark:text-gray-200 mb-1'}`}
+            >
+                Exercises
+            </Link>
             {auth.check
                 ?
                 <Link

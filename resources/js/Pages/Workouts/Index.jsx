@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {Head} from '@inertiajs/inertia-react'
+import {Head, usePage} from '@inertiajs/inertia-react'
 import PrimaryButton from "@/Shared/Components/PrimaryButton";
 import CreateWorkout from "./CreateWorkout";
 import WorkoutRow from "./WorkoutRow";
@@ -8,6 +8,10 @@ import Pagination from "../../Shared/Components/Pagination";
 import EditWorkout from "./EditWorkout";
 
 const Index = ({workouts}) => {
+    const props = usePage().props
+
+    console.log(props)
+
     const [createWorkout, setCreateWorkout] = useState(false)
     const [editWorkout, setEditWorkout] = useState(false)
 
