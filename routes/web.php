@@ -3,6 +3,7 @@
 use App\Http\Controllers\ExercisesController;
 use App\Http\Controllers\ExerciseTypeController;
 use App\Http\Controllers\SetsController;
+use App\Http\Controllers\TimelineController;
 use App\Http\Controllers\WorkoutsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -19,12 +20,17 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return inertia('Home');
+    return redirect(\route('timeline.index'));
 })->name('home');
 
 Route::group([
     'middleware' => 'auth'
 ], function () {
+
+    Route::get('timeline', [TimelineController::class, 'index'])
+        ->name('timeline.index');
+    Route::get('timeline/{workout}', [TimelineController::class, 'show'])
+        ->name('timeline.show');
 
     Route::get('workouts', [WorkoutsController::class, 'index'])
         ->name('workouts.index');
@@ -38,17 +44,12 @@ Route::group([
     Route::get('workouts/{workout}/edit', [WorkoutsController::class, 'edit'])
         ->middleware('can:update,workout')
         ->name('workouts.edit');
-    Route::put('workouts/{workout}', [WorkoutsController::class, 'update'])
+    Route::match([Request::METHOD_PUT, Request::METHOD_PATCH],'workouts/{workout}', [WorkoutsController::class, 'update'])
         ->middleware('can:update,workout')
         ->name('workouts.update');
     Route::delete('workouts/{workout}', [WorkoutsController::class, 'destroy'])
         ->middleware('can:delete,workout')
         ->name('workouts.delete');
-
-    Route::post('workouts/{workout}/sets', [SetsController::class, 'store'])
-        ->name('sets.store');
-    Route::put('workouts/sets/{set}', [SetsController::class, 'update'])
-        ->name('sets.update');
 
     Route::get('workouts/sets/exercise-types', [ExerciseTypeController::class, 'index'])
         ->name('exercise-types.index');
@@ -58,6 +59,17 @@ Route::group([
         ->name('exercise-types.show');
     Route::match([Request::METHOD_PUT, Request::METHOD_PATCH],'workouts/sets/exercise-types/{exerciseType}', [ExerciseTypeController::class, 'update'])
         ->name('exercise-types.update');
+
+    Route::get('workouts/sets/{set}', [SetsController::class, 'show'])
+        ->name('sets.show');
+    Route::post('workouts/{workout}/sets', [SetsController::class, 'store'])
+        ->name('sets.store');
+    Route::put('workouts/sets/{set}', [SetsController::class, 'update'])
+        ->name('sets.update');
+    Route::delete('workouts/sets/{set}', [SetsController::class, 'destroy'])
+        ->name('sets.delete');
+
+
 
     Route::delete('workouts/sets/exercise-types/{exerciseType}', [ExerciseTypeController::class, 'destroy'])
         ->name('exercise-types.delete');

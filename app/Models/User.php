@@ -45,6 +45,11 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function timeline()
+    {
+        return $this->workouts;
+    }
+
     public function workouts(): HasMany
     {
         return $this->hasMany(Workout::class);
