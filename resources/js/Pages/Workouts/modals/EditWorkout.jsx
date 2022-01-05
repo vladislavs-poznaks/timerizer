@@ -1,15 +1,20 @@
 import React, {useEffect} from 'react'
 import {useForm} from '@inertiajs/inertia-react'
-import Modal from "../../Shared/Components/Modal";
+import Modal from "../../../Shared/Components/Modal";
 import { toast } from 'react-toastify';
-import WorkoutForm from "./WorkoutForm";
+import WorkoutForm from "../components/WorkoutForm";
 
 const EditWorkout = ({isOpen, setIsOpen, workout}) => {
+
+    console.log("Workout", workout)
+
     const {data, setData, errors, put, processing, wasSuccessful, reset} = useForm({
         title: workout ? workout.title : '',
         description: workout ? workout.description : '',
         public: workout ? workout.public : true,
     })
+
+    console.log("Data", data)
 
     const handleSubmit = (e) => {
         e.preventDefault()

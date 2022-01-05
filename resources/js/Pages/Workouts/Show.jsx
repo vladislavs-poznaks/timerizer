@@ -1,67 +1,53 @@
-import React, {useEffect, useState} from 'react'
+import React, {useState} from 'react'
 import {Head} from '@inertiajs/inertia-react'
 import PrimaryButton from "@/Shared/Components/PrimaryButton";
-import CreateSet from "@/Pages/Sets/CreateSet";
+import CreateSet from "@/Pages/Sets/modals/CreateSet";
 import Datatable from "@/Shared/Components/Datatable";
 import SetRow from "../Sets/SetRow";
 import CreateExercise from "../Exercises/CreateExercise";
+import EditSet from "../Sets/modals/EditSet";
+import {Inertia} from "@inertiajs/inertia";
 
 const Show = ({workout, setTypes}) => {
+
     const [createSet, setCreateSet] = useState(false)
+    const [editSet, setEditSet] = useState(false)
+
     const [createExercise, setCreateExercise] = useState(false)
 
     const [set, setSet] = useState()
 
-    console.log(setTypes.data)
-
-    const addExercise = (set) => {
-        setCreateExercise(true)
-
+    const setEditCallback = (set) => {
+        setEditSet(true)
         setSet(set)
+    }
 
-        console.log("To add exercise", set)
+    const setDeleteCallback = (set) => {
+        if (confirm("Sure?")) {
+            Inertia.delete(route('sets.delete', set.id))
+        }
+    }
+
+    const exerciseCreateCallback = (set) => {
+        setCreateExercise(true)
+        setSet(set)
     }
 
     return (
         <>
-            <Head title={workout.title}/>
+            <Head><title>{workout.title}</title></Head>
 
             <Datatable
                 header={<PrimaryButton onClick={() => setCreateSet(true)}>Create a set</PrimaryButton>}
                 columns={['Title', 'Type', 'Rounds', '']}
                 // footer={<Pagination links={exerciseTypes.meta.links} />}
             >
-                {workout.sets.map((it, key) => <SetRow key={key} set={it} addExercise={addExercise}/>)}
+                {workout.sets.map((set, key) => <SetRow key={key} set={set} setEditCallback={setEditCallback} setDeleteCallback={setDeleteCallback} exerciseCreateCallback={exerciseCreateCallback}/>)}
             </Datatable>
 
-            {/*<CreateSet workout={workout} types={setTypes} isOpen={createSet} setIsOpen={setCreateSet}/>*/}
-
-            {/*<div className="shadow-lg rounded-xl px-10 py-4 bg-white dark:bg-gray-700 w-full space-y-2">*/}
-
-
-            {/*    <div className="flex items-center justify-between items-center">*/}
-            {/*        <div className="font-bold text-gray-700">{workout.title}</div>*/}
-            {/*        <div*/}
-            {/*            className={`px-2 py-1 flex items-center text-xs rounded-md font-semibold ${workout.public ? 'text-green-500 bg-green-100' : 'text-red-500 bg-red-100'}`}*/}
-            {/*        >*/}
-            {/*            {workout.public ? 'Public' : 'Private'}*/}
-            {/*        </div>*/}
-            {/*    </div>*/}
-            {/*    <div>*/}
-            {/*        {workout.description}*/}
-            {/*    </div>*/}
-
-            {/*    <div className="flex justify-center space-x-2">*/}
-
-            {/*        <PrimaryButton type="button" onClick={() => setCreateSet(true)}>Add set</PrimaryButton>*/}
-            {/*    </div>*/}
-            {/*</div>*/}
-
-            {/*<div className="w-full space-y-4">*/}
-            {/*    {workout.sets.length && workout.sets.map((set, key) => <SetCard workout={workout} set={set} key={key}/>)}*/}
-            {/*</div>*/}
-
             <CreateSet workout={workout} types={setTypes.data} isOpen={createSet} setIsOpen={setCreateSet} />
+            <EditSet set={set} types={setTypes.data} isOpen={editSet} setIsOpen={setEditSet} />
+
             <CreateExercise set={set} isOpen={createExercise} setIsOpen={setCreateExercise} />
         </>
     );

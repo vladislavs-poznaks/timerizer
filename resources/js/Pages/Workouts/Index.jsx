@@ -1,11 +1,11 @@
 import React, {useState} from 'react'
 import {Head} from '@inertiajs/inertia-react'
 import PrimaryButton from "@/Shared/Components/PrimaryButton";
-import CreateWorkout from "./CreateWorkout";
-import WorkoutRow from "./WorkoutRow";
+import CreateWorkout from "./modals/CreateWorkout";
+import WorkoutRow from "./components/WorkoutRow";
 import Datatable from "@/Shared/Components/Datatable";
 import Pagination from "@/Shared/Components/Pagination";
-import EditWorkout from "./EditWorkout";
+import EditWorkout from "./modals/EditWorkout";
 import {Inertia} from "@inertiajs/inertia";
 
 const Index = ({workouts}) => {
@@ -28,7 +28,7 @@ const Index = ({workouts}) => {
 
     return (
         <>
-            <Head title="My workouts"/>
+            <Head><title>My workouts</title></Head>
 
             <Datatable
                 header={<PrimaryButton onClick={() => setCreateWorkout(true)}>Create a workout</PrimaryButton>}
