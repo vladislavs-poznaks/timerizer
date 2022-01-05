@@ -2,8 +2,6 @@ import React, {useEffect, useState} from 'react'
 import {Head, useForm} from '@inertiajs/inertia-react'
 import TextInput from "../../Shared/Components/TextInput";
 import PrimaryButton from "../../Shared/Components/PrimaryButton";
-import {RadioGroup} from "@headlessui/react";
-import {CheckIcon} from "@heroicons/react/solid";
 import {hasRestTime, hasWorkTime, isCountBased, isTimeBased} from "../../utils";
 import TextArea from "../../Shared/Components/TextArea";
 import SecondaryButton from "../../Shared/Components/SecondaryButton";
@@ -32,14 +30,8 @@ const CreateSet = ({workout, types, isOpen, setIsOpen}) => {
 
     useEffect(() => {
         if (data.type) {
-            console.log(types)
-            console.log(data.type)
-            console.log(types.find(it => it.value === data.type))
             setSelectedType(types.find(it => it.value === data.type))
         }
-
-        console.log("Selected type", selectedType)
-
     }, [data.type])
 
     useEffect(() => {

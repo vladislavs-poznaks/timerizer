@@ -2,15 +2,25 @@ import React, {useEffect, useState} from 'react'
 import {Head} from '@inertiajs/inertia-react'
 import PrimaryButton from "@/Shared/Components/PrimaryButton";
 import CreateSet from "@/Pages/Sets/CreateSet";
-import SetCard from "@/Pages/Sets/SetCard";
-import ExerciseTypeRow from "../ExerciseTypes/ExerciseTypeRow";
-import CreateExerciseType from "../ExerciseTypes/CreateExerciseType";
-import Datatable from "../../Shared/Components/Datatable";
-import Pagination from "../../Shared/Components/Pagination";
+import Datatable from "@/Shared/Components/Datatable";
 import SetRow from "../Sets/SetRow";
+import CreateExercise from "../Exercises/CreateExercise";
 
 const Show = ({workout, setTypes}) => {
     const [createSet, setCreateSet] = useState(false)
+    const [createExercise, setCreateExercise] = useState(false)
+
+    const [set, setSet] = useState()
+
+    console.log(setTypes.data)
+
+    const addExercise = (set) => {
+        setCreateExercise(true)
+
+        setSet(set)
+
+        console.log("To add exercise", set)
+    }
 
     return (
         <>
@@ -18,10 +28,10 @@ const Show = ({workout, setTypes}) => {
 
             <Datatable
                 header={<PrimaryButton onClick={() => setCreateSet(true)}>Create a set</PrimaryButton>}
-                columns={['Title', 'Type', '']}
+                columns={['Title', 'Type', 'Rounds', '']}
                 // footer={<Pagination links={exerciseTypes.meta.links} />}
             >
-                {workout.sets.map((set, key) => <SetRow key={key} set={set}/>)}
+                {workout.sets.map((it, key) => <SetRow key={key} set={it} addExercise={addExercise}/>)}
             </Datatable>
 
             {/*<CreateSet workout={workout} types={setTypes} isOpen={createSet} setIsOpen={setCreateSet}/>*/}
@@ -51,7 +61,8 @@ const Show = ({workout, setTypes}) => {
             {/*    {workout.sets.length && workout.sets.map((set, key) => <SetCard workout={workout} set={set} key={key}/>)}*/}
             {/*</div>*/}
 
-            {/*<CreateSet workout={workout} types={setTypes.data} isOpen={createSet} setIsOpen={setCreateSet} />*/}
+            <CreateSet workout={workout} types={setTypes.data} isOpen={createSet} setIsOpen={setCreateSet} />
+            <CreateExercise set={set} isOpen={createExercise} setIsOpen={setCreateExercise} />
         </>
     );
 };

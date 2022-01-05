@@ -1,20 +1,10 @@
 import React from 'react'
 import {Link} from "@inertiajs/inertia-react";
 import {PencilAltIcon, TrashIcon} from "@heroicons/react/outline";
-import TableButton from "../../Shared/Components/TableButton";
-import {Inertia} from "@inertiajs/inertia";
-import Badge from "../../Shared/Components/Badge";
+import TableButton from "@/Shared/Components/TableButton";
+import Badge from "@/Shared/Components/Badge";
 
-const WorkoutRow = ({workout, setEditWorkout, setWorkout}) => {
-
-    const handleSubmit = (e) => {
-        e.preventDefault()
-
-        if (confirm("Sure?")) {
-            Inertia.delete(route('workouts.delete', workout.id))
-        }
-    }
-
+const WorkoutRow = ({workout, workoutEditCallback, workoutDeleteCallback}) => {
     return (
         <tr>
             <td className="px-6 py-4 whitespace-nowrap">
@@ -33,13 +23,10 @@ const WorkoutRow = ({workout, setEditWorkout, setWorkout}) => {
                 <Badge color={workout.public ? 'green' : 'red'}>{workout.public ? 'Public' : 'Private'}</Badge>
             </td>
             <td className="flex justify-center items-center space-x-1 px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                <TableButton type="button" onClick={() => {
-                    setEditWorkout(true)
-                    setWorkout(workout)
-                }}>
+                <TableButton type="button" onClick={() => workoutEditCallback(workout)}>
                     <PencilAltIcon className="w-5 h-5"/>
                 </TableButton>
-                <TableButton type="button" onClick={(e) => handleSubmit(e)}>
+                <TableButton type="button" onClick={() => workoutDeleteCallback(workout)}>
                     <TrashIcon className="w-5 h-5"/>
                 </TableButton>
             </td>
