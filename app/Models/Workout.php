@@ -16,7 +16,7 @@ class Workout extends Model
     public function resolveRouteBinding($value, $field = null)
     {
         return $this
-            ->with(['sets'])
+            ->with(['sets' => fn($query) => $query->orderBy('created_at')])
             ->whereId($value)
             ->firstOrFail();
     }

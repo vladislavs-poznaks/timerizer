@@ -1,7 +1,5 @@
 import React, {useEffect, useState} from 'react'
 import {Head} from '@inertiajs/inertia-react'
-import PrimaryButton from "@/Shared/Components/PrimaryButton";
-import CreateSet from "@/Pages/Sets/CreateSet";
 import SetCard from "@/Pages/Sets/SetCard";
 
 const Show = ({workout, setTypes}) => {

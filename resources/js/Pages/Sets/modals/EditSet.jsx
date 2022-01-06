@@ -1,12 +1,6 @@
 import React, {useEffect, useState} from 'react'
-import {Head, useForm} from '@inertiajs/inertia-react'
-import TextInput from "../../../Shared/Components/TextInput";
-import PrimaryButton from "../../../Shared/Components/PrimaryButton";
-import {hasRestTime, hasWorkTime, isCountBased, isTimeBased} from "../../../utils";
-import TextArea from "../../../Shared/Components/TextArea";
-import SecondaryButton from "../../../Shared/Components/SecondaryButton";
-import Modal from "../../../Shared/Components/Modal";
-import SelectInput from "../../../Shared/Components/SelectInput";
+import {useForm} from '@inertiajs/inertia-react'
+import Modal from "@/Shared/Components/Modal";
 import {toast} from "react-toastify";
 import SetForm from "../components/SetForm";
 

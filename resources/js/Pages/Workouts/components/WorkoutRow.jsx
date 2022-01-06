@@ -6,7 +6,7 @@ import Badge from "@/Shared/Components/Badge";
 
 const WorkoutRow = ({workout, workoutEditCallback, workoutDeleteCallback}) => {
     return (
-        <tr>
+        <tr className="hover:bg-gray-50">
             <td className="px-6 py-4 whitespace-nowrap">
                 <Link href={route('workouts.show', {workout: workout.id})}>
                     <div className="text-sm font-medium text-gray-900">
@@ -22,7 +22,7 @@ const WorkoutRow = ({workout, workoutEditCallback, workoutDeleteCallback}) => {
             <td className="px-6 py-4 whitespace-nowrap">
                 <Badge color={workout.public ? 'green' : 'red'}>{workout.public ? 'Public' : 'Private'}</Badge>
             </td>
-            <td className="flex justify-center items-center space-x-1 px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+            <td className="flex justify-end items-center space-x-1 px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                 <TableButton type="button" onClick={() => workoutEditCallback(workout)}>
                     <PencilAltIcon className="w-5 h-5"/>
                 </TableButton>

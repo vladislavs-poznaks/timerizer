@@ -12,7 +12,7 @@ const Modal = ({title, children, isOpen, setIsOpen, className}) => {
             leaveFrom="transform scale-100 opacity-100"
             leaveTo="transform scale-95 opacity-0"
         >
-            <Dialog onClose={setIsOpen} className={className}>
+            <Dialog onClose={setIsOpen ? setIsOpen : () => {}} className={className}>
                 <div className="fixed z-20 inset-0 overflow-y-auto">
                     <div className="min-h-screen px-4 text-center">
                         <Dialog.Overlay className="fixed inset-0 bg-black opacity-30"/>
@@ -24,9 +24,9 @@ const Modal = ({title, children, isOpen, setIsOpen, className}) => {
                         <div
                             className="inline-block w-full max-w-md p-6 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl space-y-4"
                         >
-                            <Dialog.Title>
+                            {title && <Dialog.Title>
                                 <div className="font-semibold text-gray-700 text-lg">{title}</div>
-                            </Dialog.Title>
+                            </Dialog.Title>}
                             {children}
                         </div>
                     </div>
