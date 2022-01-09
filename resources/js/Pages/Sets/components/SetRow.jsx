@@ -1,16 +1,18 @@
 import React, {useState} from 'react'
 import {ChevronDownIcon, ChevronUpIcon, PencilAltIcon, PlusCircleIcon, TrashIcon} from "@heroicons/react/outline";
 import TableButton from "@/Shared/Components/TableButton";
-import ExerciseCard from "../Exercises/ExerciseCard";
+import ExerciseCard from "../../Exercises/ExerciseCard";
+import DatatableRow from "@/Shared/Components/DatatableRow";
 
 const SetRow = ({set, setEditCallback, setDeleteCallback, exerciseCreateCallback, setShowVideo, setExerciseType}) => {
     const [expanded, setExpanded] = useState(false)
 
     return (
         <>
-            <tr>
+            <DatatableRow>
                 <td className="px-6 py-4 whitespace-nowrap">
-                    <button className="flex justify-start space-x-2 items-center" onClick={() => setExpanded(!expanded)}>
+                    <button className="flex justify-start space-x-2 items-center"
+                            onClick={() => setExpanded(!expanded)}>
                         {expanded ? <ChevronUpIcon className="w-5 h-5"/> : <ChevronDownIcon className="w-5 h-5"/>}
                         <div className="text-sm font-medium text-gray-900">
                             {set.title}
@@ -34,15 +36,14 @@ const SetRow = ({set, setEditCallback, setDeleteCallback, exerciseCreateCallback
                         <TrashIcon className="w-5 h-5"/>
                     </TableButton>
                 </td>
-            </tr>
+            </DatatableRow>
+
             {expanded && <tr>
                 <td className="px-6 py-4 text-sm flex flex-col space-y-2">
                     {set.exercises.map((exercise, key) => <ExerciseCard key={key} exercise={exercise}/>)}
                 </td>
             </tr>}
         </>
-
-
     )
 }
 

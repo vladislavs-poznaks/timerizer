@@ -4,7 +4,7 @@ import PrimaryButton from "@/Shared/Components/PrimaryButton";
 
 import Datatable from "@/Shared/Components/Datatable";
 import Pagination from "@/Shared/Components/Pagination";
-import ExerciseTypeRow from "./ExerciseTypeRow";
+import ExerciseTypeRow from "./components/ExerciseTypeRow";
 import CreateExerciseType from "./modals/CreateExerciseType";
 import EditExerciseType from "./modals/EditExerciseType";
 import Modal from "@/Shared/Components/Modal";

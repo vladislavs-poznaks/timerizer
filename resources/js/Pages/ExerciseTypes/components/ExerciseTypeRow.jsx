@@ -5,10 +5,11 @@ import TableButton from "@/Shared/Components/TableButton";
 import {Inertia} from "@inertiajs/inertia";
 import Badge from "@/Shared/Components/Badge";
 import Modal from "@/Shared/Components/Modal";
+import DatatableRow from "../../../Shared/Components/DatatableRow";
 
 const ExerciseTypeRow = ({exerciseType, exerciseTypeEditCallback, exerciseTypeDeleteCallback}) => {
     return (
-        <tr>
+        <DatatableRow>
             <td className="px-6 py-4 whitespace-nowrap flex justify-start space-x-2 items-center">
                 <Link href={route('exercise-types.show', {exerciseType: exerciseType.id})}>
                     <div className="text-sm font-medium text-gray-900">
@@ -31,7 +32,7 @@ const ExerciseTypeRow = ({exerciseType, exerciseTypeEditCallback, exerciseTypeDe
                     <TrashIcon className="w-5 h-5"/>
                 </TableButton>
             </td>
-        </tr>
+        </DatatableRow>
     )
 }
 

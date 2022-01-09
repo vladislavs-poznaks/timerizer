@@ -3,10 +3,11 @@ import {Link} from "@inertiajs/inertia-react";
 import {PencilAltIcon, TrashIcon} from "@heroicons/react/outline";
 import TableButton from "@/Shared/Components/TableButton";
 import Badge from "@/Shared/Components/Badge";
+import DatatableRow from "../../../Shared/Components/DatatableRow";
 
 const WorkoutRow = ({workout, workoutEditCallback, workoutDeleteCallback}) => {
     return (
-        <tr className="hover:bg-gray-50">
+        <DatatableRow>
             <td className="px-6 py-4 whitespace-nowrap">
                 <Link href={route('workouts.show', {workout: workout.id})}>
                     <div className="text-sm font-medium text-gray-900">
@@ -30,7 +31,7 @@ const WorkoutRow = ({workout, workoutEditCallback, workoutDeleteCallback}) => {
                     <TrashIcon className="w-5 h-5"/>
                 </TableButton>
             </td>
-        </tr>
+        </DatatableRow>
     )
 }
 

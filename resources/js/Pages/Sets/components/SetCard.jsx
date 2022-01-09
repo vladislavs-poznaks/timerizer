@@ -1,9 +1,9 @@
 import React, {useState} from 'react'
 import PrimaryButton from "@/Shared/Components/PrimaryButton";
-import ExerciseCard from "../Exercises/ExerciseCard";
+import ExerciseCard from "../../Exercises/ExerciseCard";
 import moment from "moment";
 import Timer from "@/Shared/Timer";
-import Badge from "../../Shared/Components/Badge";
+import Badge from "../../../Shared/Components/Badge";
 
 const SetCard = ({workout, set}) => {
     // const [createExercise, setCreateExercise] = useState(false);

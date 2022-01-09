@@ -3,7 +3,7 @@ import {Head} from '@inertiajs/inertia-react'
 import PrimaryButton from "@/Shared/Components/PrimaryButton";
 import CreateSet from "@/Pages/Sets/modals/CreateSet";
 import Datatable from "@/Shared/Components/Datatable";
-import SetRow from "@/Pages/Sets/SetRow";
+import SetRow from "@/Pages/Sets/components/SetRow";
 import CreateExercise from "@/Pages/Exercises/CreateExercise";
 import EditSet from "@/Pages/Sets/modals/EditSet";
 import {Inertia} from "@inertiajs/inertia";
