@@ -47,13 +47,20 @@ const Show = ({workout, setTypes}) => {
                 columns={['Title', 'Type', 'Rounds', '']}
                 // footer={<Pagination links={exerciseTypes.meta.links} />}
             >
-                {workout.sets.map((set, key) => <SetRow key={key} set={set} setEditCallback={setEditCallback} setDeleteCallback={setDeleteCallback} exerciseCreateCallback={exerciseCreateCallback}/>)}
+                {workout.sets.map((set, key) => (
+                    <SetRow
+                        key={key}
+                        set={set}
+                        setEditCallback={setEditCallback}
+                        setDeleteCallback={setDeleteCallback}
+                        exerciseCreateCallback={exerciseCreateCallback}/>
+                ))}
             </Datatable>
 
-            <CreateSet workout={workout} types={setTypes.data} isOpen={createSet} setIsOpen={setCreateSet} />
-            <EditSet set={set} types={setTypes.data} isOpen={editSet} setIsOpen={setEditSet} />
+            <CreateSet workout={workout} types={setTypes.data} isOpen={createSet} setIsOpen={setCreateSet}/>
+            <EditSet set={set} types={setTypes.data} isOpen={editSet} setIsOpen={setEditSet}/>
 
-            <CreateExercise set={set} isOpen={createExercise} setIsOpen={setCreateExercise} />
+            <CreateExercise set={set} isOpen={createExercise} setIsOpen={setCreateExercise}/>
         </>
     );
 };
