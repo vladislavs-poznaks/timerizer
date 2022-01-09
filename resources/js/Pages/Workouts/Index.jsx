@@ -40,11 +40,14 @@ const Index = ({workouts}) => {
                 columns={['Title', 'Description', 'Status', '']}
                 footer={<Pagination links={workouts.meta.links}/>}
             >
-                {workouts.data.map((workout, key) => <WorkoutRow key={key}
-                                                                 workout={workout}
-                                                                 workoutEditCallback={workoutEditCallback}
-                                                                 workoutDeleteCallback={workoutDeleteCallback}
-                />)}
+                {workouts.data.map((workout, key) => (
+                    <WorkoutRow
+                        key={key}
+                        workout={workout}
+                        workoutEditCallback={workoutEditCallback}
+                        workoutDeleteCallback={workoutDeleteCallback}
+                    />
+                ))}
             </Datatable>
 
             <CreateWorkout isOpen={createWorkout} setIsOpen={setCreateWorkout}/>

@@ -3,12 +3,15 @@ import {Head} from '@inertiajs/inertia-react'
 import PrimaryButton from "@/Shared/Components/PrimaryButton";
 import CreateSet from "@/Pages/Sets/modals/CreateSet";
 import Datatable from "@/Shared/Components/Datatable";
-import SetRow from "../Sets/SetRow";
-import CreateExercise from "../Exercises/CreateExercise";
-import EditSet from "../Sets/modals/EditSet";
+import SetRow from "@/Pages/Sets/SetRow";
+import CreateExercise from "@/Pages/Exercises/CreateExercise";
+import EditSet from "@/Pages/Sets/modals/EditSet";
 import {Inertia} from "@inertiajs/inertia";
+import useConfirm from "@/hooks/useConfirm";
 
 const Show = ({workout, setTypes}) => {
+
+    const {confirm} = useConfirm();
 
     const [createSet, setCreateSet] = useState(false)
     const [editSet, setEditSet] = useState(false)
@@ -22,8 +25,10 @@ const Show = ({workout, setTypes}) => {
         setSet(set)
     }
 
-    const setDeleteCallback = (set) => {
-        if (confirm("Sure?")) {
+    const setDeleteCallback = async (set) => {
+        const isConfirmed = await confirm('Are you sure?');
+
+        if (isConfirmed) {
             Inertia.delete(route('sets.delete', set.id))
         }
     }

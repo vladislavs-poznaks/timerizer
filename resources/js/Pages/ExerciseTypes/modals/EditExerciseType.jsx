@@ -1,8 +1,8 @@
 import React, {useEffect} from 'react'
 import {useForm} from '@inertiajs/inertia-react'
-import Modal from "../../Shared/Components/Modal";
+import Modal from "../../../Shared/Components/Modal";
 import { toast } from 'react-toastify';
-import ExerciseTypeForm from "./ExerciseTypeForm";
+import ExerciseTypeForm from "../components/ExerciseTypeForm";
 
 const EditExerciseType = ({isOpen, setIsOpen, exerciseType}) => {
     const {data, setData, errors, put, processing, wasSuccessful, reset} = useForm({

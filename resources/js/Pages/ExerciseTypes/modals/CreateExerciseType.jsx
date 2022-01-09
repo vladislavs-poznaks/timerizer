@@ -1,7 +1,7 @@
 import React from 'react'
 import {useForm} from '@inertiajs/inertia-react'
 import Modal from "@/Shared/Components/Modal";
-import ExerciseTypeForm from "./ExerciseTypeForm";
+import ExerciseTypeForm from "../components/ExerciseTypeForm";
 
 const CreateExerciseType = ({isOpen, setIsOpen}) => {
     const {data, setData, errors, post, processing} = useForm({

@@ -6,15 +6,7 @@ import {Inertia} from "@inertiajs/inertia";
 import Badge from "@/Shared/Components/Badge";
 import Modal from "@/Shared/Components/Modal";
 
-const ExerciseTypeRow = ({exerciseType, setEditExerciseType, setShowVideo, setExerciseType}) => {
-    const handleSubmit = (e) => {
-        e.preventDefault()
-
-        if (confirm("Sure?")) {
-            Inertia.delete(route('exercise-types.delete', exerciseType.id))
-        }
-    }
-
+const ExerciseTypeRow = ({exerciseType, exerciseTypeEditCallback, exerciseTypeDeleteCallback}) => {
     return (
         <tr>
             <td className="px-6 py-4 whitespace-nowrap flex justify-start space-x-2 items-center">
@@ -27,21 +19,15 @@ const ExerciseTypeRow = ({exerciseType, setEditExerciseType, setShowVideo, setEx
             </td>
             <td className="px-6 py-4 whitespace-nowrap">
                 <button type="button" className="text-sm text-gray-900"
-                        onClick={() => {
-                            setShowVideo(true)
-                            setExerciseType(exerciseType)
-                        }}>
+                        onClick={() => alert('TODO')}>
                     {exerciseType.url}
                 </button>
             </td>
-            <td className="flex justify-center items-center space-x-1 px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                <TableButton type="button" onClick={() => {
-                    setEditExerciseType(true)
-                    setExerciseType(exerciseType)
-                }}>
+            <td className="flex justify-end items-center space-x-1 px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                <TableButton type="button" onClick={() => exerciseTypeEditCallback(exerciseType)}>
                     <PencilAltIcon className="w-5 h-5"/>
                 </TableButton>
-                <TableButton type="button" onClick={(e) => handleSubmit(e)}>
+                <TableButton type="button" onClick={() => exerciseTypeDeleteCallback(exerciseType)}>
                     <TrashIcon className="w-5 h-5"/>
                 </TableButton>
             </td>
