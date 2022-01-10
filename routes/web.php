@@ -76,8 +76,10 @@ Route::group([
 
     Route::post('workouts/sets/{set}/exercises', [ExercisesController::class, 'store'])
         ->name('exercises.store');
-    Route::put('workouts/sets/exercises/{exercise}', [ExercisesController::class, 'update'])
+    Route::match([Request::METHOD_PUT, Request::METHOD_PATCH],'workouts/sets/exercises/{exercise}', [ExercisesController::class, 'update'])
         ->name('exercises.update');
+    Route::delete('workouts/sets/exercises/{exercise}', [ExercisesController::class, 'destroy'])
+        ->name('exercises.delete');
 });
 
 require __DIR__.'/auth.php';

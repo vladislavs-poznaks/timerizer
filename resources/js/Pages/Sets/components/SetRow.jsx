@@ -1,10 +1,10 @@
 import React, {useState} from 'react'
 import {ChevronDownIcon, ChevronUpIcon, PencilAltIcon, PlusCircleIcon, TrashIcon} from "@heroicons/react/outline";
 import TableButton from "@/Shared/Components/TableButton";
-import ExerciseCard from "../../Exercises/ExerciseCard";
+import ExerciseCard from "../../Exercises/components/ExerciseCard";
 import DatatableRow from "@/Shared/Components/DatatableRow";
 
-const SetRow = ({set, setEditCallback, setDeleteCallback, exerciseCreateCallback, setShowVideo, setExerciseType}) => {
+const SetRow = ({set, setEditCallback, setDeleteCallback, exerciseCreateCallback, exerciseDeleteCallback, setShowVideo, setExerciseType}) => {
     const [expanded, setExpanded] = useState(false)
 
     return (
@@ -40,7 +40,13 @@ const SetRow = ({set, setEditCallback, setDeleteCallback, exerciseCreateCallback
 
             {expanded && <tr>
                 <td className="px-6 py-4 text-sm flex flex-col space-y-2">
-                    {set.exercises.map((exercise, key) => <ExerciseCard key={key} exercise={exercise}/>)}
+                    {set.exercises.map((exercise, key) => (
+                        <ExerciseCard
+                            key={key}
+                            exercise={exercise}
+                            exerciseDeleteCallback={exerciseDeleteCallback}
+                        />
+                    ))}
                 </td>
             </tr>}
         </>

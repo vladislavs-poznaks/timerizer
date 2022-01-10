@@ -1,12 +1,12 @@
 import React, {useEffect, useState} from 'react'
 import {useForm} from '@inertiajs/inertia-react'
-import TextInput from "../../Shared/Components/TextInput";
-import PrimaryButton from "../../Shared/Components/PrimaryButton";
-import SecondaryButton from "../../Shared/Components/SecondaryButton";
-import Modal from "../../Shared/Components/Modal";
-import {useQuery, useQueryClient} from "react-query";
+import TextInput from "@/Shared/Components/TextInput";
+import PrimaryButton from "@/Shared/Components/PrimaryButton";
+import SecondaryButton from "@/Shared/Components/SecondaryButton";
+import Modal from "@/Shared/Components/Modal";
+import {useQuery} from "react-query";
 import axios from "axios";
-import CreateExerciseTypeWrapped from "../ExerciseTypes/CreateExerciseTypeWrapped";
+import CreateExerciseTypeWrapped from "../../ExerciseTypes/CreateExerciseTypeWrapped";
 import {toast} from "react-toastify";
 import {debounce} from "lodash";
 
@@ -115,7 +115,6 @@ const CreateExercise = ({set, isOpen, setIsOpen, setCreateExerciseType}) => {
                         </ul>
                     </div>}
                 </div>
-
 
                 <label className="flex items-center space-x-3">
                     <input

@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import PrimaryButton from "@/Shared/Components/PrimaryButton";
-import ExerciseCard from "../../Exercises/ExerciseCard";
+import ExerciseCard from "../../Exercises/components/ExerciseCard";
 import moment from "moment";
 import Timer from "@/Shared/Timer";
 import Badge from "../../../Shared/Components/Badge";

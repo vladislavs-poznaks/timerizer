@@ -1,6 +1,6 @@
 import {Head} from '@inertiajs/inertia-react'
 import SetCard from "@/Pages/Sets/components/SetCard";
-import Badge from "../../Shared/Components/Badge";
+import Badge from "@/Shared/Components/Badge";
 
 const Show = ({workout}) => {
     return (
