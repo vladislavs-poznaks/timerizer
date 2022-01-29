@@ -1,13 +1,22 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import TextInput from "@/Shared/Components/TextInput";
 import PrimaryButton from "@/Shared/Components/PrimaryButton";
 import TextArea from "@/Shared/Components/TextArea";
 import SecondaryButton from "@/Shared/Components/SecondaryButton";
-import CheckBoxInput from "@/Shared/Components/CheckBoxInput";
-import SelectInput from "../../../Shared/Components/SelectInput";
 import {hasRestTime, hasWorkTime, isCountBased, isTimeBased} from "../../../utils";
+import Select from "react-select";
 
-const SetForm = ({data, setData, errors, processing, setIsOpen, handleSubmit, selectedType, types}) => {
+const SetForm = ({data, setData, errors, processing, setIsOpen, handleSubmit, types}) => {
+    const options = types.map(type => {
+        return {...type, label: type.text}
+    })
+
+    const [selectedType, setSelectedType] = useState(options.find(option => option.value === data.type))
+
+    useEffect(() => {
+        setData('type', selectedType.value)
+    }, [selectedType])
+
     return (
         <form className="space-y-4" onSubmit={handleSubmit}>
             <TextInput
@@ -20,16 +29,12 @@ const SetForm = ({data, setData, errors, processing, setIsOpen, handleSubmit, se
                 onChange={e => setData('title', e.target.value)}
             />
 
-            <SelectInput
-                name="type"
-                label="Set type"
-                autoComplete="off"
-                errors={errors.type}
-                value={data.type}
-                onChange={e => setData('type', parseInt(e.target.value))}
-            >
-                {types && types.map(type => <option key={type.value} value={type.value}>{type.text}</option>)}
-            </SelectInput>
+            <Select
+                isSearchable
+                value={selectedType}
+                onChange={(selected) => setSelectedType(selected)}
+                options={options}
+            />
 
             {isCountBased(selectedType) && <TextInput
                 name="rounds"

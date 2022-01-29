@@ -3,10 +3,15 @@
 
 ### Epic #1 Workout builder
 
-- Workouts CRUD
-- Sets CRUD
-- Exercises CRUD with separate exercise builder
-- Video link like YT & Vimeo parser for exercises
+- [x] Workouts CRUD
+
+- [x] Sets CRUD
+- [x] Add react-select to select set type (tabata, rounds etc.)
+
+- [ ] Add timerizer styling to react-select
+
+- [ ] Exercises CRUD with separate exercise builder
+- [ ] Video link like YT & Vimeo parser for exercises
 
 Nice to haves
 

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect} from 'react'
 import {useForm} from '@inertiajs/inertia-react'
 import Modal from "@/Shared/Components/Modal";
 import {toast} from "react-toastify";
@@ -15,18 +15,10 @@ const CreateSet = ({workout, types, isOpen, setIsOpen}) => {
         rounds: '',
     })
 
-    const [selectedType, setSelectedType] = useState(types.find(it => it.value === data.type))
-
     const handleSubmit = (e) => {
         e.preventDefault()
         post(route('sets.store', workout.id), data)
     }
-
-    useEffect(() => {
-        if (data.type) {
-            setSelectedType(types.find(it => it.value === data.type))
-        }
-    }, [data.type])
 
     useEffect(() => {
         if (wasSuccessful) {
@@ -47,7 +39,6 @@ const CreateSet = ({workout, types, isOpen, setIsOpen}) => {
                 setIsOpen={setIsOpen}
                 handleSubmit={handleSubmit}
 
-                selectedType={selectedType}
                 types={types}
             />
         </Modal>

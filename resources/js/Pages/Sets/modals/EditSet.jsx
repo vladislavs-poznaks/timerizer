@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect} from 'react'
 import {useForm} from '@inertiajs/inertia-react'
 import Modal from "@/Shared/Components/Modal";
 import {toast} from "react-toastify";
@@ -8,14 +8,18 @@ const EditSet = ({isOpen, setIsOpen, set, types}) => {
     const {data, setData, errors, put, processing, wasSuccessful, reset} = useForm({
         title: set ? set.title : '',
         type: set ? types.find(it => it.value === set.type) : types[0].value,
-        description: set ? set.description : '',
-        total_seconds: set ? set.total_seconds : '',
-        work_seconds: set ? set.work_seconds : '',
-        rest_seconds: set ? set.rest_seconds : '',
-        rounds: set ? set.rounds : '',
+        description: set && set.description ? set.description : '',
+        total_seconds: set && set.total_seconds ? set.total_seconds : '',
+        work_seconds: set && set.work_seconds ? set.work_seconds : '',
+        rest_seconds: set && set.rest_seconds ? set.rest_seconds : '',
+        rounds: set && set.rounds ? set.rounds : '',
     })
 
-    const [selectedType, setSelectedType] = useState(types.find(it => it.value === data.type))
+    for (const [key, value] of Object.entries(data)) {
+        if (value === null) {
+            setData(key, '')
+        }
+    }
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -23,12 +27,6 @@ const EditSet = ({isOpen, setIsOpen, set, types}) => {
     }
 
     useEffect(() => setData({...data, ...set}), [set])
-
-    useEffect(() => {
-        if (data.type) {
-            setSelectedType(types.find(it => it.value === data.type))
-        }
-    }, [data.type])
 
     useEffect(() => {
         if (wasSuccessful) {
@@ -49,7 +47,6 @@ const EditSet = ({isOpen, setIsOpen, set, types}) => {
                 setIsOpen={setIsOpen}
                 handleSubmit={handleSubmit}
 
-                selectedType={selectedType}
                 types={types}
             />
         </Modal>
