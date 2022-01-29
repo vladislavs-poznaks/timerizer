@@ -1,8 +1,9 @@
 import React from 'react'
 import moment from "moment";
 import Badge from "@/Shared/Components/Badge";
-import TableButton from "../../../Shared/Components/TableButton";
+import TableButton from "@/Shared/Components/TableButton";
 import {TrashIcon} from "@heroicons/react/outline";
+import {usePage} from "@inertiajs/inertia-react";
 
 const ExerciseCard = ({exercise, exerciseDeleteCallback}) => {
     return (

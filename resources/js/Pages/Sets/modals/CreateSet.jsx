@@ -15,8 +15,6 @@ const CreateSet = ({workout, types, isOpen, setIsOpen}) => {
         rounds: '',
     })
 
-    console.log(types.find(it => it.value === data.type))
-
     const [selectedType, setSelectedType] = useState(types.find(it => it.value === data.type))
 
     const handleSubmit = (e) => {

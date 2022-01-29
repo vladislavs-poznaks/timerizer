@@ -5,9 +5,6 @@ import {toast} from "react-toastify";
 import SetForm from "../components/SetForm";
 
 const EditSet = ({isOpen, setIsOpen, set, types}) => {
-
-    console.log("Set", set)
-
     const {data, setData, errors, put, processing, wasSuccessful, reset} = useForm({
         title: set ? set.title : '',
         type: set ? types.find(it => it.value === set.type) : types[0].value,
@@ -17,8 +14,6 @@ const EditSet = ({isOpen, setIsOpen, set, types}) => {
         rest_seconds: set ? set.rest_seconds : '',
         rounds: set ? set.rounds : '',
     })
-
-    console.log("Data", data)
 
     const [selectedType, setSelectedType] = useState(types.find(it => it.value === data.type))
 

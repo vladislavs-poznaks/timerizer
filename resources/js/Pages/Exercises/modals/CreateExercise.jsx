@@ -4,15 +4,12 @@ import TextInput from "@/Shared/Components/TextInput";
 import PrimaryButton from "@/Shared/Components/PrimaryButton";
 import SecondaryButton from "@/Shared/Components/SecondaryButton";
 import Modal from "@/Shared/Components/Modal";
-import {useQuery} from "react-query";
 import axios from "axios";
-import CreateExerciseTypeWrapped from "../../ExerciseTypes/CreateExerciseTypeWrapped";
 import {toast} from "react-toastify";
 import {debounce} from "lodash";
+import AsyncSelect from "react-select/async";
 
-const CreateExercise = ({set, isOpen, setIsOpen, setCreateExerciseType}) => {
-    const [showTypes, setShowTypes] = useState(false)
-
+const CreateExercise = ({set, isOpen, setIsOpen}) => {
     const [params, setParams] = useState({
         name: ''
     })
@@ -25,20 +22,20 @@ const CreateExercise = ({set, isOpen, setIsOpen, setCreateExerciseType}) => {
         seconds: '',
     })
 
+    const loadOptions = (search, callback) => {
+        axios
+            .get(route('exercise-types.api', {name: search}))
+            .then((res) => {
+                const options = res.data.data.map(it => {
+                    return {
+                        value: it.id,
+                        label: it.name
+                    }
+                })
 
-    const {isLoading, isSuccess, data: exerciseTypes} = useQuery([params], () => {
-        return axios.get(route('exercise-types.api', params))
-    }, {
-        select: (data) => data.data
-    })
-
-    useEffect(() => {
-        setShowTypes(showExerciseTypes())
-
-        if (exerciseTypeSelected()) {
-            setData('exercise_type_id', exerciseTypes.data.find(it => it.name === params.name).id)
-        }
-    }, [exerciseTypes])
+                callback(options)
+            })
+    }
 
     useEffect(() => {
         timeBased ? setData({...data, repetitions: ''}) : setData({...data, seconds: ''})
@@ -53,26 +50,6 @@ const CreateExercise = ({set, isOpen, setIsOpen, setCreateExerciseType}) => {
         }
     }, [wasSuccessful])
 
-    const showExerciseTypes = () => {
-        if (exerciseTypes === undefined) {
-            return false
-        }
-
-        if (params.name.length < 3) {
-            return false
-        }
-
-        return ! exerciseTypeSelected()
-    }
-
-    const exerciseTypeSelected = () => {
-        if (exerciseTypes === undefined) {
-            return false
-        }
-
-        return exerciseTypes.data.some(it => it.name === params.name)
-    }
-
     const handleSubmit = (e) => {
         e.preventDefault()
         post(route('exercises.store', set.id), data)
@@ -82,39 +59,11 @@ const CreateExercise = ({set, isOpen, setIsOpen, setCreateExerciseType}) => {
         <Modal title="Create an exercise" isOpen={isOpen} setIsOpen={setIsOpen}>
             <form className="space-y-4" onSubmit={handleSubmit}>
 
-                <div className="w-full max-w-lg relative">
-                    <TextInput
-                        label="Exercise type"
-                        placeholder="Search for exercise..."
-                        autoComplete="off"
-                        onChange={e => setParams({...params, name: e.target.value})}
-                        value={params.name}
-                    />
-                    {showTypes && <div
-                        className="z-50 w-full absolute mt-3 shadow-lg rounded-lg bg-white"
-                    >
-                        <ul>
-                            {exerciseTypes && exerciseTypes.data.map(type => {
-                                return (
-                                    <li key={type.id}>
-                                        <button
-                                            type="button"
-                                            className="flex justify-between items-center px-3 py-3 space-x-2"
-                                            onClick={() => setParams({...params, name: type.name})}
-                                        >
-                                            <div>{type.name}</div>
-                                            {type.per_side && <div
-                                                className="px-2 py-1 flex items-center text-xs rounded-md font-semibold text-purple-500 bg-purple-100">Per side</div>}
-                                        </button>
-                                    </li>
-                                )
-                            })}
-                            <li key="add_new_exercise_type" className="px-3 py-3">
-                                <CreateExerciseTypeWrapped name={params.name} params={params} setParams={setParams} success={() => showExerciseTypes()}/>
-                            </li>
-                        </ul>
-                    </div>}
-                </div>
+                <AsyncSelect
+                    defaultOptions
+                    loadOptions={debounce(loadOptions, 300)}
+                    onChange={({value}) => setData('exercise_type_id', value)}
+                />
 
                 <label className="flex items-center space-x-3">
                     <input
