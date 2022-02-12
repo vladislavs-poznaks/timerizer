@@ -3,7 +3,7 @@ import TextInput from "@/Shared/Components/TextInput";
 import PrimaryButton from "@/Shared/Components/PrimaryButton";
 import TextArea from "@/Shared/Components/TextArea";
 import SecondaryButton from "@/Shared/Components/SecondaryButton";
-import {hasRestTime, hasWorkTime, isCountBased, isTimeBased} from "../../../utils";
+import {getModifiedReactSelectTheme, hasRestTime, hasWorkTime, isCountBased, isTimeBased} from "../../../utils";
 import Select from "react-select";
 
 const SetForm = ({data, setData, errors, processing, setIsOpen, handleSubmit, types}) => {
@@ -30,6 +30,7 @@ const SetForm = ({data, setData, errors, processing, setIsOpen, handleSubmit, ty
             />
 
             <Select
+                theme={(theme) => getModifiedReactSelectTheme(theme)}
                 isSearchable
                 value={selectedType}
                 onChange={(selected) => setSelectedType(selected)}

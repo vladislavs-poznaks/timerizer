@@ -8,7 +8,7 @@
 - [x] Sets CRUD
 - [x] Add react-select to select set type (tabata, rounds etc.)
 
-- [ ] Add timerizer styling to react-select
+- [x] Add timerizer styling to react-select
 
 - [ ] Exercises CRUD with separate exercise builder
 - [ ] Video link like YT & Vimeo parser for exercises

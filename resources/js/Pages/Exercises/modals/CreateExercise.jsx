@@ -8,6 +8,7 @@ import axios from "axios";
 import {toast} from "react-toastify";
 import {debounce} from "lodash";
 import AsyncSelect from "react-select/async";
+import {getModifiedReactSelectTheme} from "../../../utils";
 
 const CreateExercise = ({set, isOpen, setIsOpen}) => {
     const [params, setParams] = useState({
@@ -60,6 +61,7 @@ const CreateExercise = ({set, isOpen, setIsOpen}) => {
             <form className="space-y-4" onSubmit={handleSubmit}>
 
                 <AsyncSelect
+                    theme={(theme) => getModifiedReactSelectTheme(theme)}
                     defaultOptions
                     loadOptions={debounce(loadOptions, 300)}
                     onChange={({value}) => setData('exercise_type_id', value)}
